@@ -18,9 +18,9 @@ html, body {
 span {
   cursor: pointer;
   position: absolute;
-  top: 310px;
-  left: 420px;
-  width: 200px;
+  top: 100px;
+  left: 100px;
+  width: 100px;
   height: 20px;
   -ms-transform-origin: -100px 50%;
   -webkit-transform-origin: -100px 50%;
