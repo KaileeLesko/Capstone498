@@ -4,19 +4,15 @@
   <link rel="stylesheet" href="colorwheel.css">
 </head>
 <p> HELLO WORLD </p>
-<script>for (var i = 0; i < 360; i++) {
-        var color = document.createElement("span")
-        color.setAttribute("id", "d" + i)
-        color.style.backgroundColor = "hsl(" + i + ", 100%, 50%)"
-        color.style.msTransform = "rotate(" + i + "deg)"
-        color.style.webkitTransform = "rotate(" + i + "deg)"
-        color.style.MozTransform = "rotate(" + i + "deg)"
-        color.style.OTransform = "rotate(" + i + "deg)"
-        color.style.transform = "rotate(" + i + "deg)"
-        document.getElementById('colorwheel').appendChild(color)
-    };
-
+<script>
 const iro = require('@jaames/iro');
+var colorPicker = new iro.ColorPicker('#picker');
+var colorPicker = new iro.ColorPicker("#picker", {
+  // Set the size of the color picker
+  width: 320,
+  // Set the initial color to pure red
+  color: "#f0000"
+});
 </script>
 
  
@@ -28,3 +24,4 @@ const iro = require('@jaames/iro');
   <option value= "four">Tetradic</option>
   <option value = "random"> Random</option>	
 </select>
+<div id="picker"></div>
