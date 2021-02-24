@@ -1,4 +1,4 @@
-
+<script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
 <div id="colorwheel"></div>
 <head>
   <link rel="stylesheet" href="colorwheel.css">
@@ -15,17 +15,11 @@
         color.style.transform = "rotate(" + i + "deg)"
         document.getElementById('colorwheel').appendChild(color)
     };
-</script>
-<aside>
-<html>
- 
- <body>
-   <label for="colorpicker">Color Picker:</label>
-   <input type="color" id="colorpicker" value="#0000ff">
- </body>
-</head>
-<label for="cars">Choose a color scheme:</label>
 
+const iro = require('@jaames/iro');
+</script>
+
+ 
 <select name="colorpatern" id="colorpattern">
   <option value="Monochrome">Monochrome</option>
   <option value="Complementary">Complementary</option>
@@ -34,5 +28,3 @@
   <option value= "four">Tetradic</option>
   <option value = "random"> Random</option>	
 </select>
- 
-</aside>
