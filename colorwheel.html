@@ -41,7 +41,7 @@
 				<option value= "three"> Tertiary</option>
 				<option value= "triadic"> Triadic</option>			
 			</select>
-		<p id= "cookie"> The current color is: </p>
+		<p id= "cookie"> </p>
 	</div>
 	<script type="text/javascript">
 		// create color picker in display range.
@@ -62,7 +62,7 @@
 		
 		function loading() {
     			var val1 = "Current Color is:   " +  values;
-    			document.getElementById("cookie").value = val1;
+    			document.getElementById("cookie").innerHTML = val1;
 		}	
  	</script>
 
