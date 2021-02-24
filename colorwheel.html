@@ -2,9 +2,38 @@
 <html lang= "en">
 
 <head>
-	<script src="https://cdn.jsdelivr.net/npm/@jaames/iro/dist/iro.min.js"></script>
-	<div class="colorPicker"></div>
+	<style>
+	.grid-container{
+		display:grid;
+		grid-gap: 10px;
+		background-color: #ffffff;
+		padding:10px;
+	}
+	.grid-item{
+		padding:20px
+	}
+	.item1{
+		gtid-column:1/span 2;
+		grid-row 1;
+	}
+	.item2{
+		grid-column: 1/span 2;
+		grid-row:1;
+	.item5{
+		grid-column:1 /span 3;
+		grid-row: 3;
+	}
+	</style>
 	
+	<script src="https://cdn.jsdelivr.net/npm/@jaames/iro/dist/iro.min.js"></script>
+	<div class= "grid-container">
+
+		<div class="colorPicker"></div>
+		<div class="grid-item item2">2</div>
+  		<div class="grid-item item3">3</div>  
+  		<div class="grid-item item4">4</div>
+  		<div class="grid-item item5">5</div>
+	</div>
 	<script type="text/javascript">
 		// create color picker in display range.
 		var colorPicker = new iro.ColorPicker(".colorPicker", {
@@ -22,17 +51,5 @@
 		].join("<br>");
 		});
  	</script>
-<style>
-.item1 { grid-area: header; }
-.item2 { grid-area: menu; }
-.item3 { grid-area: main; }
-.item4 { grid-area: right; }
-.item5 { grid-area: footer; 
-<div class="grid-container">
-  <div class="item1">Header</div>
-  <div class="item2">Menu</div>
-  <div class="item3">Main</div>  
-  <div class="item4">Right</div>
-  <div class="item5">Footer</div>
-</div>
+
 </head>
