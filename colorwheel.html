@@ -2,17 +2,24 @@
 <html lang= "en">
 
 <head>
-<script src="https://cdn.jsdelivr.net/npm/@jaames/iro/dist/iro.min.js"></script>
-<div class="colorPicker"></div>
-<script type="text/javascript"> 
+	<script src="https://cdn.jsdelivr.net/npm/@jaames/iro/dist/iro.min.js"></script>
+	<div class="colorPicker"></div>
+	
+	<script type="text/javascript">
+		// create color picker in display range.
+		var colorPicker = new iro.ColorPicker(".colorPicker", {
+		width: 280,
+		color: "rgb(255, 0, 0)",
+		borderWidth: 1,
+		borderColor: "#fff",
+		});
+		var values = document.getElementById("values");
+		colorPicker.on(["color:init", "color:change"], function(color){
+		values.innerHTML = [
+		"hex: " + color.hexString,
+		"rgb: " + color.rgbString,
+		"hsl: " + color.hslString,
+		].join("<br>");
+		});
+ 	</script>
 </head>
-<select name="colorpatern" id="colorpattern">
-  <option value="Monochrome">Monochrome</option>
-  <option value="Complementary">Complementary</option>
-  <option value="split">Split Complementary</option>
-  <option value="tetradic">Tertiary</option>
-  <option value= "four">Tetradic</option>
-  <option value = "random"> Random</option>	
-</select>
-<div id="picker"></div>
-</html>
