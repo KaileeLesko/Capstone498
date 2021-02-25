@@ -43,4 +43,4 @@ def analagous():
     color1 = '#{:02x}{:02x}{:02x}'.format(H, S, V)
     color2 = '#{:02x}{:02x}{:02x}'.format(A, B, C)
     color3 = '#{:02x}{:02x}{:02x}'.format(D, E, F)
-    return [color1, color2, color3]
+    print(color1, color2, color3)
