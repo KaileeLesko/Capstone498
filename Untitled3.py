@@ -204,7 +204,7 @@ def comp(c1x, c1y):
     
   
     print("Complementary: ")
-     color1 ='#{:02x}{:02x}{:02x}'.format(H,S,V)
+    color1 ='#{:02x}{:02x}{:02x}'.format(H,S,V)
     color2 = '#{:02x}{:02x}{:02x}'.format(A,B,C)
     return color1,color2
 
