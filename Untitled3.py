@@ -20,7 +20,8 @@ import matplotlib
 from scipy.ndimage import affine_transform, zoom
 from scipy import misc
 import cv2
-
+from flask import Flask, render_template
+app = Flask(__name__)
 
 # In[41]:
 
@@ -102,7 +103,7 @@ def colorFromPhoto():
 
     for i in range(len(lister)):
         lister[i] = lister[i]
-
+ 
     for item in color_count:
         tempstring = (" {} {} ".format(item, color_count[item]))
         finer = tempstring.find(")")
@@ -135,43 +136,43 @@ def colorFromPhoto():
         returnlist.append(answer)
     return answer
 
-
+@app.route('/my-link/')
 def analagous(c1x, c1y):
-    import colorsys
-    color = "#003874"
-    color = hex_to_rgb(color)
-    print("COLOR: " ,str(color))
-    R= int(color[0])
-    G= int(color[1])
-    B= int(color[2])
-    h, s, v = colorsys.rgb_to_hsv(R,G,B)
-    h2 = (h * 360 + 60) % 360 / 360
+ #   import colorsys
+#    color = "#003874"
+  #  color = hex_to_rgb(color)
+   # print("COLOR: " ,str(color))
+    #R= int(color[0])
+   # G= int(color[1])
+   # B= int(color[2])
+   # h, s, v = colorsys.rgb_to_hsv(R,G,B)
+   # h2 = (h * 360 + 60) % 360 / 360
 
-    h3 = (h * 360 + 30) % 360 / 360
+    #h3 = (h * 360 + 30) % 360 / 360
 
-    H, S, V = colorsys.hsv_to_rgb(h, s, v)
-    A, B, C = colorsys.hsv_to_rgb(h2, s, v)
-    D, E, F = colorsys.hsv_to_rgb(h3, s, v)
+   # H, S, V = colorsys.hsv_to_rgb(h, s, v)
+   # A, B, C = colorsys.hsv_to_rgb(h2, s, v)
+   # D, E, F = colorsys.hsv_to_rgb(h3, s, v)
     
-    H= int(H)
-    S= int(S)
-    V= int(V)
-    HSV = str(H)  + str(S)+ str(V)
+   # H= int(H)
+  # S= int(S)
+   # V= int(V)
+    #HSV = str(H)  + str(S)+ str(V)
     
-    A= int(A)
-    B= int(B)
-    C= int(C)
+   # A= int(A)
+   # B= int(B)
+    #C= int(C)
     
-    D= int(D)
-    E= int(E)
-    F= int(F)
-    print(H,S,V)
-    print("Analagous: ")
-    color1 ='#{:02x}{:02x}{:02x}'.format(H,S,V)
-    color2 = '#{:02x}{:02x}{:02x}'.format(A,B,C)
-    color3 = '#{:02x}{:02x}{:02x}'.format(D,E,F)
-    return [color1, color2, color3]
-
+   # D= int(D)
+   # E= int(E)
+   # F= int(F)
+   # print(H,S,V)
+   # print("Analagous: ")
+    #color1 ='#{:02x}{:02x}{:02x}'.format(H,S,V)
+    #color2 = '#{:02x}{:02x}{:02x}'.format(A,B,C)
+   # color3 = '#{:02x}{:02x}{:02x}'.format(D,E,F)
+   # return [color1, color2, color3] 
+   return "CLICKED"
 
 
 def comp(c1x, c1y):
@@ -410,3 +411,6 @@ print(colorFromPhoto())
 
 
 
+
+if __name__ == '__main__':
+  app.run(debug=True)
