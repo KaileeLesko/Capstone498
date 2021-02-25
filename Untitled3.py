@@ -364,53 +364,8 @@ def monochrome(c1x,c1y):
     return colorList
 
 
-# In[40]:
-
-
-
-c1x = 239
-c1y = 1089
-
-print(analagous(c1x,c1y))
-
-print(" ")
-print(comp(c1x,c1y))
-
-print(" ")
-print(splitComplementary(c1x,c1y))
-
-print(" ")
-print(tetradic(c1x,c1y))
-
-print(" ")
-print(Triadic(c1x,c1y))
-
-print(monochrome(c1x,c1y))
-
-
-# In[ ]:
-
-
-print(colorFromPhoto())
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
 
 
 if __name__ == '__main__':
   app.run(debug=True)
+  print(analagous)
