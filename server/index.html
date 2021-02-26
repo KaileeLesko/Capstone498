@@ -1,14 +1,17 @@
-<!doctype html>
-
-
-<head><title>Test</title> 
-    <meta charset=utf-8> </head>
-    <body>
-        <h1>My Website</h1>
-        <form action="/my-link/">
-            <input type="submit" value="Click me" />
-        </form>
-        
-        <button> <a href="/my-link/">Click me</a></button>
-
-    </body>
+openerp.oepetstore = function(instance) 
+{
+  instance.oepetstore.MyClass = instance.web.Class.extend(
+  {
+    hi_start: function() 
+    {
+      var self = this;
+      var model = new instance.web.Model("message_of_the_day");
+      model.call("my_method", [], {context: new instance.web.CompoundContext()}).then(function(result) 
+      {
+        console.log("hello world, I am working");
+      });
+  },
+});
+var my_object = new instance.oepetstore.MyClass();
+my_object.hi_start();
+}
