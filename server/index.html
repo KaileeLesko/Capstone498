@@ -1,17 +1,13 @@
-openerp.oepetstore = function(instance) 
-{
-  instance.oepetstore.MyClass = instance.web.Class.extend(
-  {
-    hi_start: function() 
-    {
-      var self = this;
-      var model = new instance.web.Model("message_of_the_day");
-      model.call("my_method", [], {context: new instance.web.CompoundContext()}).then(function(result) 
-      {
-        console.log("hello world, I am working");
-      });
-  },
-});
-var my_object = new instance.oepetstore.MyClass();
-my_object.hi_start();
-}
+<html>  
+<head>  
+<script type = "text/javascript">  
+functionmyfunction() {   
+alert("how are you");  
+         }  
+</script>  
+</head>  
+<body>  
+<p>Click the following button to see the function in action</p>  
+<input type = "button" onclick = "myfunction()" value = "Display">  
+</body>  
+</html>  
