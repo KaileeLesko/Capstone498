@@ -367,5 +367,4 @@ def monochrome(c1x,c1y):
 
 
 if __name__ == '__main__':
-  app.run(debug=True)
-  print(analagous)
+    app.run(host='127.0.0.1', port=5000)
