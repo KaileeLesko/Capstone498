@@ -4,8 +4,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
-
-
+import pymysql
 
 
 window= tk.Tk()
@@ -14,15 +13,12 @@ window.geometry("400x150")
 window.title("Color  Coordinator- Create New User")
 
 def submit():
-    conn = sqlite3.connect('ColorCoordinator.db')
+    conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee', password= "Eeliak99.", database="capstone")
     c = conn.cursor()
-    c.execute("select*, oid FROM users")
+    sql = "SELECT * FROM `users`"
+    c.execute(sql)
     records = c.fetchall()
     users = records
-
-    conn = sqlite3.connect('ColorCoordinator.db')
-
-    c = conn.cursor()
     entry= False
     for i in range(0, len(users)):
         if  f_username.get() in users[i]:
@@ -31,16 +27,17 @@ def submit():
     #insert into table
 
     if (entry== False):
-        c.execute("INSERT INTO users  Values(:username,:first_name,:last_name,:password)",
-                  {
-                      'username':f_username.get(),
-                      'first_name': f_name.get(),
-                      "last_name": f_last_name.get(),
-                      "password": f_password.get() } )
+        conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
+                               password="Eeliak99.", database="capstone")
 
-        c.execute("select*, oid FROM users")
-        records = c.fetchall()
-        users = records
+        c = conn.cursor()
+        sql = "INSERT INTO `users` (`username`, `first_name`, `last_name`, `password`) VALUES (%s, %s, %s, %s)"
+        c.execute(sql, (f_username.get(),f_name.get(), f_last_name.get(), f_password.get()))
+        conn.commit()
+        sql = "SELECT * FROM `users`"
+        c.execute(sql)
+        result = c.fetchall()
+        user= result
         f_username.delete(0,END)
         f_name.delete(0,END)
         f_last_name.delete(0,END)

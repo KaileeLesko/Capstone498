@@ -7,7 +7,7 @@ from complimentary import comp
 from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import messagebox
-
+import pymysql
 
 def launchnewuser():
     import CreateUser
@@ -28,23 +28,27 @@ photoslice.grid(row=0, column=2,
 
 
 def launchWindow():
-    # conn = sqlite3.connect('ColorCoordinator.db')
-    # c = conn.cursor()
-    # c.execute("select*, oid FROM users")
-    # records = c.fetchall()
-    # users = records
-    # entry = False
-    # print(str(users))
-    # for i in range(0, len(users)):
-    #     if e1.get() in users[i][0]:
-    #         if e2.get() in users[i][3]:
-    #
-    #             entry = True
-    #         else:
-    #             messagebox.showerror("ERROR", "This password is incorrect")
-    #     else:
-    #         messagebox.showerror("ERROR", "This username is incorrect")
-    # if entry == True:
+    conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
+                           password="Eeliak99.", database="capstone")
+
+
+    c = conn.cursor()
+    c.execute("SELECT* FROM users")
+    records = c.fetchall()
+    users = records
+    entry = False
+    print(str(users))
+    print("entries"  ,users[0][0], users[0][3])
+    print(e1.get(), e2.get())
+    for i in range(0, len(users)):
+        if e1.get() in users[i]:
+            if e2.get() in users[i]:
+
+                entry = True
+    if entry == False:
+            messagebox.showerror("ERROR", "This password or Username is incorrect")
+
+    if entry == True:
         window.destroy()
         import Interface
 

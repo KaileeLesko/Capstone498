@@ -4,10 +4,11 @@ from tkinter import ttk
 from analagous import analagous
 from RetrieveColorFromPhoto import colorFromPhoto
 import os
+import pymysql
 import CreateMergedImage
 from tkinter import messagebox
 from TwitterBot import execute
-
+from loadmenu import e1
 global filename
 from Monochrome import monochrome
 from complimentary import comp
@@ -35,6 +36,11 @@ master.title("Color  Coordinator")
 
 printedcolors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
 
+def convertToBinaryData():
+    # Convert digital data to binary format
+    with open("myImage.png", 'rb') as file:
+        binaryData = file
+    return binaryData
 # this will create a label widget
 l1 = Label(master, text="Choose a color pattern type: ", font=1000)
 r =random.randint(0,255)
@@ -115,6 +121,7 @@ def goToFaves():
     mylist = Listbox(root,
                      yscrollcommand=scroll_bar.set)
     img = PhotoImage(file="img1.png")
+
     for i in range(0, len(favoritedImages)):
         mylist.insert(i, favoritedImages[i])
         print(favoritedImages[i])
@@ -412,10 +419,28 @@ def changeColorSqures():
 
 global favoritedImages
 favoritedImages=[]
+
 def addToFaves():
     myimg=CreateMergedImage.create(printedcolors[0],printedcolors[1],printedcolors[2],printedcolors[3],printedcolors[4],printedcolors[5])
-    print("MY IMAGE IS", "myImage.png" )
-    favoritedImages.append("myImage.png")
+    conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
+                           password="Eeliak99.", database="capstone")
+
+
+    c = conn.cursor()
+    sql = "INSERT INTO `favorites` (`username`, `image`) VALUES (%s, %s)"
+    myimg1 = convertToBinaryData()
+    c.execute(sql, ("test", myimg1))
+    conn.commit()
+    sql = "SELECT * FROM `favorites` where username= `test`"
+    c.execute(sql)
+    result = c.fetchall()
+    print("RESULT",result)
+    import base64
+    with open(result, "wb") as fh:
+        fh.write(base64.decodebytes(result))
+    favoritedImages = result
+    print("DING")
+    print("favorites", str(favoritedImages))
 
 b1 = Button(master, text="Generate Pallete", command=changeColorSqures)
 b2 = Button(master, text="Post to Twitter", command=post)
