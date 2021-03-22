@@ -489,7 +489,7 @@ def post():
 
 def executer():
     execute(mycolors[0], mycolors[1], mycolors[2], mycolors[3], mycolors[4], mycolors[5], e1.get())
-    bitch.destroy()
+    item2.destroy()
 
 
 uploadButton = Button(master, text="Upload File", image=photo, command=uploadfile)
