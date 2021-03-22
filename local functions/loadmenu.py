@@ -11,7 +11,12 @@ import pymysql
 
 def launchnewuser():
     import CreateUser
+global e1
 
+
+def retrieveUser():
+    print("DING DING")
+    return e1.get()
 
 window = tk.Tk()
 
@@ -73,4 +78,9 @@ window.grid_columnconfigure(2, weight=1)
 window.grid_rowconfigure(0, weight=1)
 window.grid_rowconfigure(1, weight=1)
 
+
+
 mainloop()
+
+
+

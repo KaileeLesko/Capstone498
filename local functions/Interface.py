@@ -8,7 +8,7 @@ import pymysql
 import CreateMergedImage
 from tkinter import messagebox
 from TwitterBot import execute
-from loadmenu import e1
+import loadmenu
 global favorites
 global filename
 from Monochrome import monochrome
@@ -224,11 +224,11 @@ def lightModes():
 
 
 def helpWindow():
-    global bitch1
-    bitch1 = Tk()
-    bitch1.wm_title("Window")
+    global item1
+    item1 = Tk()
+    item1.wm_title("Window")
 
-    l90 = Label(bitch1,
+    l90 = Label(item1,
                 text="To generate a pallete from photo \nclick the text box and then the file button. \nTo Generate a Pallete from a pattern you\nmust first select a pattern \nand color or else nothing will\nload besides white squares")
     l90.grid(row=0, column=0)
     b1.grid(row=1, column=0)
@@ -236,6 +236,7 @@ def helpWindow():
 
 def goToFaves():
     root = Tk()
+
 
     root.title("Color  Coordinator")
     w = Label(root, text='Favorites',
@@ -262,17 +263,29 @@ def goToFaves():
         favorites.append(i[1])
     import base64
     import io
-
+    #
     for i in range(0, len(favorites)):
-        # print(favorites[i])
-        # favoti
-        # stream = io.BytesIO(favorites[i])
-        # image = Image.open(stream).convert("RGBA")
-        # stream.close()
-        # image.show()
-        favorites[i].load()
-        # img = Image.open(io.BytesIO(favorites[i]))
-        # img.show()
+        if os.path.exists('hello.png'):
+            os.remove('hello.png')
+        decodeit = open('hello.png', 'wb')
+
+        decodeit.write(base64.b64decode((favorites[i])))
+        decodeit.close()
+        img = Image.open('hello.png')
+        img.show()
+
+        #
+       #  img= Image.open((base64.b64decode((favorites[i]))))
+       #  img.show()
+       #  #stream = io.BytesIO(favorites[i])
+       # # img = Image.open(0x2A5783146A0).convert("RGBA")
+       #  # stream.close()
+       #  #image.show()
+       #  print(favorites[i].size)
+
+
+
+
 
 
 def acknowledgement():
@@ -460,16 +473,16 @@ L8.grid(row=4, column=5, sticky=W)
 
 
 def post():
-    global bitch
-    bitch = Tk()
-    bitch.wm_title("Window")
-    bitch.geometry("200x200")
-    l = Label(bitch, text="What Text do you want your tweet to say?")
+    global item2
+    item2 = Tk()
+    item2.wm_title("Window")
+    item2.geometry("200x200")
+    l = Label(item2, text="What Text do you want your tweet to say?")
     global e1
-    e1 = Entry(bitch)
+    e1 = Entry(item2)
     e1.grid(row=1, column=0)
     l.grid(row=0, column=0)
-    b = Button(bitch, text="Submit", command=executer)
+    b = Button(item2, text="Submit", command=executer)
     b.grid(row=2, column=0)
     b2.grid(row=3, column=0)
 
@@ -488,11 +501,17 @@ def write_file(data, filename):
     return f
 
 
+
+
+
 global favoritedImages
 favoritedImages = []
 
 
 def addToFaves():
+    # CHECK
+    import Constants
+    print("ENTRY" ,Constants.currentUser)
     print(mycolors[2])
 
     CreateMergedImage.create(mycolors[0], mycolors[1], mycolors[2], mycolors[3], mycolors[4], mycolors[5])
@@ -501,21 +520,18 @@ def addToFaves():
     #imager = Image.open("myImage.png")
     img = Image.open("myImage.PNG")
     c = conn.cursor()
+    import base64
+    converted_string = base64.b64encode(open("myImage.png", "rb").read())
     sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
-    c.execute(sql, ("test", img))
+    c.execute(sql, (Constants.currentUser, converted_string))
     conn.commit()
-    c.execute("SELECT * FROM favoriteImages")
+    c.execute("SELECT * FROM favoriteImages where username="+ str(Constants.currentUser))
     record = c.fetchall()
     print(type(record))
-    favorites = []
 
-    for i in range(0, len(favorites)):
-        import cv2
-        text = "imageToSave" + str(0) + ".png"
-        with open(text, 'rb') as f:
-            print(str(favorites))
-            img = Image.open(text)                # io.BytesIO(f.read()))
-            img.show()
+    favorites = record
+    print(str(favorites))
+
 
 
 
