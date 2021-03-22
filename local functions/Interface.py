@@ -9,6 +9,7 @@ import CreateMergedImage
 from tkinter import messagebox
 from TwitterBot import execute
 from loadmenu import e1
+global favorites
 global filename
 from Monochrome import monochrome
 from complimentary import comp
@@ -19,6 +20,9 @@ from CombinationFunctions import *
 from Triadic import Triadic
 from tkinter import filedialog
 from tkinter import colorchooser
+
+global c1
+global c2
 
 global printedcolors
 darkmode = True
@@ -32,26 +36,149 @@ isDarkMode = False
 # creating main tkinter window/toplevel
 master = Tk()
 master.title("Color  Coordinator")
+
+
 # functions for calls
 
+def changeColorSqures():
+    if c1.instate(['selected']):
+        patternchoosen = "cool colors only"
+
+        var.set(0)
+    if c2.instate(['selected']):
+        patternchoosen = "warm colors only"
+        var1.set(0)
+
+    global mode
+    global mycolors
+
+    if mode == True:
+        global selectedColor
+
+        printedcolors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
+        patternTypes = ['Random', 'Monochrome',
+                        'Complimentary',
+                        'split complimentary',
+                        'triadic']
+        if (hexEntry.get() != ""):
+            selectedColor = hexEntry.get()
+            if selectedColor[0] != '#':
+                messagebox.showerror("ERROR", "Hex Code must start with #")
+                if (int(str(selectedColor), 16)) > 16777216:
+                    messagebox.showerror("ERROR", "Invalid Hex Code")
+            if (int(str(selectedColor)[1:], 16)) > 16777216:
+                messagebox.showerror("ERROR", "Invalid Hex Code")
+
+            # selectedColor= selectedColor[1]
+
+        # if (patternchoosen.get() == "" && !c2.instate(['selected']) :
+        #     messagebox.showerror("ERROR", "Please Select a Color Pattern Type")
+        import CoolColors
+        import WarmColors
+        if isinstance(patternchoosen, str):
+            if (patternchoosen == 'cool colors only'):
+                printedcolors = CoolColors.coolColors()
+            if (patternchoosen == 'warm colors only'):
+                printedcolors = WarmColors.WarmColors()
+        else:
+            selectedColor = ""
+            if (patternchoosen.get() == 'Random'):
+                pattern = random.choice(patternTypes)
+            else:
+                pattern = patternchoosen.get()
+            import WarmColors
+            if (pattern == "Monochrome"):
+                printedcolors = monochrome(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
+                                                             '#ffffff']
+
+            if (pattern == "Complimentary"):
+                printedcolors = comp(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
+            if (pattern == 'split complimentary'):
+                printedcolors = splitComplementary(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff',
+                                                                     '#ffffff', '#ffffff']
+            if (pattern == 'tetradic'):
+                printedcolors = tetradic(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
+                                                           '#ffffff']
+            if (pattern == 'triadic'):
+                printedcolors = Triadic(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
+                                                          '#ffffff']
+            if (pattern == 'analagous'):
+                printedcolors = analagous(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
+                                                            '#ffffff']
+            global mycolors
+            mycolors = printedcolors
+
+
+
+    else:
+        global fileimage
+
+        printedcolors = colorFromPhoto(fileimage)
+    mycolors = printedcolors
+    color1 = Canvas(master, width=250, height=200)
+    color1.create_rectangle(0, 0, 200, 200, fill=printedcolors[0], outline=printedcolors[0])
+    color1.grid(row=3, column=0, sticky=W)
+
+    color2 = Canvas(master, width=250, height=200)
+    color2.create_rectangle(0, 0, 200, 200, fill=printedcolors[1], outline=printedcolors[1])
+    color2.grid(row=3, column=1, sticky=W)
+
+    color3 = Canvas(master, width=250, height=200)
+    color3.create_rectangle(0, 0, 200, 200, fill=printedcolors[2], outline=printedcolors[2])
+    color3.grid(row=3, column=2, sticky=W)
+
+    color4 = Canvas(master, width=250, height=200)
+    color4.create_rectangle(0, 0, 200, 200, fill=printedcolors[3], outline=printedcolors[3])
+    color4.grid(row=3, column=3, sticky=W)
+
+    color5 = Canvas(master, width=250, height=200)
+    color5.create_rectangle(0, 0, 200, 200, fill=printedcolors[4], outline=printedcolors[4])
+    color5.grid(row=3, column=4, sticky=W)
+
+
+    color6 = Canvas(master, width=250, height=200)
+    color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
+    color6.grid(row=3, column=5, sticky=W)
+    selectedColor = ""
+    hexEntry.delete(0, END)
+    hexEntry.insert(0, "")
+    l3.config(text=printedcolors[0])
+    l4.config(text=printedcolors[1])
+    L5.config(text=printedcolors[2])
+    L6.config(text=printedcolors[3])
+    L7.config(text=printedcolors[4])
+    L8.config(text=printedcolors[5])
+
+
+# color1.config(fill=printedcolors[0])
 printedcolors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
+
 
 def convertToBinaryData():
     # Convert digital data to binary format
     with open("myImage.png", 'rb') as file:
         binaryData = file
     return binaryData
-# this will create a label widget
-l1 = Label(master, text="Choose a color pattern type: ", font=1000)
-r =random.randint(0,255)
-g = random.randint(0,255)
-b= random.randint(0,255)
-rgb= '#%02X%02X%02X' % (r,g,b)
-hexEntry = Entry(master, text= rgb)
 
-hexLabel= Label(master,text="enter your own hex code Here:", font=1000)
-hexLabel.grid(row=1, column= 0, sticky=W, pady=2)
-hexEntry.grid(row=1, column= 1, sticky=W, pady=2)
+
+# this will create a label widget
+var = IntVar()
+var1 = IntVar()
+l1 = Label(master, text=" 1) Choose a color pattern type: ", font=1000)
+c1 = ttk.Checkbutton(master, text='cool colors ', command=changeColorSqures, variable=var)
+c2 = ttk.Checkbutton(master, text='warm colors', command=changeColorSqures, variable=var1)
+lKailee = Label(master, text="OR pick one of these:")
+r = random.randint(0, 255)
+g = random.randint(0, 255)
+b = random.randint(0, 255)
+rgb = '#%02X%02X%02X' % (r, g, b)
+hexEntry = Entry(master, text=rgb)
+c1.grid(row=1, column=1, sticky=W, pady=2)
+c2.grid(row=1, column=2, sticky=W, pady=2)
+lKailee.grid(row=1, column=0, sticky=W, pady=2)
+hexLabel = Label(master, text=" 2) enter your own hex code Here:", font=880)
+hexLabel.grid(row=2, column=0, sticky=W, pady=2)
+hexEntry.grid(row=2, column=1, sticky=W, pady=2)
 
 l1.grid(row=0, column=0, sticky=W, pady=2)
 
@@ -95,14 +222,17 @@ def lightModes():
     photoslice.grid(row=0, column=2,
                     columnspan=2, rowspan=2, padx=5, pady=5)
 
+
 def helpWindow():
     global bitch1
     bitch1 = Tk()
     bitch1.wm_title("Window")
 
-    l90 = Label(bitch1, text="To generate a pallete from photo \nclick the text box and then the file button. \nTo Generate a Pallete from a pattern you\nmust first select a pattern \nand color or else nothing will\nload besides white squares")
+    l90 = Label(bitch1,
+                text="To generate a pallete from photo \nclick the text box and then the file button. \nTo Generate a Pallete from a pattern you\nmust first select a pattern \nand color or else nothing will\nload besides white squares")
     l90.grid(row=0, column=0)
     b1.grid(row=1, column=0)
+
 
 def goToFaves():
     root = Tk()
@@ -120,22 +250,49 @@ def goToFaves():
 
     mylist = Listbox(root,
                      yscrollcommand=scroll_bar.set)
-    img = PhotoImage(file="img1.png")
+    conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
+                           password="Eeliak99.", database="capstone")
+    checker = conn.cursor()
+    sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
+    checker.execute("SELECT * FROM favoriteImages")
+    record = checker.fetchall()
+    print(type(record))
+    favorites = []
+    for i in record:
+        favorites.append(i[1])
+    import base64
+    import io
 
-    for i in range(0, len(favoritedImages)):
-        mylist.insert(i, favoritedImages[i])
-        print(favoritedImages[i])
+    for i in range(0, len(favorites)):
+        # print(favorites[i])
+        # favoti
+        # stream = io.BytesIO(favorites[i])
+        # image = Image.open(stream).convert("RGBA")
+        # stream.close()
+        # image.show()
+        favorites[i].load()
+        # img = Image.open(io.BytesIO(favorites[i]))
+        # img.show()
 
-    mylist.pack(side=LEFT, fill=BOTH)
 
-    scroll_bar.config(command=mylist.yview)
+def acknowledgement():
+    root = Tk()
+
+    root.title("Color  Coordinator")
+    w = Label(root, text='thanks to everyone who helped me stay sane during development (Eric)',
+              font="50")
+
+    w.pack()
+
+
 
 
 menubar = Menu(master)
 file = Menu(menubar, tearoff=0)
 menubar.add_cascade(label='Settings', menu=file)
-menubar.add_cascade(label='Favorites', command= goToFaves)
-menubar.add_cascade(label='how to', command= helpWindow)
+menubar.add_cascade(label='Favorites', command=goToFaves)
+menubar.add_cascade(label='how to', command=helpWindow)
+menubar.add_cascade(label="acknowledgement", command=acknowledgement)
 
 submenu = Menu(file)
 submenu.add_command(label="Dark Mode", command=switchModes)
@@ -149,7 +306,7 @@ patternchoosen['values'] = ('Random', 'Monochrome',
                             'Complimentary',
                             'split complimentary',
                             'triadic',
-                            'tetradic', 'analagous')
+                            'tetradic', 'analagous',)
 
 # this will arrange entry widgets
 patternchoosen.grid(row=0, column=1, pady=2)
@@ -220,20 +377,20 @@ def switchInputForPhoto():
         photoslice = Button(master, image=photo, command=colorpicker)
         photoslice.grid(row=0, column=2,
                         columnspan=2, rowspan=2, padx=5, pady=5)
-        l1 = Label(master, text="Choose a color pattern type: ", font=1000)
+        l1 = Label(master, text="1) color pattern type: ", font=880)
         mode = True
         l1.grid(row=0, column=0, sticky=W, pady=2)
-        hexEntry = Entry(master, text= rgb)
-        hexLabel = Label(master, text="enter your own hex code Here:", font=1000)
-        hexLabel.grid(row=1, column=0, sticky=W, pady=2)
-        hexEntry.grid(row=1, column=1, sticky=W, pady=2)
+        hexEntry = Entry(master, text=rgb)
+        hexLabel = Label(master, text="enter your own hex code Here:", font=880)
+        hexLabel.grid(row=2, column=0, sticky=W, pady=2)
+        hexEntry.grid(row=2, column=1, sticky=W, pady=2)
 
         patternchoosen = ttk.Combobox(master, width=27, )
         patternchoosen['values'] = ('Random', 'Monochrome',
                                     'Complimentary',
-                                     'split complimentary',
+                                    'split complimentary',
                                     'triadic',
-                                    'tetradic', 'analagous')
+                                    'tetradic', 'analagous',)
 
         # this will arrange entry widgets                         
         patternchoosen.grid(row=0, column=1, pady=2)
@@ -317,7 +474,6 @@ def post():
     b2.grid(row=3, column=0)
 
 
-
 def executer():
     execute(mycolors[0], mycolors[1], mycolors[2], mycolors[3], mycolors[4], mycolors[5], e1.get())
     bitch.destroy()
@@ -326,123 +482,45 @@ def executer():
 uploadButton = Button(master, text="Upload File", image=photo, command=uploadfile)
 
 
-def changeColorSqures():
-    global mode
-    global mycolors
+def write_file(data, filename):
+    with open(filename, 'wb') as f:
+        f.write(data)
+    return f
 
-    if mode == True:
-        global selectedColor
-
-        printedcolors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
-        patternTypes = ['Random', 'Monochrome',
-                        'Complimentary',
-                         'split complimentary',
-                        'triadic']
-        if (hexEntry.get() != ""):
-            selectedColor= hexEntry.get()
-            if selectedColor[0] != '#':
-                messagebox.showerror("ERROR", "Hex Code must start with #")
-                if (int(str(selectedColor),16)) > 16777216:
-                    messagebox.showerror("ERROR", "Invalid Hex Code")
-            if (int(str(selectedColor)[1:], 16)) > 16777216:
-                messagebox.showerror("ERROR", "Invalid Hex Code")
-        else:
-            if (messagebox == ""):
-                messagebox.showerror("ERROR", "Please Select or enter a color")
-            selectedColor= selectedColor[1]
-
-        if (patternchoosen.get() == ""):
-            messagebox.showerror("ERROR", "Please Select a Color Pattern Type")
-
-        if (patternchoosen.get() == 'Random'):
-            pattern = random.choice(patternTypes)
-        else:
-            pattern = patternchoosen.get()
-
-        if (pattern == "Monochrome"):
-            printedcolors = monochrome(selectedColor)+ ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
-
-        if (pattern == "Complimentary"):
-            printedcolors = comp(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
-        if (pattern == 'split complimentary'):
-            printedcolors= splitComplementary(selectedColor)+ ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
-        if (pattern == 'tetradic'):
-            printedcolors = tetradic(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
-        if (pattern == 'triadic'):
-            printedcolors = Triadic(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
-        if (pattern == 'analagous'):
-            printedcolors = analagous(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
-        mycolors = printedcolors
-
-
-
-    else:
-        global fileimage
-
-        printedcolors = colorFromPhoto(fileimage)
-    mycolors = printedcolors
-    color1 = Canvas(master, width=250, height=200)
-    color1.create_rectangle(0, 0, 200, 200, fill=printedcolors[0], outline=printedcolors[0])
-    color1.grid(row=3, column=0, sticky=W)
-
-    color2 = Canvas(master, width=250, height=200)
-    color2.create_rectangle(0, 0, 200, 200, fill=printedcolors[1], outline=printedcolors[1])
-    color2.grid(row=3, column=1, sticky=W)
-
-    color3 = Canvas(master, width=250, height=200)
-    color3.create_rectangle(0, 0, 200, 200, fill=printedcolors[2], outline=printedcolors[2])
-    color3.grid(row=3, column=2, sticky=W)
-
-    color4 = Canvas(master, width=250, height=200)
-    color4.create_rectangle(0, 0, 200, 200, fill=printedcolors[3], outline=printedcolors[3])
-    color4.grid(row=3, column=3, sticky=W)
-
-    color5 = Canvas(master, width=250, height=200)
-    color5.create_rectangle(0, 0, 200, 200, fill=printedcolors[4], outline=printedcolors[4])
-    color5.grid(row=3, column=4, sticky=W)
-
-    # master.configure(background='#2c2f33')
-
-    color6 = Canvas(master, width=250, height=200)
-    color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
-    color6.grid(row=3, column=5, sticky=W)
-    selectedColor = ""
-    hexEntry.delete(0, END)
-    hexEntry.insert(0, "")
-    l3.config(text=printedcolors[0])
-    l4.config(text=printedcolors[1])
-    L5.config(text=printedcolors[2])
-    L6.config(text=printedcolors[3])
-    L7.config(text=printedcolors[4])
-    L8.config(text=printedcolors[5])
-# color1.config(fill=printedcolors[0])
 
 global favoritedImages
-favoritedImages=[]
+favoritedImages = []
+
 
 def addToFaves():
-    myimg=CreateMergedImage.create(printedcolors[0],printedcolors[1],printedcolors[2],printedcolors[3],printedcolors[4],printedcolors[5])
+    print(mycolors[2])
+
+    CreateMergedImage.create(mycolors[0], mycolors[1], mycolors[2], mycolors[3], mycolors[4], mycolors[5])
     conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                            password="Eeliak99.", database="capstone")
-
-
+    #imager = Image.open("myImage.png")
+    img = Image.open("myImage.PNG")
     c = conn.cursor()
-    sql = "INSERT INTO `favorites` (`username`, `image`) VALUES (%s, %s)"
-    myimg1 = convertToBinaryData()
-    c.execute(sql, ("test", myimg1))
+    sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
+    c.execute(sql, ("test", img))
     conn.commit()
-    sql = "SELECT * FROM `favorites` where username= `test`"
-    c.execute(sql)
-    result = c.fetchall()
-    print("RESULT",result)
-    import base64
-    with open(result, "wb") as fh:
-        fh.write(base64.decodebytes(result))
-    favoritedImages = result
-    print("DING")
-    print("favorites", str(favoritedImages))
+    c.execute("SELECT * FROM favoriteImages")
+    record = c.fetchall()
+    print(type(record))
+    favorites = []
+
+    for i in range(0, len(favorites)):
+        import cv2
+        text = "imageToSave" + str(0) + ".png"
+        with open(text, 'rb') as f:
+            print(str(favorites))
+            img = Image.open(text)                # io.BytesIO(f.read()))
+            img.show()
+
+
 
 b1 = Button(master, text="Generate Pallete", command=changeColorSqures)
+
 b2 = Button(master, text="Post to Twitter", command=post)
 b3 = Button(master, text="Add to Favorites", command=addToFaves)
 c = ttk.Checkbutton(master, text='click here to pick colors from a photo: ', command=switchInputForPhoto)

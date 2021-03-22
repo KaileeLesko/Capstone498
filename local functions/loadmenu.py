@@ -50,13 +50,13 @@ def launchWindow():
 
     if entry == True:
         window.destroy()
-        import Interface
+
 
 
 b1 = Button(window, text="Log in ", command=launchWindow)
 b2 = Button(window, text="Create Account ", command=launchnewuser)
-b2.grid(row=6, column=2, columnspan=2)
-b1.grid(row=7, column=2, columnspan=2)
+b2.grid(row=7, column=2, columnspan=2)
+b1.grid(row=6, column=2, columnspan=2)
 # entry widgets, used to take entry from user
 e1 = Entry(window, text="username")
 e1.insert(END, 'Username')
@@ -64,8 +64,8 @@ e2 = Entry(window)
 e2.insert(END, 'Password')
 
 # this will arrange entry widgets
-e1.grid(row=3, column=2, columnspan=2)
-e2.grid(row=2, column=2, columnspan=2)
+e1.grid(row=2, column=2, columnspan=2)
+e2.grid(row=3, column=2, columnspan=2)
 
 window.grid_columnconfigure(0, weight=1)
 window.grid_columnconfigure(1, weight=1)
