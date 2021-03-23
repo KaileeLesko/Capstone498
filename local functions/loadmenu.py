@@ -12,11 +12,13 @@ import pymysql
 def launchnewuser():
     import CreateUser
 global e1
-
+global answer
 
 def retrieveUser():
     print("DING DING")
-    return e1.get()
+    print("answer", answer)
+    return answer
+
 
 window = tk.Tk()
 
@@ -44,6 +46,8 @@ def launchWindow():
     entry = False
     print(str(users))
     print("entries"  ,users[0][0], users[0][3])
+    global answer
+    answer= e1.get()
     print(e1.get(), e2.get())
     for i in range(0, len(users)):
         if e1.get() in users[i]:

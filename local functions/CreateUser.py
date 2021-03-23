@@ -42,6 +42,8 @@ def submit():
         f_name.delete(0,END)
         f_last_name.delete(0,END)
         f_password.delete(0,END)
+        messagebox.showinfo("Success!", "Your account has been created!")
+        window.destroy()
     else:
         messagebox.showerror("ERROR", "This username is already in use")
 

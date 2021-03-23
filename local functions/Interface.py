@@ -40,14 +40,96 @@ master.title("Color  Coordinator")
 
 # functions for calls
 
-def changeColorSqures():
-    if c1.instate(['selected']):
-        patternchoosen = "cool colors only"
 
-        var.set(0)
-    if c2.instate(['selected']):
-        patternchoosen = "warm colors only"
-        var1.set(0)
+def coolColors():
+
+    import CoolColors
+    printedcolors = CoolColors.coolColors()
+    color1 = Canvas(master, width=250, height=200)
+    color1.create_rectangle(0, 0, 200, 200, fill=printedcolors[0], outline=printedcolors[0])
+    color1.grid(row=3, column=0, sticky=W)
+
+    color2 = Canvas(master, width=250, height=200)
+    color2.create_rectangle(0, 0, 200, 200, fill=printedcolors[1], outline=printedcolors[1])
+    color2.grid(row=3, column=1, sticky=W)
+
+    color3 = Canvas(master, width=250, height=200)
+    color3.create_rectangle(0, 0, 200, 200, fill=printedcolors[2], outline=printedcolors[2])
+    color3.grid(row=3, column=2, sticky=W)
+
+    color4 = Canvas(master, width=250, height=200)
+    color4.create_rectangle(0, 0, 200, 200, fill=printedcolors[3], outline=printedcolors[3])
+    color4.grid(row=3, column=3, sticky=W)
+
+    color5 = Canvas(master, width=250, height=200)
+    color5.create_rectangle(0, 0, 200, 200, fill=printedcolors[4], outline=printedcolors[4])
+    color5.grid(row=3, column=4, sticky=W)
+
+    # master.configure(background='#2c2f33')
+
+    color6 = Canvas(master, width=250, height=200)
+    color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
+    color6.grid(row=3, column=5, sticky=W)
+
+    l3 = Label(master, font=1000, text=str(printedcolors[0]))
+    l3.grid(row=4, column=0, sticky=W)
+    l4 = Label(master, font=1000, text=str(printedcolors[1]))
+    l4.grid(row=4, column=1, sticky=W)
+    L5 = Label(master, font=1000, text=str(printedcolors[2]))
+    L5.grid(row=4, column=2, sticky=W)
+    L6 = Label(master, font=1000, text=str(printedcolors[3]))
+    L6.grid(row=4, column=3, sticky=W)
+    L7 = Label(master, font=1000, text=str(printedcolors[4]))
+    L7.grid(row=4, column=4, sticky=W)
+    L8 = Label(master, font=1000, text=str(printedcolors[5]))
+    L8.grid(row=4, column=5, sticky=W)
+
+def warmColors():
+
+    import WarmColors
+    printedcolors = WarmColors.WarmColors()
+    color1 = Canvas(master, width=250, height=200)
+    color1.create_rectangle(0, 0, 200, 200, fill=printedcolors[0], outline=printedcolors[0])
+    color1.grid(row=3, column=0, sticky=W)
+
+    color2 = Canvas(master, width=250, height=200)
+    color2.create_rectangle(0, 0, 200, 200, fill=printedcolors[1], outline=printedcolors[1])
+    color2.grid(row=3, column=1, sticky=W)
+
+    color3 = Canvas(master, width=250, height=200)
+    color3.create_rectangle(0, 0, 200, 200, fill=printedcolors[2], outline=printedcolors[2])
+    color3.grid(row=3, column=2, sticky=W)
+
+    color4 = Canvas(master, width=250, height=200)
+    color4.create_rectangle(0, 0, 200, 200, fill=printedcolors[3], outline=printedcolors[3])
+    color4.grid(row=3, column=3, sticky=W)
+
+    color5 = Canvas(master, width=250, height=200)
+    color5.create_rectangle(0, 0, 200, 200, fill=printedcolors[4], outline=printedcolors[4])
+    color5.grid(row=3, column=4, sticky=W)
+
+    # master.configure(background='#2c2f33')
+
+    color6 = Canvas(master, width=250, height=200)
+    color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
+    color6.grid(row=3, column=5, sticky=W)
+
+    l3 = Label(master, font=1000, text=str(printedcolors[0]))
+    l3.grid(row=4, column=0, sticky=W)
+    l4 = Label(master, font=1000, text=str(printedcolors[1]))
+    l4.grid(row=4, column=1, sticky=W)
+    L5 = Label(master, font=1000, text=str(printedcolors[2]))
+    L5.grid(row=4, column=2, sticky=W)
+    L6 = Label(master, font=1000, text=str(printedcolors[3]))
+    L6.grid(row=4, column=3, sticky=W)
+    L7 = Label(master, font=1000, text=str(printedcolors[4]))
+    L7.grid(row=4, column=4, sticky=W)
+    L8 = Label(master, font=1000, text=str(printedcolors[5]))
+    L8.grid(row=4, column=5, sticky=W)
+
+
+def changeColorSqures():
+
 
     global mode
     global mycolors
@@ -71,44 +153,38 @@ def changeColorSqures():
 
             # selectedColor= selectedColor[1]
 
-        # if (patternchoosen.get() == "" && !c2.instate(['selected']) :
-        #     messagebox.showerror("ERROR", "Please Select a Color Pattern Type")
+        #if (patternchoosen.get() == "" && !c2.instate(['selected']) :
+        #    messagebox.showerror("ERROR", "Please Select a Color Pattern Type")
         import CoolColors
         import WarmColors
-        if isinstance(patternchoosen, str):
-            if (patternchoosen == 'cool colors only'):
-                printedcolors = CoolColors.coolColors()
-            if (patternchoosen == 'warm colors only'):
-                printedcolors = WarmColors.WarmColors()
-        else:
-            selectedColor = ""
-            if (patternchoosen.get() == 'Random'):
-                pattern = random.choice(patternTypes)
-            else:
-                pattern = patternchoosen.get()
-            import WarmColors
-            if (pattern == "Monochrome"):
-                printedcolors = monochrome(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
-                                                             '#ffffff']
 
-            if (pattern == "Complimentary"):
-                printedcolors = comp(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
-            if (pattern == 'split complimentary'):
-                printedcolors = splitComplementary(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff',
+
+
+        #selectedColor = ""
+        if (patternchoosen.get() == 'Random'):
+           pattern = random.choice(patternTypes)
+        else:
+            pattern = patternchoosen.get()
+
+        if (pattern == "Monochrome"):
+            printedcolors = monochrome(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
+                                                             '#ffffff']
+        if (pattern == "Complimentary"):
+            printedcolors = comp(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
+        if (pattern == 'split complimentary'):
+            printedcolors = splitComplementary(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff',
                                                                      '#ffffff', '#ffffff']
-            if (pattern == 'tetradic'):
-                printedcolors = tetradic(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
+        if (pattern == 'tetradic'):
+            printedcolors = tetradic(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
                                                            '#ffffff']
-            if (pattern == 'triadic'):
-                printedcolors = Triadic(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
+        if (pattern == 'triadic'):
+            printedcolors = Triadic(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
                                                           '#ffffff']
-            if (pattern == 'analagous'):
-                printedcolors = analagous(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
+        if (pattern == 'analagous'):
+            printedcolors = analagous(selectedColor) + ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
                                                             '#ffffff']
             global mycolors
             mycolors = printedcolors
-
-
 
     else:
         global fileimage
@@ -165,8 +241,8 @@ def convertToBinaryData():
 var = IntVar()
 var1 = IntVar()
 l1 = Label(master, text=" 1) Choose a color pattern type: ", font=1000)
-c1 = ttk.Checkbutton(master, text='cool colors ', command=changeColorSqures, variable=var)
-c2 = ttk.Checkbutton(master, text='warm colors', command=changeColorSqures, variable=var1)
+c1 = ttk.Button(master, text='cool colors ', command=coolColors)
+c2 = ttk.Button(master, text='warm colors', command= warmColors)
 lKailee = Label(master, text="OR pick one of these:")
 r = random.randint(0, 255)
 g = random.randint(0, 255)
@@ -254,25 +330,26 @@ def goToFaves():
     conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                            password="Eeliak99.", database="capstone")
     checker = conn.cursor()
+
     sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
     checker.execute("SELECT * FROM favoriteImages")
     record = checker.fetchall()
-    print(type(record))
-    favorites = []
-    for i in record:
-        favorites.append(i[1])
+    favorites = record
     import base64
     import io
     #
+    import Constants
     for i in range(0, len(favorites)):
-        if os.path.exists('hello.png'):
-            os.remove('hello.png')
-        decodeit = open('hello.png', 'wb')
+        if (favorites[i][0]== Constants.setUser()):
+            print(favorites[i][1])
+            if os.path.exists('hello.png'):
+                os.remove('hello.png')
+            decodeit = open('hello.png', 'wb')
 
-        decodeit.write(base64.b64decode((favorites[i])))
-        decodeit.close()
-        img = Image.open('hello.png')
-        img.show()
+            decodeit.write(base64.b64decode((favorites[i][1])))
+            decodeit.close()
+            img = Image.open('hello.png')
+            img.show()
 
         #
        #  img= Image.open((base64.b64decode((favorites[i]))))
@@ -282,10 +359,6 @@ def goToFaves():
        #  # stream.close()
        #  #image.show()
        #  print(favorites[i].size)
-
-
-
-
 
 
 def acknowledgement():
@@ -495,10 +568,7 @@ def executer():
 uploadButton = Button(master, text="Upload File", image=photo, command=uploadfile)
 
 
-def write_file(data, filename):
-    with open(filename, 'wb') as f:
-        f.write(data)
-    return f
+
 
 
 
@@ -511,7 +581,7 @@ favoritedImages = []
 def addToFaves():
     # CHECK
     import Constants
-    print("ENTRY" ,Constants.currentUser)
+    print("ENTRY" ,Constants.setUser())
     print(mycolors[2])
 
     CreateMergedImage.create(mycolors[0], mycolors[1], mycolors[2], mycolors[3], mycolors[4], mycolors[5])
@@ -523,14 +593,15 @@ def addToFaves():
     import base64
     converted_string = base64.b64encode(open("myImage.png", "rb").read())
     sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
-    c.execute(sql, (Constants.currentUser, converted_string))
+    c.execute(sql, (Constants.setUser(), converted_string))
     conn.commit()
-    c.execute("SELECT * FROM favoriteImages where username="+ str(Constants.currentUser))
+    sql = "SELECT * FROM favoriteImages"
+    print(sql)
+    c.execute(sql)
     record = c.fetchall()
-    print(type(record))
+
 
     favorites = record
-    print(str(favorites))
 
 
 
