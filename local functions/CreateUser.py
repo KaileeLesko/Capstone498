@@ -47,14 +47,6 @@ def submit():
     else:
         messagebox.showerror("ERROR", "This username is already in use")
 
-
-# c.execute("""CREATE TABLE users(
-#     username text,
-#     first_name text,
-#     last_name text,
-#     password text
-#           )""")
-
 FLabel = Label(window, text= "Create a new account: ")
 FLabel.grid(row=0, column= 1, columnspan= 2)
 f_username= Entry(window)

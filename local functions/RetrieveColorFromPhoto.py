@@ -1,13 +1,7 @@
 import random
-from PIL import Image
 
 
 def colorFromPhoto(img):
-    # this function pulls out 6 random colors from the photo
-
-
-
-    # round the colors to these values :
     colors = [255, 223, 191, 159, 127, 95, 63, 31, 0]
     color_count = {}
     original_color_count = {}
@@ -26,7 +20,6 @@ def colorFromPhoto(img):
             g_set = False
             b_set = False
 
-            #  Loop through our allowed values and find the closest value to snap to
             for i in range(len(colors)):
                 color_one = colors[i]
                 color_two = colors[i + 1]
@@ -55,7 +48,6 @@ def colorFromPhoto(img):
                 if all((r_set, g_set, b_set)):
                     break
 
-            # Set our new pixel back on the image to see the difference
             new_rgb = (r, g, b)
             img.putpixel((w, h), new_rgb)
 
@@ -65,20 +57,19 @@ def colorFromPhoto(img):
                 color_count[new_rgb] = 1
 
     lister = []
-    finallist = []
     for item in color_count:
         lister.append([item, color_count[item]])
 
     for i in range(len(lister)):
         lister[i] = lister[i]
     for k in range(len(lister)):
-        lister[k]=  '#{:02x}{:02x}{:02x}'.format(lister[k][0][0], lister[k][0][1], lister[k][0][2])
+        lister[k] = '#{:02x}{:02x}{:02x}'.format(lister[k][0][0], lister[k][0][1], lister[k][0][2])
     print(lister)
 
-    array=[]
-    i=0
-    while len(array)< 6:
-        randomed= random.choice(lister)
+    array = []
+    i = 0
+    while len(array) < 6:
+        randomed = random.choice(lister)
         if (randomed not in array):
             array.append(randomed)
 

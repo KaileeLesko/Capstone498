@@ -1,15 +1,14 @@
 import colorsys
-import random
 import ausxillaryFunctions
-def threeAnalagous(color,color1,color2):
 
+def threeAnalagous(color, color1, color2):
     array = []
-    color= ausxillaryFunctions.hex_to_rgb(color
-    )
+    color = ausxillaryFunctions.hex_to_rgb(color
+                                           )
     color1 = ausxillaryFunctions.hex_to_rgb(color1
-                                           )
+                                            )
     color2 = ausxillaryFunctions.hex_to_rgb(color2
-                                           )
+                                            )
     R = int(color[0])
     G = int(color[1])
     B = int(color[2])
@@ -50,12 +49,14 @@ def threeAnalagous(color,color1,color2):
     array.append(color1)
 
     return array
+
+
 def compAndAnalagous(color):
-    print("color is "+ color)
+    print("color is " + color)
     array = []
-    color= color[1:]
+    color = color[1:]
     print("this is", color)
-    color= ausxillaryFunctions.hex_to_rgb(color)
+    color = ausxillaryFunctions.hex_to_rgb(color)
 
     array.append(color)
     A, B, C = colorsys.hex_to_rgb(color)
