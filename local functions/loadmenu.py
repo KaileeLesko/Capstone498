@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import ttk
-from analagous import analagous
 from Monochrome import monochrome
 from complimentary import comp
 from PIL import Image, ImageTk

@@ -151,6 +151,7 @@ class mainInterface:
         self.b1 = Button(master, text="Generate Pallete", command=self.changeColorSqures)
         self.b1.grid(row=2, column=2, sticky=W)
 
+
         self.b2 = Button(master, text="Post to Twitter", command=self.post)
         self. b2.grid(row=2, column=3, sticky=W)
 
@@ -159,6 +160,7 @@ class mainInterface:
         self.c = ttk.Checkbutton(master, text='click here to pick colors from a photo: ', command=self.switchInputForPhoto)
         self.c.grid(row=2, column=5, sticky=W)
         self.mycolors= self.printedcolors
+
 
 
     def colorpicker(self):
@@ -178,7 +180,7 @@ class mainInterface:
         rooter.title("Color  Coordinator")
         w = Label(rooter, text='Favorites',
                   font="50")
-        w.grid(row=0, column=3, columnspan= 4 )
+        w.grid(row=0, column=1,columnspan=2 )
         conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                                password="Eeliak99.", database="capstone")
         checker = conn.cursor()
@@ -187,124 +189,22 @@ class mainInterface:
         checker.execute("SELECT * FROM favoriteImages")
         record = checker.fetchall()
         self.favorite = record
-        favorites=[]
+        print("record", record)
+        print("lnght of f" ,len(self.favorite))
+        self.favorites=[]
         for i in range(0,len(self.favorite)):
             if self.favorite[i][0] == Constants.setUser():
-                favorites.append(self.favorite[i])
+                self.favorites.append(self.favorite[i])
+                print("done this")
 
-        count=1
+        print("LEN",len(self.favorites))
+        self.lastindex= 4
+        self.lastindex = nextsix(self.lastindex, rooter, self.favorites, self.favorite)
 
-
-        for i in range(0,6):
-                if (count ==1):
-
-                        if os.path.exists('one.png'):
-                            os.remove('one.png')
-                        decodeit = open('one.png', 'wb')
-                        if i >= (len(favorites)):
-                            newimg = Image.open("whiteIMG.png")
-                        else:
-                            decodeit.write(base64.b64decode((favorites[i][1])))
-                            decodeit.close()
-                            newimg = Image.open('one.png')
-                        newimg= newimg.resize((600,100))
-
-                        photo1 = ImageTk.PhotoImage(newimg)
-                        one= Label(rooter, image=photo1)
-                        one.grid(row=1, column=1)
-                        count=2
-                elif (count ==2):
-                        if os.path.exists('two.png'):
-                            os.remove('two.png')
-                        decodeit = open('two.png', 'wb')
-                        if i >= (len(favorites)):
-                            newimg = Image.open("whiteIMG.png")
-                        else:
-                            decodeit.write(base64.b64decode((favorites[i][1])))
-                            decodeit.close()
-                            newimg = Image.open('two.png')
-                        newimg = newimg.resize((600, 100))
-
-                        photo2 = ImageTk.PhotoImage(newimg)
-                        two= Label(rooter, image=photo2)
-                        two.grid(row=1, column=2)
-                        count=3
-                elif (count == 3):
-
-                        if os.path.exists('three.png'):
-                            os.remove('three.png')
-                        decodeit = open('three.png', 'wb')
-                        if i >= (len(favorites)):
-                            newimg = Image.open("whiteIMG.png")
-                        else:
-                            decodeit.write(base64.b64decode((favorites[i][1])))
-                            decodeit.close()
-                            newimg = Image.open('three.png')
-                        newimg = newimg.resize((600, 100))
-
-                        photo3 = ImageTk.PhotoImage(newimg)
-                        three= Label(rooter, image=photo3)
-                        three.grid(row=2, column=1)
-                        count=4
-                elif (count ==4 ):
-
-
-                        if os.path.exists('four.png'):
-                            os.remove('four.png')
-                        decodeit = open('four.png', 'wb')
-                        if i >= (len(favorites)):
-                            newimg = Image.open("whiteIMG.png")
-                        else:
-                            decodeit.write(base64.b64decode((favorites[i][1])))
-                            decodeit.close()
-                            newimg = Image.open('four.png')
-                        newimg = newimg.resize((600, 100))
-
-                        photo4 = ImageTk.PhotoImage(newimg)
-                        four= Label(rooter, image=photo4)
-                        four.grid(row=2, column=2)
-                        count=5
-                elif (count == 5):
-
-
-                        if os.path.exists('five.png'):
-                            os.remove('five.png')
-                        decodeit = open('five.png', 'wb')
-                        if i >= (len(favorites)):
-                            newimg = Image.open("whiteIMG.png")
-                        else:
-                            decodeit.write(base64.b64decode((favorites[i][1])))
-                            decodeit.close()
-                            newimg = Image.open('five.png')
-                        newimg = newimg.resize((600, 100))
-
-                        photo5 = ImageTk.PhotoImage(newimg)
-                        five= Label(rooter, image=photo5)
-                        five.grid(row=3, column=1)
-                        count=6
-                else:
-
-                        if os.path.exists('six.png'):
-                            os.remove('six.png')
-                        decodeit = open('six.png', 'wb')
-                        if i >= (len(favorites)):
-                            newimg = Image.open("whiteIMG.png")
-                        else:
-                            decodeit.write(base64.b64decode((favorites[i][1])))
-                            decodeit.close()
-                            newimg = Image.open('six.png')
-                        newimg = newimg.resize((600, 100))
-
-                        photo6 = ImageTk.PhotoImage(newimg)
-                        six= Label(rooter, image=photo6)
-                        six.grid(row=3, column=2)
-                        count=7
-
-
-        goforward = Button(rooter, text="view next", command= lambda: self.lastIndexBack(rooter,favorites))
+        goforward = Button(rooter, text="view next", command= lambda: self.lastIndexBack(rooter,self.favorites))
         goforward.grid(row=4, column=2)
 
-        goback = Button(rooter, text="view previous", command= lambda: self.lastIndexForward(rooter,favorites))
+        goback = Button(rooter, text="view previous", command= lambda: self.lastIndexForward(rooter,self.favorites))
         goback.grid(row=4, column=1)
 
 
@@ -368,13 +268,13 @@ class mainInterface:
         item2.wm_title("Window")
         item2.geometry("200x200")
         l = Label(item2, text="What Text do you want your tweet to say?")
-
         e1 = Entry(item2)
         e1.grid(row=1, column=0)
         l.grid(row=0, column=0)
         b = Button(item2, text="Submit", command=self.executer)
         b.grid(row=2, column=0)
         self.b2.grid(row=3, column=0)
+
 
     def executer(self):
         execute(self.mycolors[0], self.mycolors[1], self.mycolors[2], self.mycolors[3], self.mycolors[4], self.mycolors[5], self.e1.get())
@@ -383,23 +283,26 @@ class mainInterface:
     def addToFaves(self):
 
         print("ENTRY", Constants.setUser())
-        print(self.mycolors[2])
+        print("COLOR IS",self.mycolors[2])
 
         CreateMergedImage.create(self.mycolors[0], self.mycolors[1], self.mycolors[2], self.mycolors[3], self.mycolors[4], self.mycolors[5])
         conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                                password="Eeliak99.", database="capstone")
-        img = Image.open("myImage.PNG")
+        img = Image.open("myImageColor.PNG")
+
         c = conn.cursor()
         import base64
-        converted_string = base64.b64encode(open("myImage.png", "rb").read())
+        converted_string = base64.b64encode(open("myImageColor.png", "rb").read())
         sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
         c.execute(sql, (Constants.setUser(), converted_string))
         conn.commit()
         sql = "SELECT * FROM favoriteImages"
-        print(sql)
         c.execute(sql)
         record = c.fetchall()
         self.favorites = record
+        print("record", record)
+
+
 
     def switchInputForPhoto(self):
 
@@ -523,6 +426,7 @@ class mainInterface:
                                                             '#ffffff']
 
                 self.mycolors = self.printedcolors
+                print("MY VOLORS",str(self.mycolors))
 
         else:
             printedcolors = colorFromPhoto(self.fileimage)
@@ -558,6 +462,7 @@ class mainInterface:
     def warmColors(self):
         import WarmColors
         printedcolors = WarmColors.WarmColors()
+        self.mycolors = printedcolors
         color1 = Canvas(master, width=250, height=200)
         color1.create_rectangle(0, 0, 200, 200, fill=printedcolors[0], outline=printedcolors[0])
         color1.grid(row=3, column=0, sticky=W)
@@ -600,6 +505,7 @@ class mainInterface:
     def coolColors(self):
         import CoolColors
         printedcolors = CoolColors.coolColors()
+        self.mycolors = printedcolors
         color1 = Canvas(master, width=250, height=200)
         color1.create_rectangle(0, 0, 200, 200, fill=printedcolors[0], outline=printedcolors[0])
         color1.grid(row=3, column=0, sticky=W)
@@ -638,7 +544,6 @@ class mainInterface:
         L7.grid(row=4, column=4, sticky=W)
         L8 = Label(master, font=1000, text=str(printedcolors[5]))
         L8.grid(row=4, column=5, sticky=W)
-
     def helpWindow(self):
 
         item1 = Tk()

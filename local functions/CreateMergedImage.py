@@ -22,7 +22,7 @@ def create(color1, color2, color3, color4, color5, color6):
     img5 = cv2.imread('img4.png')
     img6 = cv2.imread('img5.png')
     im_h = cv2.hconcat([img1, img2, img3, img4, img5, img6])
-    cv2.imwrite('myImage.png', im_h)
+    cv2.imwrite('myImageColor.png', im_h)
 
 
 
