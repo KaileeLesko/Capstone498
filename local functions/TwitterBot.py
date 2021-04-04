@@ -24,5 +24,11 @@ def execute(color1, color2, color3, color4, color5, color6, text):
     tweet = text
     api.update_status(status=tweet, media_ids=[media.media_id])
 
+def executefavorites(img, text):
+    oauth = OAuth()
+    api = tweepy.API(oauth)
+    media = api.media_upload(img)
+    tweet = text
+    api.update_status(status=tweet, media_ids=[media.media_id])
 
 print("tweet posted")
