@@ -1,7 +1,8 @@
-import loadmenu
+from loadmenu import retrieveUser
+# import loadmenu
 def setUser():
     print("ONE")
-    answer= loadmenu.retrieveUser()
+    answer= retrieveUser()
     print("TWO")
     return answer
 

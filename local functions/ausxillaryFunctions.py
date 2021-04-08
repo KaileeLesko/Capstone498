@@ -80,11 +80,7 @@ def remover(i, favorites, lastindex, rooter, favorite,  current):
     adr= current
     c.execute(sql, adr)
     conn.commit()
-    favorites=[]
-    c.execute("SELECT * FROM favoriteImages")
-    favorite= c.fetchall()
-    favorites = createFavorites()
-    nextsix(lastindex, rooter, favorites, favorite)
+    nextsix(4, rooter, favorites, favorite)
 def massdestroy(f1):
     f1.destroy()
 

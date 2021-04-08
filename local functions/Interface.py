@@ -33,11 +33,12 @@ class mainInterface:
 
 
     def __init__(self, master):
-
+        from loadmenu import retrieveUser
         self.menubar = Menu(master)
+        self.username= retrieveUser()
         self.file = Menu(self.menubar, tearoff=0)
         self.menubar.add_cascade(label='Settings', menu=self.file)
-        self.menubar.add_cascade(label='Favorites', command=self.goToFaves)
+        self.menubar.add_cascade(label='Favorites', command=  self.goToFaves)
         self.menubar.add_cascade(label='how to', command=self.helpWindow)
         self.menubar.add_cascade(label="acknowledgement", command=self.acknowledgement)
         self.submenu = Menu(self.file)
@@ -47,6 +48,7 @@ class mainInterface:
         # mode.add_command(label ='Dark Mode', command =mainInterface.switchModes)
         master.config(menu=self.menubar)
         self.lastindex = 6
+
         self.printedcolors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
         self.one= Label(text= "no")
         self.two=Label(text= "no")
@@ -61,22 +63,22 @@ class mainInterface:
 
         self.var = IntVar()
         self.var1 = IntVar()
-        self.l1 = Label(master, text=" 1) Choose a color pattern type: ", font=1000)
+        self.l1 = Label(master, text=" 1) Choose a color pattern type: ", font=800)
         self.l1.grid(row=0, column=0, sticky=W, pady=2)
 
         self.c1 = ttk.Button(master, text='cool colors ', command=self.coolColors)
         self.c2 = ttk.Button(master, text='warm colors', command=self.warmColors)
-        self.c1.grid(row=1, column=1, sticky=W, pady=2)
-        self.c2.grid(row=1, column=2, sticky=W, pady=2)
+        self.c1.grid(row=2, column=1, sticky=W, pady=2)
+        self.c2.grid(row=2, column=2, sticky=W, pady=2)
 
         self.lKailee = Label(master, text="OR pick one of these:")
-        self.lKailee.grid(row=1, column=0, sticky=W, pady=2)
+        self.lKailee.grid(row=2, column=0, sticky=W, pady=2)
 
-        self.hexEntry = Entry(master, text=self.rgb)
-        self.hexEntry.grid(row=2, column=1, sticky=W, pady=2)
+        self.hexEntry = Entry(master, text="")
+        self.hexEntry.grid(row=1, column=1, sticky=W, pady=2)
 
-        self.hexLabel = Label(master, text=" 2) enter your own hex code Here:", font=880)
-        self.hexLabel.grid(row=2, column=0, sticky=W, pady=2)
+        self.hexLabel = Label(master, text=" 2) enter your own hex code Here:")
+        self.hexLabel.grid(row=1, column=0, sticky=W, pady=2)
 
         self.mode = True
         self.isDarkMode = False
@@ -96,6 +98,7 @@ class mainInterface:
         self.photo = ImageTk.PhotoImage(self.image)
 
         self.my_text = "click here to pick colors from a photo: "
+
 
 
         self.photoslice = Button(master, text="Upload File", image=self.photo, command=self.colorpicker)
@@ -149,20 +152,50 @@ class mainInterface:
         self.favoritedImages = []
 
         self.b1 = Button(master, text="Generate Pallete", command=self.changeColorSqures)
-        self.b1.grid(row=2, column=2, sticky=W)
+        self.b1.grid(row=2, column=3, sticky=W)
 
 
         self.b2 = Button(master, text="Post to Twitter", command=self.post)
-        self. b2.grid(row=2, column=3, sticky=W)
+        self. b2.grid(row=2, column=4, sticky=W)
 
         self.b3 = Button(master, text="Add to Favorites", command=self.addToFaves)
-        self.b3.grid(row=2, column=4, sticky=W)
+        self.b3.grid(row=0, column=4, sticky=W)
         self.c = ttk.Checkbutton(master, text='click here to pick colors from a photo: ', command=self.switchInputForPhoto)
         self.c.grid(row=2, column=5, sticky=W)
         self.mycolors= self.printedcolors
 
 
-
+    def colorfromphoto(self):
+        printedcolors = colorFromPhoto(self.fileimage)
+        self.mycolors = printedcolors
+        color1 = Canvas(master, width=250, height=200)
+        color1.create_rectangle(0, 0, 200, 200, fill=printedcolors[0], outline=printedcolors[0])
+        color1.grid(row=3, column=0, sticky=W)
+        color2 = Canvas(master, width=250, height=200)
+        color2.create_rectangle(0, 0, 200, 200, fill=printedcolors[1], outline=printedcolors[1])
+        color2.grid(row=3, column=1, sticky=W)
+        color3 = Canvas(master, width=250, height=200)
+        color3.create_rectangle(0, 0, 200, 200, fill=printedcolors[2], outline=printedcolors[2])
+        color3.grid(row=3, column=2, sticky=W)
+        color4 = Canvas(master, width=250, height=200)
+        color4.create_rectangle(0, 0, 200, 200, fill=printedcolors[3], outline=printedcolors[3])
+        color4.grid(row=3, column=3, sticky=W)
+        color5 = Canvas(master, width=250, height=200)
+        color5.create_rectangle(0, 0, 200, 200, fill=printedcolors[4], outline=printedcolors[4])
+        color5.grid(row=3, column=4, sticky=W)
+        color6 = Canvas(master, width=250, height=200)
+        color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
+        color6.grid(row=3, column=5, sticky=W)
+        selectedColor = ""
+        self.hexEntry.delete(0, END)
+        # self.hexEntry.se
+        self.hexEntry.insert(0, "")
+        self.l3.config(text=printedcolors[0])
+        self.l4.config(text=printedcolors[1])
+        self.L5.config(text=printedcolors[2])
+        self.L6.config(text=printedcolors[3])
+        self.L7.config(text=printedcolors[4])
+        self.L8.config(text=printedcolors[5])
     def colorpicker(self):
         color_code = colorchooser.askcolor(title="Choose color")
 
@@ -240,6 +273,7 @@ class mainInterface:
         w = Label(root, text='thanks to everyone who helped me stay sane during development (Eric)',
                   font="50")
 
+
         w.pack()
 
     def uploadfile(self):
@@ -253,8 +287,8 @@ class mainInterface:
         else:
             image = Image.open(filename)
 
-            fileimage = image.resize((200, 200))
-            photo = ImageTk.PhotoImage(fileimage)
+            self.fileimage = image.resize((200, 200))
+            photo = ImageTk.PhotoImage(self.fileimage)
 
             photoslice = Label(master, image=photo)
             photoslice.image = photo
@@ -308,6 +342,10 @@ class mainInterface:
 
 
         if self.c.cget("text") == "click here to pick colors from a photo: ":
+            self.b1.config(command= lambda: self.colorfromphoto())
+            self.lKailee.destroy()
+            self.c1.destroy()
+            self.c2.destroy()
 
             mode = False
             my_text = "click her to pick colors from photo"
@@ -319,6 +357,7 @@ class mainInterface:
             self.hexLabel.destroy()
 
             self.l1.destroy()
+            self.l1.destroy()
 
             self.patternchoosen.destroy()
             image = Image.open(r"C:\Users\kailuu\Pictures\downloadphoto.png")
@@ -329,9 +368,17 @@ class mainInterface:
             photoslice.grid(row=0, column=2,
                             columnspan=2, rowspan=2, padx=5, pady=5)
 
+
         else:
             my_text = "click here to pick colors from a photo: "
+            self.lKailee = Label(master, text="OR pick one of these:")
+            self.lKailee.grid(row=2, column=0, sticky=W, pady=2)
+            self.c1 = ttk.Button(master, text='cool colors ', command=self.coolColors)
+            self.c2 = ttk.Button(master, text='warm colors', command=self.warmColors)
+            self.c1.grid(row=2, column=1, sticky=W, pady=2)
+            self.c2.grid(row=2, column=2, sticky=W, pady=2)
             self.c.config(text=my_text)
+
             image = Image.open(r"C:\Users\kailuu\Pictures\wheelofgod.png")
             photo = ImageTk.PhotoImage(image)
             photoslice = Label(master, image=photo)
@@ -339,23 +386,23 @@ class mainInterface:
             photoslice = Button(master, image=photo, command= self.colorpicker)
             photoslice.grid(row=0, column=2,
                             columnspan=2, rowspan=2, padx=5, pady=5)
-            l1 = Label(master, text="1) color pattern type: ", font=880)
+            self.l1 = Label(master, text="1) color pattern type: ", font=800)
             mode = True
-            l1.grid(row=0, column=0, sticky=W, pady=2)
-            self.hexEntry = Entry(master, text= self.rgb)
-            self.hexLabel = Label(master, text="enter your own hex code Here:", font=880)
-            self.hexLabel.grid(row=2, column=0, sticky=W, pady=2)
-            self.hexEntry.grid(row=2, column=1, sticky=W, pady=2)
+            self.l1.grid(row=0, column=0, sticky=W, pady=2)
+            self.hexEntry = Entry(master, text= "")
+            self.hexLabel = Label(master, text="2) enter your own hex code Here:")
+            self.hexLabel.grid(row=1, column=0, sticky=W, pady=2)
+            self.hexEntry.grid(row=1, column=1, sticky=W, pady=2)
 
-            patternchoosen = ttk.Combobox(master, width=27, )
-            patternchoosen['values'] = ('Random', 'Monochrome',
+            self.patternchoosen = ttk.Combobox(master, width=27, )
+            self.patternchoosen['values'] = ('Random', 'Monochrome',
                                         'Complimentary',
                                         'split complimentary',
                                         'triadic',
                                         'tetradic', 'analagous',)
 
             # this will arrange entry widgets
-            patternchoosen.grid(row=0, column=1, pady=2)
+            self.patternchoosen.grid(row=0, column=1, pady=2)
 
             # button widget
 
@@ -385,7 +432,7 @@ class mainInterface:
                             'Complimentary',
                             'split complimentary',
                             'triadic']
-            if (self.hexEntry.get() != ""):
+            if (self.hexEntry.get()!= ""):
                 selectedColor = self.hexEntry.get()
                 if selectedColor[0] != '#':
                     messagebox.showerror("ERROR", "Hex Code must start with #")
@@ -451,6 +498,7 @@ class mainInterface:
         color6.grid(row=3, column=5, sticky=W)
         selectedColor = ""
         self.hexEntry.delete(0, END)
+        self.hexEntry.se
         self.hexEntry.insert(0, "")
         self.l3.config(text=printedcolors[0])
         self.l4.config(text=printedcolors[1])
@@ -460,6 +508,8 @@ class mainInterface:
         self.L8.config(text=printedcolors[5])
 
     def warmColors(self):
+        print("size", master.winfo_reqheight())
+        print(master.winfo_reqwidth())
         import WarmColors
         printedcolors = WarmColors.WarmColors()
         self.mycolors = printedcolors

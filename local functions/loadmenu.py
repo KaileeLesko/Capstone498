@@ -1,8 +1,8 @@
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import ttk
-from Monochrome import monochrome
-from complimentary import comp
+#from Monochrome import monochrome
+#from complimentary import comp
 from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import messagebox
@@ -64,7 +64,7 @@ def launchWindow():
 
 
 b1 = Button(window, text="Log in ", command=launchWindow)
-b2 = Button(window, text="Create Account ", command=launchnewuser)
+b2 = Button(window, text="Create Account ", command= launchnewuser)
 b2.grid(row=7, column=2, columnspan=2)
 b1.grid(row=6, column=2, columnspan=2)
 # entry widgets, used to take entry from user

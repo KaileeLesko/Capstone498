@@ -5,6 +5,9 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
 import pymysql
+import re
+regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
+
 
 
 window= tk.Tk()
@@ -27,23 +30,29 @@ def submit():
     #insert into table
 
     if (entry== False):
-        conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
-                               password="Eeliak99.", database="capstone")
+        if (re.search(regex,f_username.get())):
 
-        c = conn.cursor()
-        sql = "INSERT INTO `users` (`username`, `first_name`, `last_name`, `password`) VALUES (%s, %s, %s, %s)"
-        c.execute(sql, (f_username.get(),f_name.get(), f_last_name.get(), f_password.get()))
-        conn.commit()
-        sql = "SELECT * FROM `users`"
-        c.execute(sql)
-        result = c.fetchall()
-        user= result
-        f_username.delete(0,END)
-        f_name.delete(0,END)
-        f_last_name.delete(0,END)
-        f_password.delete(0,END)
-        messagebox.showinfo("Success!", "Your account has been created!")
-        window.destroy()
+                conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
+                                       password="Eeliak99.", database="capstone")
+
+                c = conn.cursor()
+                sql = "INSERT INTO `users` (`username`, `first_name`, `last_name`, `password`) VALUES (%s, %s, %s, %s)"
+                c.execute(sql, (f_username.get(),f_name.get(), f_last_name.get(), f_password.get()))
+                conn.commit()
+                sql = "SELECT * FROM `users`"
+                c.execute(sql)
+                result = c.fetchall()
+                user= result
+                f_username.delete(0,END)
+                f_name.delete(0,END)
+                f_last_name.delete(0,END)
+                f_password.delete(0,END)
+
+                messagebox.showinfo("Success!", "Your account has been created!")
+                window.destroy()
+        else:
+            messagebox.showerror("ERROR", "This is not a valid email, the window will now close")
+            window.destroy()
     else:
         messagebox.showerror("ERROR", "This username is already in use")
 
@@ -79,7 +88,7 @@ L_password= Label(window, text= "ENTER A PASSOWORD HERE")
 L_password.grid(row=4, column= 0)
 
 
-submit = Button(window, text= "Create",command= submit)
+submit = Button(window, text= "Create",command=  submit)
 submit.grid(row=5, column=1,  columnspan= 2)
 
 
