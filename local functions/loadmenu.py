@@ -28,7 +28,7 @@ window.resizable(height=None, width=None)
 
 window.title("Color  Coordinator")
 
-imager = Image.open(r"C:\Users\kailuu\Pictures\untitled_artwork.png")
+imager = Image.open("untitled_artwork.png")
 photo = ImageTk.PhotoImage(imager)
 
 photoslice = Label(window, image=photo)

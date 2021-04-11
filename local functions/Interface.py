@@ -315,7 +315,7 @@ class mainInterface:
     def createUpload(self):
         masterthis= Toplevel()
         masterthis.title("upload artwork")
-        image = Image.open(r"C:\Users\kailuu\Pictures\downloadphoto.png")
+        image = Image.open("downloadphoto.png")
         photo= ImageTk.PhotoImage(image)
         uploader = Button(masterthis, image=photo)
         uploader.image = photo
@@ -407,7 +407,7 @@ class mainInterface:
             self.l1.destroy()
 
             self.patternchoosen.destroy()
-            image = Image.open(r"C:\Users\kailuu\Pictures\downloadphoto.png")
+            image = Image.open("downloadphoto.png")
             photo = ImageTk.PhotoImage(image)
             photoslice = Label(master, image=photo)
             photoslice.image = photo
