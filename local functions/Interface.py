@@ -668,12 +668,18 @@ class mainInterface:
 
 
 master = Tk()
+Width = master.winfo_screenwidth()
+Height = master.winfo_screenheight()
+# master.attributes('-fullscreen', True)
+width= master.winfo_screenwidth()
+height= master.winfo_screenheight()
+#setting tkinter window size
+master.geometry("%dx%d" % (width, height))
 master.resizable(height=None, width=None)
 master.title("Color  Coordinator")
 mainInterface(master)
-
-
-
+# master.geometry("WidthxHeight")
+master.resizable(0, 0)
 master.grid_columnconfigure(0, weight=1)
 master.grid_columnconfigure(1, weight=1)
 master.grid_columnconfigure(2, weight=1)
