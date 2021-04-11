@@ -7,6 +7,7 @@ global filename
 from analagous import analagous
 from RetrieveColorFromPhoto import colorFromPhoto
 import os
+import smtplib, ssl
 import base64
 import Constants
 import pymysql
@@ -39,6 +40,7 @@ class mainInterface:
         self.file = Menu(self.menubar, tearoff=0)
         self.menubar.add_cascade(label='Settings', menu=self.file)
         self.menubar.add_cascade(label='Favorites', command=  self.goToFaves)
+        self.menubar.add_cascade(label='Upload to Gallery', command=self.createUpload)
         self.menubar.add_cascade(label='how to', command=self.helpWindow)
         self.menubar.add_cascade(label="acknowledgement", command=self.acknowledgement)
         self.submenu = Menu(self.file)
@@ -58,12 +60,13 @@ class mainInterface:
         self.six=Label(text= "no")
         self.r = random.randint(0, 255)
         self.g = random.randint(0, 255)
+        self.imageUplaoded=""
         self.b = random.randint(0, 255)
         self.rgb = '#%02X%02X%02X' % (self.r, self.g, self.b)
 
         self.var = IntVar()
         self.var1 = IntVar()
-        self.l1 = Label(master, text=" 1) Choose a color pattern type: ", font=800)
+        self.l1 = Label(master, text=" 1) Choose a color pattern type: ")
         self.l1.grid(row=0, column=0, sticky=W, pady=2)
 
         self.c1 = ttk.Button(master, text='cool colors ', command=self.coolColors)
@@ -76,7 +79,7 @@ class mainInterface:
 
         self.hexEntry = Entry(master, text="")
         self.hexEntry.grid(row=1, column=1, sticky=W, pady=2)
-
+        self.user= Constants.setUser()
         self.hexLabel = Label(master, text=" 2) enter your own hex code Here:")
         self.hexLabel.grid(row=1, column=0, sticky=W, pady=2)
 
@@ -151,7 +154,7 @@ class mainInterface:
 
         self.favoritedImages = []
 
-        self.b1 = Button(master, text="Generate Pallete", command=self.changeColorSqures)
+        self.b1 = Button(master,text="Generate Pallete", command=self.changeColorSqures)
         self.b1.grid(row=2, column=3, sticky=W)
 
 
@@ -226,7 +229,7 @@ class mainInterface:
         print("lnght of f" ,len(self.favorite))
         self.favorites=[]
         for i in range(0,len(self.favorite)):
-            if self.favorite[i][0] == Constants.setUser():
+            if self.favorite[i][0] == self.user:
                 self.favorites.append(self.favorite[i])
                 print("done this")
 
@@ -309,6 +312,50 @@ class mainInterface:
         b.grid(row=2, column=0)
         self.b2.grid(row=3, column=0)
 
+    def createUpload(self):
+        masterthis= Toplevel()
+        masterthis.title("upload artwork")
+        image = Image.open(r"C:\Users\kailuu\Pictures\downloadphoto.png")
+        photo= ImageTk.PhotoImage(image)
+        uploader = Button(masterthis, image=photo)
+        uploader.image = photo
+        uploader = Button(masterthis,image= photo, command=self.clickUpload)
+        uploader.grid(row=0, column=1)
+        global uploadname
+        self.userEmail= Entry(masterthis)
+        self.userPassword= Entry(masterthis)
+        self.userEmail.insert(0,"your email address here")
+        self.userPassword.insert(0,"your email password here")
+        self.userPassword.grid(row=2, column = 0)
+        self.userEmail.grid(row=2, column= 2)
+        self.uploadname = Entry(masterthis)
+        self.uploadname.grid(row=1, column=2)
+        label = Label(masterthis, text="Enter the artwork's name here: ")
+        label.grid(row=1, column=0)
+        sumbitButton = Button(masterthis, text="submit", command=self.submitImage)
+        sumbitButton.grid(row=3, column=1)
+
+    def submitImage(self):
+        port = 465  # For SSL
+        smtp_server = "smtp.gmail.com"
+        sender_email = self.userEmail.get()# Enter your address
+        receiver_email ="capstone498colorcoordinator@gmail.com" # Enter receiver address
+        password = self.userPassword.get()
+        message = self.uploadname.get(), base64.b64encode(open(self.filename, 'rb').read())
+
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message)
+        messagebox.showinfo("sent", "your email has sent.")
+
+    def clickUpload(self):
+        self.filename = filedialog.askopenfilename(initialdir="/",
+                                                   title="Select a File"
+                                                   )
+        self.uploadedimage = Image.open(self.filename)
+
+
 
     def executer(self):
         execute(self.mycolors[0], self.mycolors[1], self.mycolors[2], self.mycolors[3], self.mycolors[4], self.mycolors[5], self.e1.get())
@@ -316,8 +363,8 @@ class mainInterface:
 
     def addToFaves(self):
 
-        print("ENTRY", Constants.setUser())
-        print("COLOR IS",self.mycolors[2])
+        # print("ENTRY", Constants.setUser())
+        # print("COLOR IS",self.mycolors[2])
 
         CreateMergedImage.create(self.mycolors[0], self.mycolors[1], self.mycolors[2], self.mycolors[3], self.mycolors[4], self.mycolors[5])
         conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
@@ -328,7 +375,7 @@ class mainInterface:
         import base64
         converted_string = base64.b64encode(open("myImageColor.png", "rb").read())
         sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
-        c.execute(sql, (Constants.setUser(), converted_string))
+        c.execute(sql, self.user, converted_string)
         conn.commit()
         sql = "SELECT * FROM favoriteImages"
         c.execute(sql)
@@ -386,7 +433,7 @@ class mainInterface:
             photoslice = Button(master, image=photo, command= self.colorpicker)
             photoslice.grid(row=0, column=2,
                             columnspan=2, rowspan=2, padx=5, pady=5)
-            self.l1 = Label(master, text="1) color pattern type: ", font=800)
+            self.l1 = Label(master, text="1) color pattern type: ")
             mode = True
             self.l1.grid(row=0, column=0, sticky=W, pady=2)
             self.hexEntry = Entry(master, text= "")
@@ -621,6 +668,7 @@ class mainInterface:
 
 
 master = Tk()
+master.resizable(height=None, width=None)
 master.title("Color  Coordinator")
 mainInterface(master)
 

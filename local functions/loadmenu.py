@@ -24,6 +24,7 @@ def retrieveUser():
 
 
 window = tk.Tk()
+window.resizable(height=None, width=None)
 
 window.title("Color  Coordinator")
 
