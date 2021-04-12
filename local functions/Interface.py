@@ -154,7 +154,9 @@ class mainInterface:
 
         self.favoritedImages = []
 
-        self.b1 = Button(master,text="Generate Pallete", command=self.changeColorSqures)
+        self.b1 = Button(master,text="Generate Pallete", command=self.changeColorSqures, style= "green")
+
+
         self.b1.grid(row=2, column=3, sticky=W)
 
 
