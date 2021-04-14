@@ -20,7 +20,6 @@ from complimentary import comp
 from PIL import Image, ImageTk
 from SplitComplimentary import splitComplementary
 from Tetriadic import tetradic
-
 from Triadic import Triadic
 from tkinter import filedialog
 from tkinter import colorchooser
@@ -44,13 +43,14 @@ class mainInterface:
         self.menubar.add_cascade(label='how to', command=self.helpWindow)
         self.menubar.add_cascade(label="acknowledgement", command=self.acknowledgement)
         self.submenu = Menu(self.file)
+        self.filename= ""
         self.submenu.add_command(label="Dark Mode", command=self.switchModes)
         self.submenu.add_command(label="Light Mode", command=self.lightModes)
         self.file.add_cascade(label='Visual Settings', menu= self.submenu, underline=0)
         # mode.add_command(label ='Dark Mode', command =mainInterface.switchModes)
         master.config(menu=self.menubar)
         self.lastindex = 6
-
+        self.encrypter= ""
         self.printedcolors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
         self.one= Label(text= "no")
         self.two=Label(text= "no")
@@ -97,7 +97,7 @@ class mainInterface:
         self.patternchoosen.grid(row=0, column=1, pady=2)
 
 
-        self.image = Image.open(r"C:\Users\kailuu\Pictures\wheelofgod.png")
+        self.image = Image.open(self.resource_path("wheelofgod.png"))
         self.photo = ImageTk.PhotoImage(self.image)
 
         self.my_text = "click here to pick colors from a photo: "
@@ -154,7 +154,7 @@ class mainInterface:
 
         self.favoritedImages = []
 
-        self.b1 = Button(master,text="Generate Pallete", command=self.changeColorSqures, style= "green")
+        self.b1 = Button(master,text="Generate Pallete", command=self.changeColorSqures)
 
 
         self.b1.grid(row=2, column=3, sticky=W)
@@ -317,7 +317,7 @@ class mainInterface:
     def createUpload(self):
         masterthis= Toplevel()
         masterthis.title("upload artwork")
-        image = Image.open("downloadphoto.png")
+        image = Image.open(self.resource_path("downloadphoto.png"))
         photo= ImageTk.PhotoImage(image)
         uploader = Button(masterthis, image=photo)
         uploader.image = photo
@@ -334,28 +334,71 @@ class mainInterface:
         self.uploadname.grid(row=1, column=2)
         label = Label(masterthis, text="Enter the artwork's name here: ")
         label.grid(row=1, column=0)
-        sumbitButton = Button(masterthis, text="submit", command=self.submitImage)
-        sumbitButton.grid(row=3, column=1)
+        # uploader = Button(masterthis, text="upload file", command=self.click)
+        # uploader.grid(row=0, column=1)
+        self.uploadname = Entry(masterthis)
+        self.uploadname.grid(row=1, column=2)
+        label = Label(masterthis, text="Enter the artwork's name here: ")
+        label.grid(row=1, column=0)
+        sumbitButton = Button(masterthis, text="submit", command= lambda: self.submitImage())
+        sumbitButton.grid(row=2, column=1)
 
     def submitImage(self):
-        port = 465  # For SSL
-        smtp_server = "smtp.gmail.com"
-        sender_email = self.userEmail.get()# Enter your address
-        receiver_email ="capstone498colorcoordinator@gmail.com" # Enter receiver address
+        #used this source to learn email work: https://realpython.com/python-send-email/
+        from email.mime.text import MIMEText
+        from email.mime.multipart import MIMEMultipart
+
+        sender_email =self.userEmail.get()
+        receiver_email = "capstone498colorcoordinator@gmail.com"
         password = self.userPassword.get()
-        message = self.uploadname.get(), base64.b64encode(open(self.filename, 'rb').read())
+
+        message = MIMEMultipart("alternative")
+        message["Subject"] = "Artwork Submission"
+        message["From"] = sender_email
+        message["To"] = receiver_email
+
+
+        text = "\n the title is: "+ self.uploadname.get() + \
+               "the artist is: "+ self.username+ "my submission is: "+ str(self.encrypter)
+
+        part1 = MIMEText(text, "plain")
+
+        message.attach(part1)
 
         context = ssl.create_default_context()
-        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
             server.login(sender_email, password)
-            server.sendmail(sender_email, receiver_email, message)
-        messagebox.showinfo("sent", "your email has sent.")
+            server.sendmail(
+                sender_email, receiver_email, message.as_string()
+            )
+
+    def click(self):
+        self.filename = filedialog.askopenfilename(initialdir="/",
+                                              title="Select a File"
+                                              )
+        name, extension = os.path.splitext(self.filename)
+        if (".PNG") != extension:
+            messagebox.showerror("ERROR", "File must be a .PNG type")
+        else:
+           
+            self.imageUplaoded = Image.open(self.filename)
+
+    def submit(self):
+        conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
+                               password="Eeliak99.", database="capstone")
+        checker = conn.cursor()
+        checker.execute("SELECT * FROM slideshow")
+        sql = "INSERT INTO `slideshow` (`username`, `img`, `title`) VALUES (%s, %s, %s)"
+        checker.execute(sql, (self.userEmail, self.imageUplaoded, self.uploadname.get()))
+        conn.close()
+
 
     def clickUpload(self):
         self.filename = filedialog.askopenfilename(initialdir="/",
                                                    title="Select a File"
                                                    )
         self.uploadedimage = Image.open(self.filename)
+        self.encrypter= base64.b64encode(open(self.filename, "rb").read())
 
 
 
@@ -371,7 +414,7 @@ class mainInterface:
         CreateMergedImage.create(self.mycolors[0], self.mycolors[1], self.mycolors[2], self.mycolors[3], self.mycolors[4], self.mycolors[5])
         conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                                password="Eeliak99.", database="capstone")
-        img = Image.open("myImageColor.PNG")
+        img = Image.open(self.resource_path("myImageColor.PNG"))
 
         c = conn.cursor()
         import base64
@@ -409,7 +452,7 @@ class mainInterface:
             self.l1.destroy()
 
             self.patternchoosen.destroy()
-            image = Image.open("downloadphoto.png")
+            image = Image.open(self.resource_path("downloadphoto.png"))
             photo = ImageTk.PhotoImage(image)
             photoslice = Label(master, image=photo)
             photoslice.image = photo
@@ -428,7 +471,7 @@ class mainInterface:
             self.c2.grid(row=2, column=2, sticky=W, pady=2)
             self.c.config(text=my_text)
 
-            image = Image.open(r"C:\Users\kailuu\Pictures\wheelofgod.png")
+            image = Image.open(self.resource_path("wheelofgod.png"))
             photo = ImageTk.PhotoImage(image)
             photoslice = Label(master, image=photo)
             photoslice.image = photo
@@ -467,7 +510,7 @@ class mainInterface:
         self.L8.config(background="#ffffff", foreground="#000000")
 
         self.photoslice.destroy()
-        image = Image.open(r"C:\Users\kailuu\Pictures\wheelofgod.png")
+        image = Image.open(self.resource_path("wheelofgod.png"))
         photo = ImageTk.PhotoImage(image)
         photoslice = Label(master, image=photo)
         photoslice.image = photo
@@ -483,6 +526,7 @@ class mainInterface:
                             'triadic']
             if (self.hexEntry.get()!= ""):
                 selectedColor = self.hexEntry.get()
+
                 if selectedColor[0] != '#':
                     messagebox.showerror("ERROR", "Hex Code must start with #")
                     if (int(str(selectedColor), 16)) > 16777216:
@@ -667,6 +711,16 @@ class mainInterface:
 
         self.photoslice.destroy()
 
+    def resource_path(self,relative_path):
+        """ Get absolute path to resource, works for dev and for PyInstaller """
+        try:
+            # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
+
 
 
 master = Tk()
@@ -699,5 +753,6 @@ master.grid_rowconfigure(6, weight=1)
 master.grid_rowconfigure(7, weight=1)
 master.grid_columnconfigure(6, weight=1)
 master.grid_columnconfigure(7, weight=1)
+
 
 mainloop()

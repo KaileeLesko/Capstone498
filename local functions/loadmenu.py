@@ -1,14 +1,22 @@
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import ttk
-#from Monochrome import monochrome
-#from complimentary import comp
+import os
 from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import messagebox
 import pymysql
 
 
+def resource_path( relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 def launchnewuser():
     import CreateUser
 
@@ -28,8 +36,8 @@ window.resizable(height=None, width=None)
 
 window.title("Color  Coordinator")
 
-imager = Image.open("untitled_artwork.png")
-photo = ImageTk.PhotoImage(imager)
+TEST = Image.open(resource_path("Untitled_Artwork.png"))
+photo = ImageTk.PhotoImage(TEST)
 
 photoslice = Label(window, image=photo)
 photoslice.image = photo
@@ -83,6 +91,8 @@ window.grid_columnconfigure(1, weight=1)
 window.grid_columnconfigure(2, weight=1)
 window.grid_rowconfigure(0, weight=1)
 window.grid_rowconfigure(1, weight=1)
+
+
 
 
 mainloop()

@@ -9,6 +9,7 @@ def rgb_to_hex(rgb):
     return '%02x%02x%02x' % rgb
 
 
+
 global favorites, favorite
 def RGB2HSL(R, G, B):
     R = R / 255
