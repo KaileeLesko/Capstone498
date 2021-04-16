@@ -1,7 +1,9 @@
 import random
 
+#referenced this website: https://www.andrewshay.me/blog/find-most-common-color-in-image-with-python/
 
 def colorFromPhoto(img):
+    #the colors are rounded here to prevent duplicates
     colors = [255, 223, 191, 159, 127, 95, 63, 31, 0]
     color_count = {}
     original_color_count = {}
@@ -68,10 +70,11 @@ def colorFromPhoto(img):
 
     array = []
     i = 0
+
     while len(array) < 6:
         randomed = random.choice(lister)
         if (randomed not in array):
             array.append(randomed)
 
-    print(array)
+
     return array

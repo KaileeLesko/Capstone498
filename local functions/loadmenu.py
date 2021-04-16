@@ -36,7 +36,7 @@ window.resizable(height=None, width=None)
 
 window.title("Color  Coordinator")
 
-TEST = Image.open(resource_path("Untitled_Artwork.png"))
+TEST = Image.open(resource_path("../build/Images needed to Run/Untitled_Artwork.png"))
 photo = ImageTk.PhotoImage(TEST)
 
 photoslice = Label(window, image=photo)

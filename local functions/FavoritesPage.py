@@ -39,7 +39,7 @@ scroll_bar.pack(side=RIGHT,
 
 mylist = Listbox(root,
                  yscrollcommand=scroll_bar.set)
-img= PhotoImage(file="img1.png")
+img= PhotoImage(file="../build/Images needed to Run/img1.png")
 conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                                password="Eeliak99.", database="capstone")
 

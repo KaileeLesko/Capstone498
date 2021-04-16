@@ -97,7 +97,7 @@ class mainInterface:
         self.patternchoosen.grid(row=0, column=1, pady=2)
 
 
-        self.image = Image.open(self.resource_path("wheelofgod.png"))
+        self.image = Image.open(self.resource_path("../build/Images needed to Run/wheelofgod.png"))
         self.photo = ImageTk.PhotoImage(self.image)
 
         self.my_text = "click here to pick colors from a photo: "
@@ -153,8 +153,8 @@ class mainInterface:
         self.uploadButton = Button(master, text="Upload File", image=self.photo, command= self.uploadfile)
 
         self.favoritedImages = []
-
-        self.b1 = Button(master,text="Generate Pallete", command=self.changeColorSqures)
+        ttk.Style().configure('green/black.TButton', foreground='green', background='black')
+        self.b1 = Button(master,text="Generate Pallete", style='green/black.TButton', command=self.changeColorSqures)
 
 
         self.b1.grid(row=2, column=3, sticky=W)
@@ -315,33 +315,38 @@ class mainInterface:
         self.b2.grid(row=3, column=0)
 
     def createUpload(self):
-        masterthis= Toplevel()
-        masterthis.title("upload artwork")
-        image = Image.open(self.resource_path("downloadphoto.png"))
+        self.masterthis= Toplevel()
+        self.masterthis.title("upload artwork")
+
+
+        self.masterthis.attributes("-topmost", True)
+        image = Image.open(self.resource_path("../build/Images needed to Run/downloadphoto.png"))
         photo= ImageTk.PhotoImage(image)
-        uploader = Button(masterthis, image=photo)
+        uploader = Button(self.masterthis, image=photo)
         uploader.image = photo
-        uploader = Button(masterthis,image= photo, command=self.clickUpload)
+        uploader = Button(self.masterthis,image= photo, command=self.click)
         uploader.grid(row=0, column=1)
         global uploadname
-        self.userEmail= Entry(masterthis)
-        self.userPassword= Entry(masterthis)
-        self.userEmail.insert(0,"your email address here")
-        self.userPassword.insert(0,"your email password here")
-        self.userPassword.grid(row=2, column = 0)
-        self.userEmail.grid(row=2, column= 2)
-        self.uploadname = Entry(masterthis)
-        self.uploadname.grid(row=1, column=2)
-        label = Label(masterthis, text="Enter the artwork's name here: ")
+        self.userEmail= Entry(self.masterthis)
+        self.userPassword= Entry(self.masterthis)
+        self.userPassLabel = Label(self.masterthis, text="your email password here")
+        self.userPassLabel.grid(row=2, column=2)
+        self.userEmailLabel= Label(self.masterthis,text= "your email address here")
+        self.userEmailLabel.grid(row=2, column=0)
+        self.userPassword.grid(row=2, column = 3)
+        self.userEmail.grid(row=2, column= 1)
+        self.uploadname = Entry(self.masterthis)
+        self.uploadname.grid(row=1, column=1)
+        label = Label(self.masterthis, text="Enter the artwork's name here: ")
         label.grid(row=1, column=0)
         # uploader = Button(masterthis, text="upload file", command=self.click)
         # uploader.grid(row=0, column=1)
-        self.uploadname = Entry(masterthis)
-        self.uploadname.grid(row=1, column=2)
-        label = Label(masterthis, text="Enter the artwork's name here: ")
+        self.uploadname = Entry(self.masterthis)
+        # self.uploadname.grid(row=1, column=3)
+        label = Label(self.masterthis, text="Enter the artwork's name here: ")
         label.grid(row=1, column=0)
-        sumbitButton = Button(masterthis, text="submit", command= lambda: self.submitImage())
-        sumbitButton.grid(row=2, column=1)
+        sumbitButton = Button(self.masterthis, text="submit", command= lambda: self.submitImage())
+        sumbitButton.grid(row=3, column=1)
 
     def submitImage(self):
         #used this source to learn email work: https://realpython.com/python-send-email/
@@ -377,11 +382,14 @@ class mainInterface:
                                               title="Select a File"
                                               )
         name, extension = os.path.splitext(self.filename)
+        self.masterthis.lift()
         if (".PNG") != extension:
             messagebox.showerror("ERROR", "File must be a .PNG type")
         else:
-           
             self.imageUplaoded = Image.open(self.filename)
+            messagebox.showinfo("success", "successfully uploaded image")
+
+
 
     def submit(self):
         conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
@@ -414,11 +422,11 @@ class mainInterface:
         CreateMergedImage.create(self.mycolors[0], self.mycolors[1], self.mycolors[2], self.mycolors[3], self.mycolors[4], self.mycolors[5])
         conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                                password="Eeliak99.", database="capstone")
-        img = Image.open(self.resource_path("myImageColor.PNG"))
+        img = Image.open(self.resource_path("../build/Images needed to Run/myImageColor.png"))
 
         c = conn.cursor()
         import base64
-        converted_string = base64.b64encode(open("myImageColor.png", "rb").read())
+        converted_string = base64.b64encode(open("../build/Images needed to Run/myImageColor.png", "rb").read())
         sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
         c.execute(sql, self.user, converted_string)
         conn.commit()
@@ -452,7 +460,7 @@ class mainInterface:
             self.l1.destroy()
 
             self.patternchoosen.destroy()
-            image = Image.open(self.resource_path("downloadphoto.png"))
+            image = Image.open(self.resource_path("../build/Images needed to Run/downloadphoto.png"))
             photo = ImageTk.PhotoImage(image)
             photoslice = Label(master, image=photo)
             photoslice.image = photo
@@ -471,7 +479,7 @@ class mainInterface:
             self.c2.grid(row=2, column=2, sticky=W, pady=2)
             self.c.config(text=my_text)
 
-            image = Image.open(self.resource_path("wheelofgod.png"))
+            image = Image.open(self.resource_path("../build/Images needed to Run/wheelofgod.png"))
             photo = ImageTk.PhotoImage(image)
             photoslice = Label(master, image=photo)
             photoslice.image = photo
@@ -510,7 +518,7 @@ class mainInterface:
         self.L8.config(background="#ffffff", foreground="#000000")
 
         self.photoslice.destroy()
-        image = Image.open(self.resource_path("wheelofgod.png"))
+        image = Image.open(self.resource_path("../build/Images needed to Run/wheelofgod.png"))
         photo = ImageTk.PhotoImage(image)
         photoslice = Label(master, image=photo)
         photoslice.image = photo
@@ -726,15 +734,15 @@ class mainInterface:
 master = Tk()
 Width = master.winfo_screenwidth()
 Height = master.winfo_screenheight()
-# master.attributes('-fullscreen', True)
+
 width= master.winfo_screenwidth()
 height= master.winfo_screenheight()
-#setting tkinter window size
+
 master.geometry("%dx%d" % (width, height))
 master.resizable(height=None, width=None)
 master.title("Color  Coordinator")
 mainInterface(master)
-# master.geometry("WidthxHeight")
+
 master.resizable(0, 0)
 master.grid_columnconfigure(0, weight=1)
 master.grid_columnconfigure(1, weight=1)
@@ -753,6 +761,8 @@ master.grid_rowconfigure(6, weight=1)
 master.grid_rowconfigure(7, weight=1)
 master.grid_columnconfigure(6, weight=1)
 master.grid_columnconfigure(7, weight=1)
+
+
 
 
 mainloop()

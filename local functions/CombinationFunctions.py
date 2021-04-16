@@ -1,6 +1,9 @@
 import colorsys
 import ausxillaryFunctions
 
+
+#this file creates colors 180 degrees apart on the color wheel
+
 def threeAnalagous(color, color1, color2):
     array = []
     color = ausxillaryFunctions.hex_to_rgb(color
