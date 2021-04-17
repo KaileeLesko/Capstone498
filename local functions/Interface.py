@@ -415,10 +415,6 @@ class mainInterface:
         self.item2.destroy()
 
     def addToFaves(self):
-
-        # print("ENTRY", Constants.setUser())
-        # print("COLOR IS",self.mycolors[2])
-
         CreateMergedImage.create(self.mycolors[0], self.mycolors[1], self.mycolors[2], self.mycolors[3], self.mycolors[4], self.mycolors[5])
         conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                                password="Eeliak99.", database="capstone")
@@ -428,7 +424,7 @@ class mainInterface:
         import base64
         converted_string = base64.b64encode(open("../build/Images needed to Run/myImageColor.png", "rb").read())
         sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
-        c.execute(sql, self.user, converted_string)
+        c.execute(sql, (self.username, converted_string))
         conn.commit()
         sql = "SELECT * FROM favoriteImages"
         c.execute(sql)

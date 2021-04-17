@@ -316,7 +316,6 @@ def lastsix(lastindex, rooter,favorites,favorite):
             if (count == 1):
                 lastindex = i
                 if i >= len(favorites):
-
                     newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
                     newimg = newimg.resize((600, 100))
                     photo1 = ImageTk.PhotoImage(newimg)
@@ -333,12 +332,12 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     newimg = newimg.resize((600, 100))
                     temp1 = i
                     photo1 = ImageTk.PhotoImage(newimg)
-                    row1 = 1
-                    column1 = 1
+                    row1 = 3
+                    column1 = 2
                     rooter.one = Button(rooter, image=photo1,
                                         command=lambda: multipleOptions(row1, column1, rooter, i, favorite, favorites,
                                                                         lastindex, temp1))
-                    rooter.one.grid(row=1, column=1)
+                    rooter.one.grid(row=3, column=2)
                 count = 2
             elif (count == 2):
                 print("index:", i)
@@ -347,7 +346,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     newimg = newimg.resize((600, 100))
                     photo2 = ImageTk.PhotoImage(newimg)
                     rooter.two = Label(rooter, image=photo2)
-                    rooter.two.grid(row=2, column=1)
+                    rooter.two.grid(row=2, column=2)
                 else:
                     if os.path.exists('../build/Images needed to Run/two.png'):
                         os.remove('../build/Images needed to Run/two.png')
@@ -359,11 +358,11 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     temp2 = i
                     photo2 = ImageTk.PhotoImage(newimg)
                     row2 = 2
-                    column2 = 1
+                    column2 = 2
                     rooter.two = Button(rooter, image=photo2,
                                         command=lambda: multipleOptions(row2, column2, rooter, i, favorite, favorites,
                                                                         lastindex, temp2))
-                    rooter.two.grid(row=2, column=1)
+                    rooter.two.grid(row=2, column=2)
                 count = 3
 
             elif (count == 3):
@@ -372,7 +371,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     newimg = newimg.resize((600, 100))
                     photo3 = ImageTk.PhotoImage(newimg)
                     rooter.three = Label(rooter, image=photo3)
-                    rooter.three.grid(row=3, column=1)
+                    rooter.three.grid(row=1, column=2)
                 else:
                     if os.path.exists('../build/Images needed to Run/three.png'):
                         os.remove('../build/Images needed to Run/three.png')
@@ -384,12 +383,12 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     newimg = newimg.resize((600, 100))
                     temp3 = i
                     photo3 = ImageTk.PhotoImage(newimg)
-                    row3 = 3
-                    column3 = 1
+                    row3 = 1
+                    column3 = 2
                     rooter.three = Button(rooter, image=photo3,
                                           command=lambda: multipleOptions(row3, column3, rooter, i, favorite, favorites,
                                                                           lastindex, temp3))
-                    rooter.three.grid(row=3, column=1)
+                    rooter.three.grid(row=1, column=2)
                 count = 4
             elif (count == 4):
                 print("LEN OF FAV", len(favorites), i)
@@ -398,7 +397,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     newimg = newimg.resize((600, 100))
                     photo4 = ImageTk.PhotoImage(newimg)
                     rooter.four = Label(rooter, image=photo4)
-                    rooter.four.grid(row=1, column=2)
+                    rooter.four.grid(row=3, column=1)
                 else:
                     if os.path.exists('../build/Images needed to Run/four.png'):
                         os.remove('../build/Images needed to Run/four.png')
@@ -409,13 +408,13 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     newimg = Image.open('../build/Images needed to Run/four.png')
                     newimg = newimg.resize((600, 100))
                     photo4 = ImageTk.PhotoImage(newimg)
-                    row4 = 1
+                    row4 = 3
                     temp4=i
-                    column4 = 2
+                    column4 = 1
                     rooter.four = Button(rooter, image=photo4,
                                          command=lambda: multipleOptions(row4, column4, rooter, i, favorite, favorites,
                                                                          lastindex, temp4))
-                    rooter.four.grid(row=1, column=2)
+                    rooter.four.grid(row=3, column=1)
                 count = 5
             elif (count == 5):
                 if i >= len(favorites):
@@ -423,7 +422,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     newimg = newimg.resize((600, 100))
                     photo5 = ImageTk.PhotoImage(newimg)
                     rooter.five = Label(rooter, image=photo5)
-                    rooter.five.grid(row=2, column=2)
+                    rooter.five.grid(row=2, column=1)
                 else:
                     if os.path.exists('../build/Images needed to Run/five.png'):
                         os.remove('../build/Images needed to Run/five.png')
@@ -436,11 +435,11 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     temp5 = i
                     photo5 = ImageTk.PhotoImage(newimg)
                     row5 = 2
-                    column5 = 2
+                    column5 = 1
                     rooter.five = Button(rooter, image=photo5,
                                          command=lambda: multipleOptions(row5, column5, rooter, i, favorite, favorites,
                                                                          lastindex, temp5))
-                    rooter.five.grid(row=2, column=2)
+                    rooter.five.grid(row=2, column=1)
                 count = 6
             elif count == 6:
                 if i >= len(favorites):
@@ -448,7 +447,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     newimg = newimg.resize((600, 100))
                     photo6 = ImageTk.PhotoImage(newimg)
                     rooter.six = Label(rooter, image=photo6)
-                    rooter.six.grid(row=3, column=2)
+                    rooter.six.grid(row=1, column=1)
                 else:
                     if os.path.exists('six.png'):
                         os.remove('six.png')
@@ -460,12 +459,12 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     newimg = newimg.resize((600, 100))
                     temp6 = i
                     photo6 = ImageTk.PhotoImage(newimg)
-                    row6 = 3
-                    column6 = 2
+                    row6 = 1
+                    column6 = 1
                     rooter.six = Button(rooter, image=photo6,
                                         command=lambda: multipleOptions(row6, column6, rooter, i, favorite, favorites,
                                                                         lastindex, temp6))
-                    rooter.six.grid(row=3, column=2)
+                    rooter.six.grid(row=1, column=1)
                 count = 7
 
                 print("HELLO ", i)

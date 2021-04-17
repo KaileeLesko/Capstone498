@@ -3,10 +3,10 @@
 block_cipher = None
 
 
-a = Analysis(['ColorCoordinator.py'],
+a = Analysis(['colorcoordinator.py'],
              pathex=['C:\\Users\\Kailuu\\desktop\\capstone498\\local functions'],
              binaries=[],
-             datas=[('*.py', '.')],
+             datas=[],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -23,7 +23,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='ColorCoordinator',
+          name='colorcoordinator',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
