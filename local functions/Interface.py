@@ -97,7 +97,7 @@ class mainInterface:
         self.patternchoosen.grid(row=0, column=1, pady=2)
 
 
-        self.image = Image.open(self.resource_path("../build/Images needed to Run/wheelofgod.png"))
+        self.image = Image.open(self.resource_path("wheelofgod.png"))
         self.photo = ImageTk.PhotoImage(self.image)
 
         self.my_text = "click here to pick colors from a photo: "
@@ -320,7 +320,7 @@ class mainInterface:
 
 
         self.masterthis.attributes("-topmost", True)
-        image = Image.open(self.resource_path("../build/Images needed to Run/downloadphoto.png"))
+        image = Image.open(self.resource_path("downloadphoto.png"))
         photo= ImageTk.PhotoImage(image)
         uploader = Button(self.masterthis, image=photo)
         uploader.image = photo
@@ -418,11 +418,11 @@ class mainInterface:
         CreateMergedImage.create(self.mycolors[0], self.mycolors[1], self.mycolors[2], self.mycolors[3], self.mycolors[4], self.mycolors[5])
         conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                                password="Eeliak99.", database="capstone")
-        img = Image.open(self.resource_path("../build/Images needed to Run/myImageColor.png"))
+        img = Image.open(self.resource_path("myImageColor.png"))
 
         c = conn.cursor()
         import base64
-        converted_string = base64.b64encode(open("../build/Images needed to Run/myImageColor.png", "rb").read())
+        converted_string = base64.b64encode(open("myImageColor.png", "rb").read())
         sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
         c.execute(sql, (self.username, converted_string))
         conn.commit()
@@ -456,7 +456,7 @@ class mainInterface:
             self.l1.destroy()
 
             self.patternchoosen.destroy()
-            image = Image.open(self.resource_path("../build/Images needed to Run/downloadphoto.png"))
+            image = Image.open(self.resource_path("downloadphoto.png"))
             photo = ImageTk.PhotoImage(image)
             photoslice = Label(master, image=photo)
             photoslice.image = photo
@@ -475,7 +475,7 @@ class mainInterface:
             self.c2.grid(row=2, column=2, sticky=W, pady=2)
             self.c.config(text=my_text)
 
-            image = Image.open(self.resource_path("../build/Images needed to Run/wheelofgod.png"))
+            image = Image.open(self.resource_path("wheelofgod.png"))
             photo = ImageTk.PhotoImage(image)
             photoslice = Label(master, image=photo)
             photoslice.image = photo
@@ -514,7 +514,7 @@ class mainInterface:
         self.L8.config(background="#ffffff", foreground="#000000")
 
         self.photoslice.destroy()
-        image = Image.open(self.resource_path("../build/Images needed to Run/wheelofgod.png"))
+        image = Image.open(self.resource_path("wheelofgod.png"))
         photo = ImageTk.PhotoImage(image)
         photoslice = Label(master, image=photo)
         photoslice.image = photo

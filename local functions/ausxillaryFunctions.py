@@ -167,18 +167,18 @@ def nextsix(lastindex, rooter,favorites,favorite):
                 elif (count == 2):
                     print("index:", i )
                     if i >= len(favorites):
-                        newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
+                        newimg = Image.open('whiteIMG.png')
                         newimg = newimg.resize((600, 100))
                         photo2 = ImageTk.PhotoImage(newimg)
                         rooter.two = Label(rooter, image=photo2)
                         rooter.two.grid(row=2, column=1)
                     else:
-                        if os.path.exists('../build/Images needed to Run/two.png'):
-                            os.remove('../build/Images needed to Run/two.png')
-                        decodeit = open('../build/Images needed to Run/two.png', 'wb')
+                        if os.path.exists('two.png'):
+                            os.remove('two.png')
+                        decodeit = open('two.png', 'wb')
                         decodeit.write(base64.b64decode((favorites[i][1])))
                         decodeit.close()
-                        newimg = Image.open('../build/Images needed to Run/two.png')
+                        newimg = Image.open('two.png')
                         newimg = newimg.resize((600, 100))
                         temp2= i
                         photo2 = ImageTk.PhotoImage(newimg)
@@ -190,19 +190,19 @@ def nextsix(lastindex, rooter,favorites,favorite):
 
                 elif (count == 3):
                     if i >= len(favorites):
-                        newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
+                        newimg = Image.open('whiteIMG.png')
                         newimg = newimg.resize((600, 100))
                         photo3 = ImageTk.PhotoImage(newimg)
                         rooter.three = Label(rooter, image=photo3)
                         rooter.three.grid(row=3, column=1)
                     else:
-                        if os.path.exists('../build/Images needed to Run/three.png'):
-                            os.remove('../build/Images needed to Run/three.png')
-                        decodeit = open('../build/Images needed to Run/three.png', 'wb')
+                        if os.path.exists('three.png'):
+                            os.remove('three.png')
+                        decodeit = open('three.png', 'wb')
 
                         decodeit.write(base64.b64decode((favorites[i][1])))
                         decodeit.close()
-                        newimg = Image.open('../build/Images needed to Run/three.png')
+                        newimg = Image.open('three.png')
                         newimg = newimg.resize((600, 100))
                         temp3= i
                         photo3 = ImageTk.PhotoImage(newimg)
@@ -214,19 +214,19 @@ def nextsix(lastindex, rooter,favorites,favorite):
                 elif (count == 4):
                     print("LEN OF FAV", len(favorites), i)
                     if i >= len(favorites):
-                        newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
+                        newimg = Image.open('whiteIMG.png')
                         newimg = newimg.resize((600, 100))
                         photo4 = ImageTk.PhotoImage(newimg)
                         rooter.four = Label(rooter, image=photo4)
                         rooter.four.grid(row=1, column=2)
                     else:
-                        if os.path.exists('../build/Images needed to Run/four.png'):
-                            os.remove('../build/Images needed to Run/four.png')
-                        decodeit = open('../build/Images needed to Run/four.png', 'wb')
+                        if os.path.exists('four.png'):
+                            os.remove('four.png')
+                        decodeit = open('four.png', 'wb')
 
                         decodeit.write(base64.b64decode((favorites[i][1])))
                         decodeit.close()
-                        newimg = Image.open('../build/Images needed to Run/four.png')
+                        newimg = Image.open('four.png')
                         newimg = newimg.resize((600, 100))
                         photo4 = ImageTk.PhotoImage(newimg)
                         row4=1
@@ -237,19 +237,19 @@ def nextsix(lastindex, rooter,favorites,favorite):
                     count = 5
                 elif (count == 5):
                     if i >= len(favorites):
-                        newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
+                        newimg = Image.open('whiteIMG.png')
                         newimg = newimg.resize((600, 100))
                         photo5 = ImageTk.PhotoImage(newimg)
                         rooter.five = Label(rooter, image=photo5)
                         rooter.five.grid(row=2, column=2)
                     else:
-                        if os.path.exists('../build/Images needed to Run/five.png'):
-                            os.remove('../build/Images needed to Run/five.png')
-                        decodeit = open('../build/Images needed to Run/five.png', 'wb')
+                        if os.path.exists('five.png'):
+                            os.remove('five.png')
+                        decodeit = open('five.png', 'wb')
 
                         decodeit.write(base64.b64decode((favorites[i][1])))
                         decodeit.close()
-                        newimg = Image.open('../build/Images needed to Run/five.png')
+                        newimg = Image.open('five.png')
                         newimg = newimg.resize((600, 100))
                         temp5=i
                         photo5 = ImageTk.PhotoImage(newimg)
@@ -260,7 +260,7 @@ def nextsix(lastindex, rooter,favorites,favorite):
                     count = 6
                 elif count==6:
                     if i >= len(favorites):
-                        newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
+                        newimg = Image.open('whiteIMG.png')
                         newimg = newimg.resize((600, 100))
                         photo6= ImageTk.PhotoImage(newimg)
                         rooter.six = Label(rooter, image=photo6)
@@ -296,16 +296,16 @@ def lastsix(lastindex, rooter,favorites,favorite):
         messagebox.showerror("You have no more favorites saved")
 
     else:
-        if os.path.exists('../build/Images needed to Run/two.png'):
-            os.remove('../build/Images needed to Run/two.png')
-        if os.path.exists('../build/Images needed to Run/one.png'):
-            os.remove('../build/Images needed to Run/one.png')
-        if os.path.exists('../build/Images needed to Run/three.png'):
-            os.remove('../build/Images needed to Run/three.png')
-        if os.path.exists('../build/Images needed to Run/four.png'):
-            os.remove('../build/Images needed to Run/four.png')
-        if os.path.exists('../build/Images needed to Run/five.png'):
-            os.remove('../build/Images needed to Run/five.png')
+        if os.path.exists('two.png'):
+            os.remove('two.png')
+        if os.path.exists('one.png'):
+            os.remove('one.png')
+        if os.path.exists('three.png'):
+            os.remove('three.png')
+        if os.path.exists('four.png'):
+            os.remove('four.png')
+        if os.path.exists('five.png'):
+            os.remove('five.png')
         if os.path.exists('six.png'):
             os.remove('six.png')
         count = 1
@@ -315,20 +315,20 @@ def lastsix(lastindex, rooter,favorites,favorite):
             print(len(favorites))
             if (count == 1):
                 lastindex = i
-                if i >= len(favorites):
-                    newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
+                if i >= len(favorites)or i<0:
+                    newimg = Image.open('whiteIMG.png')
                     newimg = newimg.resize((600, 100))
                     photo1 = ImageTk.PhotoImage(newimg)
                     rooter.one = Label(rooter, image=photo1)
                     rooter.one.grid(row=1, column=1)
                 else:
-                    if os.path.exists('../build/Images needed to Run/one.png'):
-                        os.remove('../build/Images needed to Run/one.png')
-                    decodeit = open('../build/Images needed to Run/one.png', 'wb')
+                    if os.path.exists('one.png'):
+                        os.remove('one.png')
+                    decodeit = open('one.png', 'wb')
                     print(i)
                     decodeit.write(base64.b64decode((favorites[i][1])))
                     decodeit.close()
-                    newimg = Image.open('../build/Images needed to Run/one.png')
+                    newimg = Image.open('one.png')
                     newimg = newimg.resize((600, 100))
                     temp1 = i
                     photo1 = ImageTk.PhotoImage(newimg)
@@ -341,19 +341,19 @@ def lastsix(lastindex, rooter,favorites,favorite):
                 count = 2
             elif (count == 2):
                 print("index:", i)
-                if i >= len(favorites):
-                    newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
+                if i >= len(favorites)or i<0:
+                    newimg = Image.open('whiteIMG.png')
                     newimg = newimg.resize((600, 100))
                     photo2 = ImageTk.PhotoImage(newimg)
                     rooter.two = Label(rooter, image=photo2)
                     rooter.two.grid(row=2, column=2)
                 else:
-                    if os.path.exists('../build/Images needed to Run/two.png'):
-                        os.remove('../build/Images needed to Run/two.png')
-                    decodeit = open('../build/Images needed to Run/two.png', 'wb')
+                    if os.path.exists('two.png'):
+                        os.remove('two.png')
+                    decodeit = open('two.png', 'wb')
                     decodeit.write(base64.b64decode((favorites[i][1])))
                     decodeit.close()
-                    newimg = Image.open('../build/Images needed to Run/two.png')
+                    newimg = Image.open('two.png')
                     newimg = newimg.resize((600, 100))
                     temp2 = i
                     photo2 = ImageTk.PhotoImage(newimg)
@@ -366,20 +366,20 @@ def lastsix(lastindex, rooter,favorites,favorite):
                 count = 3
 
             elif (count == 3):
-                if i >= len(favorites):
-                    newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
+                if i >= len(favorites)or i<0:
+                    newimg = Image.open('whiteIMG.png')
                     newimg = newimg.resize((600, 100))
                     photo3 = ImageTk.PhotoImage(newimg)
                     rooter.three = Label(rooter, image=photo3)
                     rooter.three.grid(row=1, column=2)
                 else:
-                    if os.path.exists('../build/Images needed to Run/three.png'):
-                        os.remove('../build/Images needed to Run/three.png')
-                    decodeit = open('../build/Images needed to Run/three.png', 'wb')
+                    if os.path.exists('three.png'):
+                        os.remove('three.png')
+                    decodeit = open('three.png', 'wb')
 
                     decodeit.write(base64.b64decode((favorites[i][1])))
                     decodeit.close()
-                    newimg = Image.open('../build/Images needed to Run/three.png')
+                    newimg = Image.open('three.png')
                     newimg = newimg.resize((600, 100))
                     temp3 = i
                     photo3 = ImageTk.PhotoImage(newimg)
@@ -392,20 +392,20 @@ def lastsix(lastindex, rooter,favorites,favorite):
                 count = 4
             elif (count == 4):
                 print("LEN OF FAV", len(favorites), i)
-                if i >= len(favorites):
-                    newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
+                if i >= len(favorites)or i<0:
+                    newimg = Image.open('whiteIMG.png')
                     newimg = newimg.resize((600, 100))
                     photo4 = ImageTk.PhotoImage(newimg)
                     rooter.four = Label(rooter, image=photo4)
                     rooter.four.grid(row=3, column=1)
                 else:
-                    if os.path.exists('../build/Images needed to Run/four.png'):
-                        os.remove('../build/Images needed to Run/four.png')
-                    decodeit = open('../build/Images needed to Run/four.png', 'wb')
+                    if os.path.exists('four.png'):
+                        os.remove('four.png')
+                    decodeit = open('four.png', 'wb')
 
                     decodeit.write(base64.b64decode((favorites[i][1])))
                     decodeit.close()
-                    newimg = Image.open('../build/Images needed to Run/four.png')
+                    newimg = Image.open('four.png')
                     newimg = newimg.resize((600, 100))
                     photo4 = ImageTk.PhotoImage(newimg)
                     row4 = 3
@@ -417,20 +417,20 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     rooter.four.grid(row=3, column=1)
                 count = 5
             elif (count == 5):
-                if i >= len(favorites):
-                    newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
+                if i >= len(favorites)or i<0:
+                    newimg = Image.open('whiteIMG.png')
                     newimg = newimg.resize((600, 100))
                     photo5 = ImageTk.PhotoImage(newimg)
                     rooter.five = Label(rooter, image=photo5)
                     rooter.five.grid(row=2, column=1)
                 else:
-                    if os.path.exists('../build/Images needed to Run/five.png'):
-                        os.remove('../build/Images needed to Run/five.png')
-                    decodeit = open('../build/Images needed to Run/five.png', 'wb')
+                    if os.path.exists('five.png'):
+                        os.remove('five.png')
+                    decodeit = open('five.png', 'wb')
 
                     decodeit.write(base64.b64decode((favorites[i][1])))
                     decodeit.close()
-                    newimg = Image.open('../build/Images needed to Run/five.png')
+                    newimg = Image.open('five.png')
                     newimg = newimg.resize((600, 100))
                     temp5 = i
                     photo5 = ImageTk.PhotoImage(newimg)
@@ -442,8 +442,8 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     rooter.five.grid(row=2, column=1)
                 count = 6
             elif count == 6:
-                if i >= len(favorites):
-                    newimg = Image.open('../build/Images needed to Run/whiteIMG.png')
+                if i >= len(favorites)or i<0:
+                    newimg = Image.open('whiteIMG.png')
                     newimg = newimg.resize((600, 100))
                     photo6 = ImageTk.PhotoImage(newimg)
                     rooter.six = Label(rooter, image=photo6)
@@ -490,19 +490,12 @@ def post(entrypic):
         e1 = Entry(item2)
         e1.grid(row=1, column=0)
         l.grid(row=0, column=0)
-        if os.path.exists('../build/Images needed to Run/temp.png'):
-            os.remove('../build/Images needed to Run/temp.png')
-        decodeit = open('../build/Images needed to Run/temp.png', 'wb')
+        if os.path.exists('temp.png'):
+            os.remove('temp.png')
+        decodeit = open('temp.png', 'wb')
         decodeit.write(base64.b64decode((entrypic)))
         b = Button(item2, text="Submit", command= lambda: executefavorites('temp.png', e1.get()))
         b.grid(row=2, column=0)
-
-
-
-
-
-
-
 
 
 
