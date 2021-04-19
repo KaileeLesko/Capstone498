@@ -2,9 +2,9 @@
 
 #this function converts hex values to RGB
 def hex_to_rgb(value):
-    print(value, " value")
+
     value = value.lstrip('#')
-    print(list(int(value[i:i + 2], 16) for i in (0, 2, 4)))
+
     return list(int(value[i:i + 2], 16) for i in (0, 2, 4))
 
 
@@ -76,7 +76,7 @@ def createFavorites():
     c.execute("SELECT * FROM favoriteImages")
     favorite = c.fetchall()
     favorites=[]
-    print("favorite ", favorite)
+
     for i in range(0, len(favorite)):
         if favorite[i][0] == Constants.setUser():
             favorites.append(favorite[i])
@@ -89,7 +89,7 @@ def remover(i, favorites, lastindex, rooter, favorite,  current):
                            password="Eeliak99.", database="capstone")
     c = conn.cursor()
     sql= "DELETE FROM favoriteImages WHERE image = %s"
-    print(current)
+
     adr= current
     c.execute(sql, adr)
     conn.commit()
@@ -118,7 +118,8 @@ from tkinter import Label,Button
 #next six shifts the data to the next entries to allow users to see more favorites
 def nextsix(lastindex, rooter,favorites,favorite):
             favorites = createFavorites()
-            print("reached next six")
+
+
             global photo3, photo1, photo2, photo4, photo5, photo6
             global one, two, three, four, five, six
 
@@ -137,9 +138,7 @@ def nextsix(lastindex, rooter,favorites,favorite):
                 os.remove('six.png')
             count=1
             for i in range(lastindex-4, lastindex+2):
-                print("reached again")
-                print(type(favorites))
-                print(len(favorites))
+
                 if (count == 1):
 
                     if i >= len(favorites):
@@ -152,7 +151,7 @@ def nextsix(lastindex, rooter,favorites,favorite):
                         if os.path.exists('../build/Images needed to Run/one.png'):
                             os.remove('../build/Images needed to Run/one.png')
                         decodeit = open('../build/Images needed to Run/one.png', 'wb')
-                        print(i)
+
                         decodeit.write(base64.b64decode((favorites[i][1])))
                         decodeit.close()
                         newimg = Image.open('../build/Images needed to Run/one.png')
@@ -165,7 +164,7 @@ def nextsix(lastindex, rooter,favorites,favorite):
                         rooter.one.grid(row=1, column=1)
                     count = 2
                 elif (count == 2):
-                    print("index:", i )
+
                     if i >= len(favorites):
                         newimg = Image.open('whiteIMG.png')
                         newimg = newimg.resize((600, 100))
@@ -212,7 +211,7 @@ def nextsix(lastindex, rooter,favorites,favorite):
                         rooter.three.grid(row=3, column=1)
                     count = 4
                 elif (count == 4):
-                    print("LEN OF FAV", len(favorites), i)
+
                     if i >= len(favorites):
                         newimg = Image.open('whiteIMG.png')
                         newimg = newimg.resize((600, 100))
@@ -282,13 +281,12 @@ def nextsix(lastindex, rooter,favorites,favorite):
                         rooter.six.grid(row=3, column=2)
                     count = 7
                     lastindex=i
-                    print("HELLO ",i)
-                    print("DING DONG DONE")
+
             return lastindex
 
 #allows user to go back and see other favorites they have indexed past
 def lastsix(lastindex, rooter,favorites,favorite):
-    print("reached next six")
+
     global photo3, photo1, photo2, photo4, photo5, photo6
     global one, two, three, four, five, six
     favorites= createFavorites()
@@ -310,9 +308,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
             os.remove('six.png')
         count = 1
         for i in range(lastindex-1,lastindex-8,-1):
-            print("reached again")
-            print(type(favorites))
-            print(len(favorites))
+
             if (count == 1):
                 lastindex = i
                 if i >= len(favorites)or i<0:
@@ -325,7 +321,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     if os.path.exists('one.png'):
                         os.remove('one.png')
                     decodeit = open('one.png', 'wb')
-                    print(i)
+
                     decodeit.write(base64.b64decode((favorites[i][1])))
                     decodeit.close()
                     newimg = Image.open('one.png')
@@ -340,7 +336,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     rooter.one.grid(row=3, column=2)
                 count = 2
             elif (count == 2):
-                print("index:", i)
+
                 if i >= len(favorites)or i<0:
                     newimg = Image.open('whiteIMG.png')
                     newimg = newimg.resize((600, 100))
@@ -391,7 +387,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     rooter.three.grid(row=1, column=2)
                 count = 4
             elif (count == 4):
-                print("LEN OF FAV", len(favorites), i)
+
                 if i >= len(favorites)or i<0:
                     newimg = Image.open('whiteIMG.png')
                     newimg = newimg.resize((600, 100))
@@ -467,8 +463,6 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     rooter.six.grid(row=1, column=1)
                 count = 7
 
-                print("HELLO ", i)
-                print("DING DONG DONE")
         return lastindex
 
 

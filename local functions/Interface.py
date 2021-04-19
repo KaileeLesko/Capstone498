@@ -192,9 +192,9 @@ class mainInterface:
         color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
         color6.grid(row=3, column=5, sticky=W)
         selectedColor = ""
-        self.hexEntry.delete(0, END)
+        # self.hexEntry.delete(0, END)
         # self.hexEntry.se
-        self.hexEntry.insert(0, "")
+        # self.hexEntry.insert(0, "")
         self.l3.config(text=printedcolors[0])
         self.l4.config(text=printedcolors[1])
         self.L5.config(text=printedcolors[2])
@@ -275,7 +275,7 @@ class mainInterface:
         root = Tk()
 
         root.title("Color  Coordinator")
-        w = Label(root, text='thanks to everyone who helped me stay sane during development (Eric)',
+        w = Label(root, text='thanks to everyone who helped me stay sane during development (Eric, Liz, Bobby, Dani, nicholas, Kat, Dr Kreider)',
                   font="50")
 
 
@@ -294,12 +294,11 @@ class mainInterface:
 
             self.fileimage = image.resize((200, 200))
             photo = ImageTk.PhotoImage(self.fileimage)
-
             photoslice = Label(master, image=photo)
             photoslice.image = photo
             photoslice = Button(master, image=photo, command= self.uploadfile)
             photoslice.grid(row=0, column=2,
-                            columnspan=2, rowspan=1, padx=5, pady=5)
+                            columnspan=2, rowspan=2, padx=5, pady=5)
 
     def post(self,master):
 
@@ -474,7 +473,10 @@ class mainInterface:
             self.c1.grid(row=2, column=1, sticky=W, pady=2)
             self.c2.grid(row=2, column=2, sticky=W, pady=2)
             self.c.config(text=my_text)
-
+            self.b1.destroy()
+            self.b1 = Button(master, text="Generate Pallete", style='green/black.TButton',
+                             command=self.changeColorSqures)
+            self.b1.grid(row=2, column=3, sticky=W)
             image = Image.open(self.resource_path("wheelofgod.png"))
             photo = ImageTk.PhotoImage(image)
             photoslice = Label(master, image=photo)
