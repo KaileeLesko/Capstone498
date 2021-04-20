@@ -31,4 +31,3 @@ def executefavorites(img, text):
     tweet = text
     api.update_status(status=tweet, media_ids=[media.media_id])
 
-print("tweet posted")

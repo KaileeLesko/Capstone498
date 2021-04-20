@@ -277,8 +277,6 @@ class mainInterface:
         root.title("Color  Coordinator")
         w = Label(root, text='thanks to everyone who helped me stay sane during development (Eric, Liz, Bobby, Dani, nicholas, Kat, Dr Kreider)',
                   font="50")
-
-
         w.pack()
 
     def uploadfile(self):
@@ -286,7 +284,7 @@ class mainInterface:
                                               title="Select a File"
                                               )
         name, extension = os.path.splitext(filename)
-        print(extension)
+
         if (".PNG") != extension:
             messagebox.showerror("ERROR", "File must be a .PNG type")
         else:
@@ -429,7 +427,7 @@ class mainInterface:
         c.execute(sql)
         record = c.fetchall()
         self.favorites = record
-        print("record", record)
+
 
 
 
@@ -572,7 +570,7 @@ class mainInterface:
                                                             '#ffffff']
 
                 self.mycolors = self.printedcolors
-                print("MY VOLORS",str(self.mycolors))
+
 
         else:
             printedcolors = colorFromPhoto(self.fileimage)
@@ -596,9 +594,9 @@ class mainInterface:
         color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
         color6.grid(row=3, column=5, sticky=W)
         selectedColor = ""
-        self.hexEntry.delete(0, END)
-        self.hexEntry.se
-        self.hexEntry.insert(0, "")
+        # self.hexEntry.delete(0, END)
+        # self.hexEntry.se
+        # self.hexEntry.insert(0, "")
         self.l3.config(text=printedcolors[0])
         self.l4.config(text=printedcolors[1])
         self.L5.config(text=printedcolors[2])
@@ -607,8 +605,7 @@ class mainInterface:
         self.L8.config(text=printedcolors[5])
 
     def warmColors(self):
-        print("size", master.winfo_reqheight())
-        print(master.winfo_reqwidth())
+
         import WarmColors
         printedcolors = WarmColors.WarmColors()
         self.mycolors = printedcolors
@@ -718,9 +715,7 @@ class mainInterface:
         self.photoslice.destroy()
 
     def resource_path(self,relative_path):
-        """ Get absolute path to resource, works for dev and for PyInstaller """
         try:
-            # PyInstaller creates a temp folder and stores path in _MEIPASS
             base_path = sys._MEIPASS
         except Exception:
             base_path = os.path.abspath(".")

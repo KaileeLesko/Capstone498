@@ -2,8 +2,12 @@ import random
 
 #referenced this website: https://www.andrewshay.me/blog/find-most-common-color-in-image-with-python/
 
+def closest(lst, K):
+    return lst[min(range(len(lst)), key=lambda i: abs(lst[i] - K))]
+
+
 def colorFromPhoto(img):
-    #the colors are rounded here to prevent duplicates
+    #the colors are rounded here to prevent duplicates or almost identical looking colors
     colors = [255, 223, 191, 159, 127, 95, 63, 31, 0]
     color_count = {}
     original_color_count = {}
@@ -11,7 +15,6 @@ def colorFromPhoto(img):
     for w in range(width):
         for h in range(height):
             current_color = img.getpixel((w, h))
-
             if current_color in original_color_count:
                 original_color_count[current_color] += 1
             else:
@@ -24,28 +27,18 @@ def colorFromPhoto(img):
 
             for i in range(len(colors)):
                 color_one = colors[i]
-                color_two = colors[i + 1]
 
                 if not r_set:
-                    if color_one >= r >= color_two:
-                        distance_one = color_one - r
-                        distance_two = r - color_two
-                        r = color_one if distance_one <= distance_two else color_two
-                        r_set = True
+                    r = closest(colors, r)
+                    r_set= True
+
 
                 if not g_set:
-                    if color_one >= g >= color_two:
-                        distance_one = color_one - g
-                        distance_two = g - color_two
-                        g = color_one if distance_one <= distance_two else color_two
-                        g_set = True
-
+                    g= closest(colors,g)
+                    g_set= True
                 if not b_set:
-                    if color_one >= b >= color_two:
-                        distance_one = color_one - b
-                        distance_two = b - color_two
-                        b = color_one if distance_one <= distance_two else color_two
-                        b_set = True
+                    b = closest(colors, b)
+                    b_set= True
 
                 if all((r_set, g_set, b_set)):
                     break
@@ -57,6 +50,7 @@ def colorFromPhoto(img):
                 color_count[new_rgb] += 1
             else:
                 color_count[new_rgb] = 1
+    #end borrowed reference
 
     lister = []
     for item in color_count:
@@ -66,10 +60,12 @@ def colorFromPhoto(img):
         lister[i] = lister[i]
     for k in range(len(lister)):
         lister[k] = '#{:02x}{:02x}{:02x}'.format(lister[k][0][0], lister[k][0][1], lister[k][0][2])
-    print(lister)
+
 
     array = []
     i = 0
+    if (len(lister) <= 6):
+        return lister+ ['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff']
 
     while len(array) < 6:
         randomed = random.choice(lister)

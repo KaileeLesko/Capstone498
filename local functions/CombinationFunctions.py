@@ -55,10 +55,10 @@ def threeAnalagous(color, color1, color2):
 
 
 def compAndAnalagous(color):
-    print("color is " + color)
+
     array = []
     color = color[1:]
-    print("this is", color)
+
     color = ausxillaryFunctions.hex_to_rgb(color)
 
     array.append(color)
@@ -69,11 +69,10 @@ def compAndAnalagous(color):
     b = int(str(B))
 
     h, s, v = colorsys.rgb_to_hsv(r, g, b)
-    print(h, s, v)
     h2 = (h * 360 + 180) % 360 / 360
     H, S, V = colorsys.hsv_to_rgb(h, s, v)
 
-    print(H, S, V)
+
     H = int(H)
     S = int(S)
     V = int(V)

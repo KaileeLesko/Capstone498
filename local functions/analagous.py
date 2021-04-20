@@ -6,9 +6,10 @@ import colormap
 
 def analagous(color):
     R, G, B = colormap.hex2rgb(color)
-    print("RGB", R, G, B)
+
     H, S, L = RGB2HSL(R, G, B)
-    print("Start Hue", H)
+    print("S IS",S)
+
     array = [color]
     start = 15
     i = 6

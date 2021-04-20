@@ -9,9 +9,8 @@ def additonalColors(array):
     while len(arrays) < 6:
         color = random.choice(arrays)
         R, G, B = colormap.hex2rgb(color)
-        print("RGB", R, G, B)
         H, S, L = RGB2HSL(R, G, B)
-        print("Start Hue", H)
+
         ranges = [15, 30, 45, 60]
         range = random.choice(ranges)
         H1 = (H + range)
