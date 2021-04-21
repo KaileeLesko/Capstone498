@@ -297,18 +297,17 @@ class mainInterface:
             photoslice.grid(row=0, column=2,
                             columnspan=2, rowspan=2, padx=5, pady=5)
 
-    def post(self,master):
+    def post(self):
 
         item2 = Tk()
-        item2.wm_title("Window")
+        item2.wm_title("Post to Twitter")
         item2.geometry("200x200")
         l = Label(item2, text="What Text do you want your tweet to say?")
-        e1 = Entry(item2)
-        e1.grid(row=1, column=0)
+        self.e1 = Entry(item2)
+        self.e1.grid(row=1, column=0)
         l.grid(row=0, column=0)
         b = Button(item2, text="SubmitImage", command=self.executer)
         b.grid(row=2, column=0)
-        self.b2.grid(row=3, column=0)
 
     def createUpload(self):
         self.masterthis= Toplevel()
