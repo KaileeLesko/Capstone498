@@ -704,7 +704,7 @@ class mainInterface:
         master.config(background="#2c2f33")
 
         self.l1.config(background="#2c2f33", foreground="#99aab5")
-        # self.l2.config(background="#2c2f33", foreground="#99aab5")
+        self.l2.config(background="#2c2f33", foreground="#99aab5")
         self.l3.config(background="#2c2f33", foreground="#99aab5")
         self.l4.config(background="#2c2f33", foreground="#99aab5")
         self.L5.config(background="#2c2f33", foreground="#99aab5")
