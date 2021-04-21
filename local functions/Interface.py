@@ -506,10 +506,10 @@ class mainInterface:
         self.photoslice.destroy()
         image = Image.open(self.resource_path("wheelofgod.png"))
         photo = ImageTk.PhotoImage(image)
-        photoslice = Label(master, image=photo)
-        photoslice.image = photo
-        photoslice = Button(master, image=photo, command= self.colorpicker)
-        photoslice.grid(row=0, column=2,
+        self.photoslice = Label(master, image=photo)
+        self.photoslice.image = photo
+        self.photoslice = Button(master, image=photo, command= self.colorpicker)
+        self.photoslice.grid(row=0, column=2,
                         columnspan=2, rowspan=2, padx=5, pady=5)
     def changeColorSqures(self):
         if self.mode == True:
@@ -694,7 +694,7 @@ class mainInterface:
                     2) either enter a hex code yourself or click the 
                        image of the color wheel to use the color slider
                     3) click GENERATE PALLETE
-                    *patterns can be create multiple times by reclicking GENERATE PALLETE
+                    *patterns can be create multiple times by reclicking GENERATE PALLETE   
                     
                     
                     warm and cool colors:
@@ -705,24 +705,23 @@ class mainInterface:
                     1) click the check box to change the interface
                     2) upload a PNG by click the upload button
                     3) click GENRATE PALLETE
-                    *patterns can be create multiple times by reclicking GENERATE PALLETE
+                    *patterns can be create multiple times by reclicking GENERATE PALLETE   
                     """)
         l90.grid(row=0, column=0)
 
 
     def switchModes(self):
         master.config(background="#2c2f33")
-
-        self.l1.config(background="#2c2f33", foreground="#99aab5")
-        self.l2.config(background="#2c2f33", foreground="#99aab5")
-        self.l3.config(background="#2c2f33", foreground="#99aab5")
-        self.l4.config(background="#2c2f33", foreground="#99aab5")
-        self.L5.config(background="#2c2f33", foreground="#99aab5")
-        self.L7.config(background="#2c2f33", foreground="#99aab5")
-        self.L6.config(background="#2c2f33", foreground="#99aab5")
-        self.L8.config(background="#2c2f33", foreground="#99aab5")
-
+        image = Image.open(self.resource_path("blackColorWheel.PNG"))
+        photo = ImageTk.PhotoImage(image)
         self.photoslice.destroy()
+        self.photoslice = Label(master, image=photo)
+        self.photoslice.image = photo
+        self.photoslice = Button(master, image=photo, command=self.colorpicker)
+        self.photoslice.grid(row=0, column=2,
+                        columnspan=2, rowspan=2, padx=5, pady=5)
+
+
 
     def resource_path(self,relative_path):
         try:
