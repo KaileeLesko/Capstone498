@@ -50,7 +50,6 @@ class mainInterface:
         # mode.add_command(label ='Dark Mode', command =mainInterface.switchModes)
         master.config(menu=self.menubar)
         self.lastindex = 6
-        self.encrypter= ""
         self.printedcolors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
         self.one= Label(text= "no")
         self.two=Label(text= "no")
@@ -307,7 +306,7 @@ class mainInterface:
         e1 = Entry(item2)
         e1.grid(row=1, column=0)
         l.grid(row=0, column=0)
-        b = Button(item2, text="Submit", command=self.executer)
+        b = Button(item2, text="SubmitImage", command=self.executer)
         b.grid(row=2, column=0)
         self.b2.grid(row=3, column=0)
 
@@ -321,11 +320,12 @@ class mainInterface:
         photo= ImageTk.PhotoImage(image)
         uploader = Button(self.masterthis, image=photo)
         uploader.image = photo
-        uploader = Button(self.masterthis,image= photo, command=self.click)
+        uploader = Button(self.masterthis,image= photo, command=self.clickUpload)
+
         uploader.grid(row=0, column=1)
-        global uploadname
+
         self.userEmail= Entry(self.masterthis)
-        self.userPassword= Entry(self.masterthis)
+        self.userPassword= Entry(self.masterthis,show= "*")
         self.userPassLabel = Label(self.masterthis, text="your email password here")
         self.userPassLabel.grid(row=2, column=2)
         self.userEmailLabel= Label(self.masterthis,text= "your email address here")
@@ -338,7 +338,6 @@ class mainInterface:
         label.grid(row=1, column=0)
         # uploader = Button(masterthis, text="upload file", command=self.click)
         # uploader.grid(row=0, column=1)
-        self.uploadname = Entry(self.masterthis)
         # self.uploadname.grid(row=1, column=3)
         label = Label(self.masterthis, text="Enter the artwork's name here: ")
         label.grid(row=1, column=0)
@@ -350,18 +349,18 @@ class mainInterface:
         from email.mime.text import MIMEText
         from email.mime.multipart import MIMEMultipart
 
-        sender_email =self.userEmail.get()
+        self.sender_email =self.userEmail.get()
         receiver_email = "capstone498colorcoordinator@gmail.com"
         password = self.userPassword.get()
 
         message = MIMEMultipart("alternative")
         message["Subject"] = "Artwork Submission"
-        message["From"] = sender_email
+        message["From"] = self.sender_email
         message["To"] = receiver_email
 
 
         text = "\n the title is: "+ self.uploadname.get() + \
-               "the artist is: "+ self.username+ "my submission is: "+ str(self.encrypter)
+               " the artist is: "+ self.userEmail.get()+ " my submission is: "+ str(self.encrypter)
 
         part1 = MIMEText(text, "plain")
 
@@ -369,9 +368,9 @@ class mainInterface:
 
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-            server.login(sender_email, password)
+            server.login(self.sender_email, password)
             server.sendmail(
-                sender_email, receiver_email, message.as_string()
+                self.sender_email, receiver_email, message.as_string()
             )
 
     def click(self):
@@ -388,14 +387,6 @@ class mainInterface:
 
 
 
-    def submit(self):
-        conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
-                               password="Eeliak99.", database="capstone")
-        checker = conn.cursor()
-        checker.execute("SELECT * FROM slideshow")
-        sql = "INSERT INTO `slideshow` (`username`, `img`, `title`) VALUES (%s, %s, %s)"
-        checker.execute(sql, (self.userEmail, self.imageUplaoded, self.uploadname.get()))
-        conn.close()
 
 
     def clickUpload(self):
