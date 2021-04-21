@@ -6,7 +6,7 @@ block_cipher = None
 a = Analysis(['Interface.py'],
              pathex=['C:\\Users\\Kailuu\\desktop\\capstone498\\local functions'],
              binaries=[],
-             datas=[('*.py', '.')],
+             datas=[],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -15,8 +15,6 @@ a = Analysis(['Interface.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
-
-a.datas += [ ('wheelofgod.png', 'downloadphoto.png', 'untitled_artwork.png')]
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,

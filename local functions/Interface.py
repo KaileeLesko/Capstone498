@@ -482,7 +482,7 @@ class mainInterface:
             photoslice = Button(master, image=photo, command= self.colorpicker)
             photoslice.grid(row=0, column=2,
                             columnspan=2, rowspan=2, padx=5, pady=5)
-            self.l1 = Label(master, text="1) color pattern type: ")
+            self.l1 = Label(master, text="1) select a color pattern type: ")
             mode = True
             self.l1.grid(row=0, column=0, sticky=W, pady=2)
             self.hexEntry = Entry(master, text= "")
@@ -503,15 +503,15 @@ class mainInterface:
             # button widget
 
     def lightModes(self):
-        master.config(background="#ffffff")
+        master.config(background="#F0F0F0")
 
-        self.l1.config(background="#ffffff", foreground="#000000")
-        self.l3.config(background="#ffffff", foreground="#000000")
-        self.l4.config(background="#ffffff", foreground="#000000")
-        self.L5.config(background="#ffffff", foreground="#000000")
-        self.L7.config(background="#ffffff", foreground="#000000")
-        self.L6.config(background="#ffffff", foreground="#000000")
-        self.L8.config(background="#ffffff", foreground="#000000")
+        self.l1.config(background="#F0F0F0", foreground="#000000")
+        self.l3.config(background="#F0F0F0", foreground="#000000")
+        self.l4.config(background="#F0F0F0", foreground="#000000")
+        self.L5.config(background="#F0F0F0", foreground="#000000")
+        self.L7.config(background="#F0F0F0", foreground="#000000")
+        self.L6.config(background="#F0F0F0", foreground="#000000")
+        self.L8.config(background="#F0F0F0", foreground="#000000")
 
         self.photoslice.destroy()
         image = Image.open(self.resource_path("wheelofgod.png"))
@@ -704,7 +704,7 @@ class mainInterface:
         master.config(background="#2c2f33")
 
         self.l1.config(background="#2c2f33", foreground="#99aab5")
-        self.l2.config(background="#2c2f33", foreground="#99aab5")
+        # self.l2.config(background="#2c2f33", foreground="#99aab5")
         self.l3.config(background="#2c2f33", foreground="#99aab5")
         self.l4.config(background="#2c2f33", foreground="#99aab5")
         self.L5.config(background="#2c2f33", foreground="#99aab5")

@@ -10,12 +10,11 @@ def monochrome(color):
     print(H,S,L)
     array = [color]
     while len(array) < 6:
-        # H1 = H + random.choice([5, -5])
-        # if (H1 > 360):
-        #     H1 -= 360\
-        H1= H
+        H1 = H + random.choice([5, -5])
+        if (H1 > 360):
+            H1 -= 360
         S = random.random()
-        L=L
+        L= random.random()
 
         R, G, B = colormap.hls2rgb(H1 / 360, L, S)
 
