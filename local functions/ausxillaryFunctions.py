@@ -319,7 +319,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     newimg = newimg.resize((600, 100))
                     photo1 = ImageTk.PhotoImage(newimg)
                     rooter.one = Label(rooter, image=photo1)
-                    rooter.one.grid(row=1, column=1)
+                    rooter.one.grid(row=3, column=2)
                 else:
                     if os.path.exists('one.png'):
                         os.remove('one.png')
@@ -441,7 +441,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     rooter.five.grid(row=2, column=1)
                 count = 6
             elif count == 6:
-                if i >= len(favorites)or i<0:
+                if i > len(favorites)or i<0:
                     newimg = Image.open('whiteIMG.png')
                     newimg = newimg.resize((600, 100))
                     photo6 = ImageTk.PhotoImage(newimg)

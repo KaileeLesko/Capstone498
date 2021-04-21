@@ -59,7 +59,7 @@ def  submissionfield():
                         f_password.delete(0, END)
 
                         messagebox.showinfo("Success!", "Your account has been created!")
-                        window.destroy()
+                        userwindow.destroy()
 
                     else:
                         messagebox.showerror("ERROR", "This is not a valid email")
@@ -74,7 +74,7 @@ def  submissionfield():
 
 
 def createWindow():
-    global f_username, f_password, f_name, f_last_name, window
+    global f_username, f_password, f_name, f_last_name, userwindow
     userwindow = tk.Tk()
 
     userwindow.geometry("400x150")
