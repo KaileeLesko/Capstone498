@@ -151,13 +151,13 @@ def nextsix(lastindex, rooter,favorites,favorite):
                             rooter.one = Label(rooter, image=photo1)
                             rooter.one.grid(row=1, column=1)
                         else:
-                            if os.path.exists('../build/Images needed to Run/one.png'):
-                                os.remove('../build/Images needed to Run/one.png')
-                            decodeit = open('../build/Images needed to Run/one.png', 'wb')
+                            if os.path.exists('one.png'):
+                                os.remove('one.png')
+                            decodeit = open('one.png', 'wb')
 
                             decodeit.write(base64.b64decode((favorites[i][1])))
                             decodeit.close()
-                            newimg = Image.open('../build/Images needed to Run/one.png')
+                            newimg = Image.open('one.png')
                             newimg = newimg.resize((600, 100))
                             temp1= i
                             photo1 = ImageTk.PhotoImage(newimg)
