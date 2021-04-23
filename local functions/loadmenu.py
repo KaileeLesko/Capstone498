@@ -10,6 +10,8 @@ from tkinter.ttk import *
 from tkinter import messagebox
 import pymysql
 import re
+# resources used:
+# https://www.geeksforgeeks.org/check-if-email-address-valid-or-not-in-python/
 regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
 
 

@@ -28,10 +28,12 @@ from tkinter import colorchooser
 
 
 
-# refereced tutorial https://www.geeksforgeeks.org/python-grid-method-in-tkinter/
+# refereced tutorial(s)
+# https://www.geeksforgeeks.org/python-grid-method-in-tkinter/
+# https://realpython.com/python-send-email/
+# https://realpython.com/twitter-bot-python-tweepy/
+
 class mainInterface:
-
-
     def __init__(self, master):
         from loadmenu import retrieveUser
         self.menubar = Menu(master)
@@ -44,6 +46,7 @@ class mainInterface:
         self.menubar.add_cascade(label="acknowledgement", command=self.acknowledgement)
         self.submenu = Menu(self.file)
         self.filename= ""
+
         self.submenu.add_command(label="Dark Mode", command=self.switchModes)
         self.submenu.add_command(label="Light Mode", command=self.lightModes)
         self.file.add_cascade(label='Visual Settings', menu= self.submenu, underline=0)
@@ -167,8 +170,11 @@ class mainInterface:
         self.c = ttk.Checkbutton(master, text='click here to pick colors from a photo: ', command=self.switchInputForPhoto)
         self.c.grid(row=2, column=5, sticky=W)
         self.mycolors= self.printedcolors
+        self.checkentered = self.getEntered(master)
 
-
+    def getEntered(self,window):
+        if len(self.username) ==0:
+            window.destoy()
     def colorfromphoto(self):
         printedcolors = colorFromPhoto(self.fileimage)
         self.mycolors = printedcolors
@@ -299,14 +305,14 @@ class mainInterface:
 
     def post(self):
 
-        item2 = Tk()
-        item2.wm_title("Post to Twitter")
-        item2.geometry("200x200")
-        l = Label(item2, text="What Text do you want your tweet to say?")
-        self.e1 = Entry(item2)
+        self.item2 = Tk()
+        self.item2.wm_title("Post to Twitter")
+        self.item2.geometry("200x200")
+        l = Label(self.item2, text="What Text do you want your tweet to say?")
+        self.e1 = Entry(self.item2)
         self.e1.grid(row=1, column=0)
         l.grid(row=0, column=0)
-        b = Button(item2, text="SubmitImage", command=self.executer)
+        b = Button(self.item2, text="SubmitImage", command=self.executer)
         b.grid(row=2, column=0)
 
     def createUpload(self):
@@ -383,9 +389,6 @@ class mainInterface:
         else:
             self.imageUplaoded = Image.open(self.filename)
             messagebox.showinfo("success", "successfully uploaded image")
-
-
-
 
 
     def clickUpload(self):
@@ -583,10 +586,6 @@ class mainInterface:
         color6 = Canvas(master, width=250, height=200)
         color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
         color6.grid(row=3, column=5, sticky=W)
-        selectedColor = ""
-        # self.hexEntry.delete(0, END)
-        # self.hexEntry.se
-        # self.hexEntry.insert(0, "")
         self.l3.config(text=printedcolors[0])
         self.l4.config(text=printedcolors[1])
         self.L5.config(text=printedcolors[2])
@@ -724,6 +723,7 @@ class mainInterface:
 
 
     def resource_path(self,relative_path):
+        #used tutorail for all instances of this function https://stackoverflow.com/questions/7674790/bundling-data-files-with-pyinstaller-onefile
         try:
             base_path = sys._MEIPASS
         except Exception:

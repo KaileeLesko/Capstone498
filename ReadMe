@@ -4,3 +4,51 @@ instructions: run the ColorCoordinator.exe file located in FINAL PROJECT EXE HER
 it from that folder to ensure best results. User passwords and log ins can be found in Log in Infomration or you
 can create your own logins.
 
+TABLE OF CONTENTS:
+
+in Build:
+        Diagrams: all visual diagrams (including ERD) used for this project
+
+        FINAL PROJECT EXE HERE: contains the final executable and all resources packaged to run
+
+        Notes and Research: pictures of all of my research and math used to create colors
+
+        Sample Images: final projects created with color coordinator, created by me as example work
+
+        Time log: a digital log of all the time I worked on the capstone
+
+local functions:
+        AdditionalColors: fills out lists to be siz colors long using analagous color calculations
+
+        ausxillaryFunctions: misc. functions that handle repeated opperations
+
+        ColorCoordinator: the entry point for the proect.
+
+        complimenatry: creates complimentary color palletes
+
+        constants: establishes the user constant
+
+        CoolColors : creates colors with more blue than red values
+
+        CreateMergedImage: creates favorite images from generated palletes
+
+        Interface: the main body of the project: acts as a hub for all generating functions
+        and social media fucntions. Essentally the main page
+
+        loadmenu: the log in page for the project. This veriffies accounts
+
+        monochrome: creates monochrome color palletes
+
+        RetrieveColorFromPhoto: pulls palletes from PNGs
+
+        SplitComplimenatry: creates split complement color patterns
+
+        Tetriadic: creates tetradic color patterns
+
+        Triadic: creates Triadic Color Patterns
+
+        TwitterBot: posts images to twitter
+
+        Warm Colors: generates palletes that are more red than blue
+
+log in information: contains information on all log ins for accounts used during the project.

@@ -1,10 +1,9 @@
 #all functions here are misc and aid other mainline functions
-
+# resources used:
+#https://stackoverflow.com/questions/29643352/converting-hex-to-rgb-value-in-python
 #this function converts hex values to RGB
 def hex_to_rgb(value):
-
     value = value.lstrip('#')
-
     return list(int(value[i:i + 2], 16) for i in (0, 2, 4))
 
 
