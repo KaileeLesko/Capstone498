@@ -1,5 +1,5 @@
 import colormap
-from ausxillaryFunctions import RGB2HSL
+from auxsillaryFunctions import RGB2HSL
 import random
 
 def monochrome(color):
@@ -10,9 +10,7 @@ def monochrome(color):
     print(H,S,L)
     array = [color]
     while len(array) < 6:
-        H1 = H + random.choice([5, -5])
-        if (H1 > 360):
-            H1 -= 360
+        H1 = H
         S = random.random()
         L= random.random()
 

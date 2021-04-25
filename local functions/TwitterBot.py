@@ -21,16 +21,17 @@ def execute(color1, color2, color3, color4, color5, color6, text):
     oauth = OAuth()
     api = tweepy.API(oauth)
     create(color1, color2, color3, color4, color5, color6)
-    media = api.media_upload(resource_path('myImageColor.png'))
+    media = api.media_upload('myImageColor.png')
     tweet = text
     api.update_status(status=tweet, media_ids=[media.media_id])
 
-def executefavorites(img, text):
+def executefavorites(img, text, window):
     oauth = OAuth()
     api = tweepy.API(oauth)
     media = api.media_upload(img)
     tweet = text
     api.update_status(status=tweet, media_ids=[media.media_id])
+    window.destroy()
 
 
 def resource_path( relative_path):

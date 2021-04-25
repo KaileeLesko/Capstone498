@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['colorcoordinator.py'],
-             pathex=['C:\\Users\\Kailuu\\desktop\\capstone498\\local functions'],
+             pathex=['C:\\Users\\Kailuu\\desktop\\00943752\\capstone498\\local functions'],
              binaries=[],
              datas=[],
              hiddenimports=[],

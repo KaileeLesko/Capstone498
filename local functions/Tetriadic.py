@@ -1,6 +1,6 @@
 from colormap import hex2rgb
 from AdditionalColors import additonalColors
-from ausxillaryFunctions import RGB2HSL
+from auxsillaryFunctions import RGB2HSL
 import colormap
 
 

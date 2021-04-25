@@ -1,4 +1,4 @@
-from ausxillaryFunctions import RGB2HSL
+from auxsillaryFunctions import RGB2HSL
 import colormap
 
 

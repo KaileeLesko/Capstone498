@@ -1,6 +1,6 @@
 import colormap
 from AdditionalColors import additonalColors
-from ausxillaryFunctions import RGB2HSL
+from auxsillaryFunctions import RGB2HSL
 
 
 def comp(color):

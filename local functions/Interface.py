@@ -4,6 +4,7 @@ from tkinter.ttk import *
 from tkinter import ttk
 global favorites
 global filename
+from auxsillaryFunctions import isHex
 from analagous import analagous
 from RetrieveColorFromPhoto import colorFromPhoto
 import os
@@ -13,8 +14,9 @@ import Constants
 import pymysql
 import CreateMergedImage
 from tkinter import messagebox
-from ausxillaryFunctions import lastsix, nextsix
+from auxsillaryFunctions import lastsix, nextsix
 from TwitterBot import execute
+import TwitterBot
 from Monochrome import monochrome
 from complimentary import comp
 from PIL import Image, ImageTk
@@ -412,7 +414,7 @@ class mainInterface:
 
         c = conn.cursor()
         import base64
-        converted_string = base64.b64encode(open("myImageColor.png", "rb").read())
+        converted_string = base64.b64encode(open(img, "rb").read())
         sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
         c.execute(sql, (self.username, converted_string))
         conn.commit()
@@ -523,22 +525,24 @@ class mainInterface:
                             'triadic']
             if (self.hexEntry.get()!= ""):
                 selectedColor = self.hexEntry.get()
+                randomcolor= "#"
+                while len(str(randomcolor)) <7:
+                    randomcolor += random.choice(["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"])
+                if isHex(selectedColor) == False:
+                    messagebox.showerror("ERROR", "Invalid character(s), color will be set to random")
 
+                    selectedColor= randomcolor
                 if selectedColor[0] != '#':
-                    messagebox.showerror("ERROR", "Hex Code must start with #")
+                    messagebox.showerror("ERROR", "Hex Code must start with #,color will be set to random")
+                    selectedColor = randomcolor
                     if (int(str(selectedColor), 16)) > 16777216:
-                        messagebox.showerror("ERROR", "Invalid Hex Code")
-                if (int(str(selectedColor)[1:], 16)) > 16777216:
-                    messagebox.showerror("ERROR", "Invalid Hex Code")
+                        messagebox.showerror("ERROR", "Invalid Hex Code,color will be set to random")
+                        selectedColor = randomcolor
 
-                # selectedColor= selectedColor[1]
-
-            # if (patternchoosen.get() == "" && !c2.instate(['selected']) :
-            #    messagebox.showerror("ERROR", "Please Select a Color Pattern Type")
             import CoolColors
             import WarmColors
 
-            # selectedColor = ""
+
             if (self.patternchoosen.get() == 'Random'):
                 pattern = random.choice(patternTypes)
             else:

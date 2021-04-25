@@ -26,7 +26,6 @@ def colorFromPhoto(img):
             b_set = False
 
             for i in range(len(colors)):
-                color_one = colors[i]
 
                 if not r_set:
                     r = closest(colors, r)

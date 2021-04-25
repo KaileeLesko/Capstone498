@@ -25,11 +25,6 @@ def create(color1, color2, color3, color4, color5, color6):
     cv2.imwrite('myImageColor.png', im_h)
 
 
-
-from PIL import Image
-import cv2
-
-
 def createwhite():
     img = Image.new("RGBA", (200, 200), '#ffffff')
     img1 = Image.new("RGBA", (200, 200), '#ffffff')

@@ -11,11 +11,17 @@ in Build:
 
         FINAL PROJECT EXE HERE: contains the final executable and all resources packaged to run
 
-        Notes and Research: pictures of all of my research and math used to create colors
+        Notes and Research: pictures of all of my research and math used to create colors along with explination of algorithms
 
         Sample Images: final projects created with color coordinator, created by me as example work
 
+        StakeHolder Identification: identifies all target users of Color Coordinator
+
         Time log: a digital log of all the time I worked on the capstone
+
+
+
+
 
 local functions:
         AdditionalColors: fills out lists to be siz colors long using analagous color calculations

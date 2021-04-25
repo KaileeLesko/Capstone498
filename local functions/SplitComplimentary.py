@@ -1,5 +1,5 @@
 import colormap
-from ausxillaryFunctions import RGB2HSL
+from auxsillaryFunctions import RGB2HSL
 from AdditionalColors import additonalColors
 
 
