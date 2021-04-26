@@ -198,10 +198,6 @@ class mainInterface:
         color6 = Canvas(master, width=250, height=200)
         color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
         color6.grid(row=3, column=5, sticky=W)
-        selectedColor = ""
-        # self.hexEntry.delete(0, END)
-        # self.hexEntry.se
-        # self.hexEntry.insert(0, "")
         self.l3.config(text=printedcolors[0])
         self.l4.config(text=printedcolors[1])
         self.L5.config(text=printedcolors[2])
@@ -234,15 +230,14 @@ class mainInterface:
         checker.execute("SELECT * FROM favoriteImages")
         record = checker.fetchall()
         self.favorite = record
-        print("record", record)
-        print("lnght of f" ,len(self.favorite))
+
         self.favorites=[]
         for i in range(0,len(self.favorite)):
             if self.favorite[i][0] == self.user:
                 self.favorites.append(self.favorite[i])
-                print("done this")
 
-        print("LEN",len(self.favorites))
+
+
         self.lastindex= 4
         self.lastindex = nextsix(self.lastindex, rooter, self.favorites, self.favorite)
 
@@ -274,10 +269,9 @@ class mainInterface:
     def lastIndexForward(self,rooter,favorites):
         self.lastindex= lastsix(self.lastindex,rooter,favorites,self.favorite)
 
-        print(self.lastindex)
     def lastIndexBack(self,rooter,favorites):
         self.lastindex= nextsix(self.lastindex,rooter,favorites,self.favorite)
-        print(self.lastindex)
+
     def acknowledgement(self):
         root = Tk()
 
@@ -343,9 +337,7 @@ class mainInterface:
         self.uploadname.grid(row=1, column=1)
         label = Label(self.masterthis, text="Enter the artwork's name here: ")
         label.grid(row=1, column=0)
-        # uploader = Button(masterthis, text="upload file", command=self.click)
-        # uploader.grid(row=0, column=1)
-        # self.uploadname.grid(row=1, column=3)
+
         label = Label(self.masterthis, text="Enter the artwork's name here: ")
         label.grid(row=1, column=0)
         sumbitButton = Button(self.masterthis, text="submit", command= lambda: self.submitImage())
@@ -378,7 +370,9 @@ class mainInterface:
             server.login(self.sender_email, password)
             server.sendmail(
                 self.sender_email, receiver_email, message.as_string()
+
             )
+        self.masterthis.destroy()
 
     def click(self):
         self.filename = filedialog.askopenfilename(initialdir="/",
@@ -414,7 +408,7 @@ class mainInterface:
 
         c = conn.cursor()
         import base64
-        converted_string = base64.b64encode(open(img, "rb").read())
+        converted_string = base64.b64encode(open("myImageColor.png", "rb").read())
         sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
         c.execute(sql, (self.username, converted_string))
         conn.commit()

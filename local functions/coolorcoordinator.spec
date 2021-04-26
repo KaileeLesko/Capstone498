@@ -3,10 +3,10 @@
 block_cipher = None
 
 
-a = Analysis(['Loadmenu.py'],
-             pathex=['C:\\Users\\Kailuu\\desktop\\capstone498\\local functions'],
+a = Analysis(['coolorcoordinator.py'],
+             pathex=['C:\\Users\\Kailuu\\desktop\\00943752\\capstone498\\local functions'],
              binaries=[],
-             datas=[('*.py', '.')],
+             datas=[],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -23,7 +23,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='Loadmenu',
+          name='coolorcoordinator',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
