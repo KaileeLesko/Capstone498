@@ -1,3 +1,4 @@
+import sys
 #all functions here are misc and aid other mainline functions
 # resources used:
 #https://stackoverflow.com/questions/29643352/converting-hex-to-rgb-value-in-python
@@ -500,7 +501,14 @@ def post(entrypic):
         b = Button(favewindow, text="Submit", command= lambda: executefavorites('temp.png', entrywindow.get(),favewindow))
         b.grid(row=2, column=0)
 
+def resource_path( relative_path):
+# source used https://stackoverflow.com/questions/7674790/bundling-data-files-with-pyinstaller-onefile
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
 
+    return os.path.join(base_path, relative_path)
 
 
 

@@ -5,6 +5,7 @@ from tkinter import ttk
 global favorites
 global filename
 from auxsillaryFunctions import isHex
+from auxsillaryFunctions import resource_path
 from analagous import analagous
 from RetrieveColorFromPhoto import colorFromPhoto
 import os
