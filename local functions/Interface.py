@@ -4,8 +4,12 @@ from tkinter.ttk import *
 from tkinter import ttk
 global favorites
 global filename
+import WarmColors
+import re
+import CoolColors
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from auxsillaryFunctions import isHex
-from auxsillaryFunctions import resource_path
 from analagous import analagous
 from RetrieveColorFromPhoto import colorFromPhoto
 import os
@@ -105,7 +109,7 @@ class mainInterface:
         self.patternchoosen.grid(row=0, column=1, pady=2)
 
 
-        self.image = Image.open(self.resource_path("wheelofgod.png"))
+        self.image = Image.open(self.resource_path("WhiteColorWheel.png"))
         self.photo = ImageTk.PhotoImage(self.image)
 
         self.my_text = "click here to pick colors from a photo: "
@@ -361,8 +365,7 @@ class mainInterface:
 
     def submitImage(self):
         #used this source to learn email work: https://realpython.com/python-send-email/
-        from email.mime.text import MIMEText
-        from email.mime.multipart import MIMEMultipart
+
 
         self.sender_email =self.userEmail.get()
         receiver_email = "capstone498colorcoordinator@gmail.com"
@@ -423,7 +426,7 @@ class mainInterface:
         img = Image.open(self.resource_path("myImageColor.png"))
 
         c = conn.cursor()
-        import base64
+
         converted_string = base64.b64encode(open("myImageColor.png", "rb").read())
         sql = "INSERT INTO `favoriteImages` (`username`, `image`) VALUES (%s, %s)"
         c.execute(sql, (self.username, converted_string))
@@ -480,7 +483,7 @@ class mainInterface:
             self.b1 = Button(master, text="Generate Pallete", style='green/black.TButton',
                              command=self.changeColorSqures)
             self.b1.grid(row=2, column=3, sticky=W)
-            image = Image.open(self.resource_path("wheelofgod.png"))
+            image = Image.open(self.resource_path("WhiteColorWheel.png"))
             photo = ImageTk.PhotoImage(image)
             photoslice = Label(master, image=photo)
             photoslice.image = photo
@@ -561,7 +564,7 @@ class mainInterface:
         self.squareSix.config(background="#F0F0F0", foreground="#000000")
 
         self.photoslice.destroy()
-        image = Image.open(self.resource_path("wheelofgod.png"))
+        image = Image.open(self.resource_path("WhiteColorWheel.png"))
         photo = ImageTk.PhotoImage(image)
         self.photoslice = Label(master, image=photo)
         self.photoslice.image = photo
@@ -591,8 +594,8 @@ class mainInterface:
                         messagebox.showerror("ERROR", "Invalid Hex Code,color will be set to random")
                         selectedColor = randomcolor
 
-            import CoolColors
-            import WarmColors
+
+
 
 
             if (self.patternchoosen.get() == 'Random'):
@@ -735,7 +738,7 @@ class mainInterface:
         conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                                password="Eeliak99.", database="capstone")
         regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
-        import re
+
         c = conn.cursor()
         sql = "SELECT * FROM `users`"
         c.execute(sql)
@@ -784,7 +787,7 @@ class mainInterface:
 
     def warmColors(self):
 
-        import WarmColors
+
         printedcolors = WarmColors.WarmColors()
         self.printedcolors = printedcolors
         self.mycolors = printedcolors
@@ -834,7 +837,7 @@ class mainInterface:
         self.squareSix.grid(row=4, column=5, sticky=W)
 
     def coolColors(self):
-        import CoolColors
+
         printedcolors = CoolColors.coolColors()
         self.printedcolors = printedcolors
         self.mycolors = printedcolors

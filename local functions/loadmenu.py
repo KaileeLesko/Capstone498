@@ -143,7 +143,7 @@ window.resizable(height=None, width=None)
 
 window.title("Color  Coordinator")
 
-TEST = PIL.Image.open(resource_path("Untitled_Artwork.png"))
+TEST = PIL.Image.open(resource_path("Logo.png"))
 photo = ImageTk.PhotoImage(TEST)
 
 photoslice = Label(window, image=photo)

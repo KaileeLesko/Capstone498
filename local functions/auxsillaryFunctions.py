@@ -128,6 +128,7 @@ def nextsix(lastindex, rooter,favorites,favorite, username):
 
             if (len(favorites) == 0):
                 messagebox.showerror("no favorites yet", "You have no favorites yet")
+                rooter.destory()
 
             else:
                 global photo3, photo1, photo2, photo4, photo5, photo6
