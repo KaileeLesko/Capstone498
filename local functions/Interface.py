@@ -60,6 +60,7 @@ class mainInterface:
         self.lastindex = 6
         self.printedcolors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
         self.one= Label(text= "no")
+
         self.two=Label(text= "no")
         self.three=Label(text= "no")
         self.four=Label(text= "no")
@@ -255,10 +256,10 @@ class mainInterface:
         self.lastindex= 4
         self.lastindex = nextsix(self.lastindex, rooter, self.favorites, self.favorite, self.username)
         print(str(self.favorites))
-        goforward = Button(rooter, text="view next", command= lambda: self.lastIndexBack(rooter,self.favorites, self.username))
+        goforward = Button(rooter, text="view next", command= lambda: self.lastIndexBack(rooter,self.favorites))
         goforward.grid(row=4, column=2)
 
-        goback = Button(rooter, text="view previous", command= lambda: self.lastIndexForward(rooter,self.favorites,self.username))
+        goback = Button(rooter, text="view previous", command= lambda: self.lastIndexForward(rooter,self.favorites))
         goback.grid(row=4, column=1)
 
 
@@ -281,10 +282,10 @@ class mainInterface:
         rooter.grid_columnconfigure(7, weight=1)
 
     def lastIndexForward(self,rooter,favorites):
-        self.lastindex= lastsix(self.lastindex,rooter,favorites,self.favorite)
+        self.lastindex= lastsix(self.lastindex,rooter,favorites,self.favorite,self.username)
 
     def lastIndexBack(self,rooter,favorites):
-        self.lastindex= nextsix(self.lastindex,rooter,favorites,self.favorite)
+        self.lastindex= nextsix(self.lastindex,rooter,favorites,self.favorite,self.username)
 
     def acknowledgement(self):
         acknowledgements = Tk()
@@ -483,30 +484,71 @@ class mainInterface:
             photo = ImageTk.PhotoImage(image)
             photoslice = Label(master, image=photo)
             photoslice.image = photo
-            photoslice = Button(master, image=photo, command= self.colorpicker)
+            photoslice = Button(master, image=photo, command=self.colorpicker)
             photoslice.grid(row=0, column=2,
                             columnspan=2, rowspan=2, padx=5, pady=5)
             self.l1 = Label(master, text="1) select a color pattern type: ")
             mode = True
             self.l1.grid(row=0, column=0, sticky=W, pady=2)
-            self.hexEntry = Entry(master, text= "")
+            self.hexEntry = Entry(master, text="")
             self.hexLabel = Label(master, text="2) enter your own hex code Here:")
             self.hexLabel.grid(row=1, column=0, sticky=W, pady=2)
             self.hexEntry.grid(row=1, column=1, sticky=W, pady=2)
 
             self.patternchoosen = ttk.Combobox(master, width=27, )
             self.patternchoosen['values'] = ('Random', 'Monochrome',
-                                        'Complimentary',
-                                        'split complimentary',
-                                        'triadic',
-                                        'tetradic', 'analagous',)
+                                             'Complimentary',
+                                             'split complimentary',
+                                             'triadic',
+                                             'tetradic', 'analagous',)
 
             # this will arrange entry widgets
             self.patternchoosen.grid(row=0, column=1, pady=2)
 
+
+            if self.isDarkMode:
+                master.config(background="#2c2f33")
+                self.l1.config(background="#2c2f33", foreground="#E4E6EB")
+                self.squareOne.destroy()
+                self.squareTwo.destroy()
+                self.squareThree.destroy()
+                self.squareFour.destroy()
+                self.squareFive.destroy()
+                self.squareSix.destroy()
+
+                self.squareOne = Label(master, font=1000, text=str(self.printedcolors[0]))
+                self.squareOne.grid(row=4, column=0, sticky=W)
+                self.squareTwo = Label(master, font=1000, text=str(self.printedcolors[1]))
+                self.squareTwo.grid(row=4, column=1, sticky=W)
+                self.squareThree = Label(master, font=1000, text=str(self.printedcolors[2]))
+                self.squareThree.grid(row=4, column=2, sticky=W)
+                self.squareFour = Label(master, font=1000, text=str(self.printedcolors[3]))
+                self.squareFour.grid(row=4, column=3, sticky=W)
+                self.squareFive = Label(master, font=1000, text=str(self.printedcolors[4]))
+                self.squareFive.grid(row=4, column=4, sticky=W)
+                self.squareSix = Label(master, font=1000, text=str(self.printedcolors[5]))
+                self.squareSix.grid(row=4, column=5, sticky=W)
+                self.optionLabel.config(background="#2c2f33", foreground="#E4E6EB")
+                self.squareOne.config(background="#2c2f33", foreground="#E4E6EB")
+                self.squareTwo.config(background="#2c2f33", foreground="#E4E6EB")
+                self.squareThree.config(background="#2c2f33", foreground="#E4E6EB")
+                self.squareFour.config(background="#2c2f33", foreground="#E4E6EB")
+                self.squareFive.config(background="#2c2f33", foreground="#E4E6EB")
+                self.squareSix.config(background="#2c2f33", foreground="#E4E6EB")
+                self.hexLabel.config(background="#2c2f33", foreground="#E4E6EB")
+                image = Image.open(self.resource_path("blackColorWheel.PNG"))
+                photo = ImageTk.PhotoImage(image)
+                self.photoslice.destroy()
+                self.photoslice = Label(master, image=photo)
+                self.photoslice.image = photo
+                self.photoslice = Button(master, image=photo, command=self.colorpicker)
+                self.photoslice.grid(row=0, column=2,
+                                     columnspan=2, rowspan=2, padx=5, pady=5)
+
             # button widget
 
     def lightModes(self):
+        self.isDarkMode= False
         master.config(background="#F0F0F0")
         self.optionLabel.config(background="#F0F0F0", foreground="#000000")
         self.hexLabel.config(background="#F0F0F0", foreground="#000000")
@@ -853,6 +895,7 @@ class mainInterface:
 
 
     def switchModes(self):
+        self.isDarkMode= True
         master.config(background="#2c2f33")
         self.l1.config(background="#2c2f33", foreground="#E4E6EB")
         self.squareOne.destroy()
