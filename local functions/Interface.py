@@ -889,26 +889,27 @@ class mainInterface:
         helpWindow.wm_title("Window")
 
         l90 = Label(helpWindow,
-                    text= """
-                    to generate a pallete, there are three different methods:
-                    
-                    pattern geeneration:
-                    1) first select a type of  pattern from the drop down.
-                    2) either enter a hex code yourself or click the 
-                       image of the color wheel to use the color slider
-                    3) click GENERATE PALLETE
-                    *patterns can be create multiple times by reclicking GENERATE PALLETE   
-                    
-                    
-                    warm and cool colors:
-                    1) click either WARM COLORS or COOL COLORS
-                    * you do not need to enter a hex code as it will not be used
-                    
-                    pallete from a photo:
-                    1) click the check box to change the interface
-                    2) upload a PNG by click the upload button
-                    3) click GENRATE PALLETE
-                    *patterns can be create multiple times by reclicking GENERATE PALLETE   
+                    text= """To generate a palette, there are three different methods:
+
+pattern generation:
+1) first select a type of  pattern from the drop down.
+2) either enter a hex code yourself or click the 
+   image of the color wheel to use the color slider
+3) click GENERATE PALLETE
+*patterns can be create multiple times by clicking GENERATE PALLETE   
+
+
+warm and cool colors:
+1) click either WARM COLORS or COOL COLORS
+* you do not need to enter a hex code as it will not be used
+
+palette from a photo:
+1) click the check box to change the interface
+2) upload a PNG by click the upload button
+3) click GENRATE PALLETE
+*patterns can be create multiple times by clicking GENERATE PALLETE  
+
+                     
                     """)
         l90.grid(row=0, column=0)
 
