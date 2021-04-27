@@ -193,6 +193,7 @@ e1.grid(row=2, column=2)
 e2.grid(row=3, column=2)
 
 window.grid_columnconfigure(0, weight=1)
+window.resizable(0, 0)
 window.grid_columnconfigure(1, weight=1)
 window.grid_columnconfigure(2, weight=1)
 window.grid_rowconfigure(0, weight=1)

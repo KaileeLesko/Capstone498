@@ -79,8 +79,8 @@ class mainInterface:
         self.c1.grid(row=2, column=1, sticky=W, pady=2)
         self.c2.grid(row=2, column=2, sticky=W, pady=2)
 
-        self.lKailee = Label(master, text="OR pick one of these:")
-        self.lKailee.grid(row=2, column=0, sticky=W, pady=2)
+        self.optionLabel = Label(master, text="OR pick one of these:")
+        self.optionLabel.grid(row=2, column=0, sticky=W, pady=2)
 
         self.hexEntry = Entry(master, text="")
         self.hexEntry.grid(row=1, column=1, sticky=W, pady=2)
@@ -137,24 +137,18 @@ class mainInterface:
         self.color6.create_rectangle(0, 0, 200, 200, fill=self.printedcolors[5], outline=self.printedcolors[5])
         self.color6.grid(row=3, column=5, sticky=W)
 
-        self.l3 = Label(master, font=1000, text=str(self.printedcolors[0]))
-        self.l3.grid(row=4, column=0, sticky=W)
-
-        self.l4 = Label(master, font=1000, text=str(self.printedcolors[1]))
-        self.l4.grid(row=4, column=1, sticky=W)
-
-        self.L5 = Label(master, font=1000, text=str(self.printedcolors[2]))
-        self.L5.grid(row=4, column=2, sticky=W)
-
-        self.L6 = Label(master, font=1000, text=str(self.printedcolors[3]))
-        self.L6.grid(row=4, column=3, sticky=W)
-
-        self.L7 = Label(master, font=1000, text=str(self.printedcolors[4]))
-        self.L7.grid(row=4, column=4, sticky=W)
-
-        self.L8 = Label(master, font=1000, text=str(self.printedcolors[5]))
-        self.L8.grid(row=4, column=5, sticky=W)
-
+        self.squareOne = Label(master, font=1000, text=str(self.printedcolors[0]))
+        self.squareOne.grid(row=4, column=0, sticky=W)
+        self.squareTwo = Label(master, font=1000, text=str(self.printedcolors[1]))
+        self.squareTwo.grid(row=4, column=1, sticky=W)
+        self.squareThree = Label(master, font=1000, text=str(self.printedcolors[2]))
+        self.squareThree.grid(row=4, column=2, sticky=W)
+        self.squareFour = Label(master, font=1000, text=str(self.printedcolors[3]))
+        self.squareFour.grid(row=4, column=3, sticky=W)
+        self.squareFive = Label(master, font=1000, text=str(self.printedcolors[4]))
+        self.squareFive.grid(row=4, column=4, sticky=W)
+        self.squareSix = Label(master, font=1000, text=str(self.printedcolors[5]))
+        self.squareSix.grid(row=4, column=5, sticky=W)
         self.uploadButton = Button(master, text="Upload File", image=self.photo, command= self.uploadfile)
 
         self.favoritedImages = []
@@ -199,12 +193,24 @@ class mainInterface:
         color6 = Canvas(master, width=250, height=200)
         color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
         color6.grid(row=3, column=5, sticky=W)
-        self.l3.config(text=printedcolors[0])
-        self.l4.config(text=printedcolors[1])
-        self.L5.config(text=printedcolors[2])
-        self.L6.config(text=printedcolors[3])
-        self.L7.config(text=printedcolors[4])
-        self.L8.config(text=printedcolors[5])
+        self.squareOne.destroy()
+        self.squareTwo.destroy()
+        self.squareThree.destroy()
+        self.squareFour.destroy()
+        self.squareFive.destroy()
+        self.squareSix.destroy()
+        self.squareOne = Label(master, font=1000, text=str(printedcolors[0]))
+        self.squareOne.grid(row=4, column=0, sticky=W)
+        self.squareTwo = Label(master, font=1000, text=str(printedcolors[1]))
+        self.squareTwo.grid(row=4, column=1, sticky=W)
+        self.squareThree = Label(master, font=1000, text=str(printedcolors[2]))
+        self.squareThree.grid(row=4, column=2, sticky=W)
+        self.squareFour = Label(master, font=1000, text=str(printedcolors[3]))
+        self.squareFour.grid(row=4, column=3, sticky=W)
+        self.squareFive = Label(master, font=1000, text=str(printedcolors[4]))
+        self.squareFive.grid(row=4, column=4, sticky=W)
+        self.squareSix = Label(master, font=1000, text=str(printedcolors[5]))
+        self.squareSix.grid(row=4, column=5, sticky=W)
     def colorpicker(self):
         color_code = colorchooser.askcolor(title="Choose color")
 
@@ -274,10 +280,10 @@ class mainInterface:
         self.lastindex= nextsix(self.lastindex,rooter,favorites,self.favorite)
 
     def acknowledgement(self):
-        root = Tk()
-
-        root.title("Color  Coordinator")
-        w = Label(root, text='thanks to everyone who helped me stay sane during development (Eric, Liz, Bobby, Dani, nicholas, Kat, Dr Kreider)',
+        acknowledgements = Tk()
+        acknowledgements .resizable(0, 0)
+        acknowledgements .title("Color  Coordinator")
+        w = Label(acknowledgements , text='thanks to everyone who helped me stay sane during development (Eric, Liz, Bobby, Dani, nicholas, Kat, Dr Kreider)',
                   font="50")
         w.pack()
 
@@ -302,46 +308,47 @@ class mainInterface:
 
     def post(self):
 
-        self.item2 = Tk()
-        self.item2.wm_title("Post to Twitter")
-        self.item2.geometry("200x200")
-        l = Label(self.item2, text="What Text do you want your tweet to say?")
-        self.e1 = Entry(self.item2)
+        self.twitterWindow = Tk()
+        self.twitterWindow.resizable(0, 0)
+        self.twitterWindow.wm_title("Post to Twitter")
+        self.twitterWindow.geometry("200x200")
+        l = Label(self.twitterWindow, text="What Text do you want your tweet to say?")
+        self.e1 = Entry(self.twitterWindow)
         self.e1.grid(row=1, column=0)
         l.grid(row=0, column=0)
-        b = Button(self.item2, text="SubmitImage", command=self.executer)
+        b = Button(self.twitterWindow, text="SubmitImage", command=self.executer)
         b.grid(row=2, column=0)
 
     def createUpload(self):
-        self.masterthis= Toplevel()
-        self.masterthis.title("upload artwork")
+        self.uploadWindow= Toplevel()
+        self.uploadWindow.title("upload artwork")
+        self.uploadWindow.resizable(0, 0)
 
-
-        self.masterthis.attributes("-topmost", True)
+        self.uploadWindow.attributes("-topmost", True)
         image = Image.open(self.resource_path("downloadphoto.png"))
         photo= ImageTk.PhotoImage(image)
-        uploader = Button(self.masterthis, image=photo)
+        uploader = Button(self.uploadWindow, image=photo)
         uploader.image = photo
-        uploader = Button(self.masterthis,image= photo, command=self.clickUpload)
+        uploader = Button(self.uploadWindow,image= photo, command=self.clickUpload)
 
         uploader.grid(row=0, column=1)
 
-        self.userEmail= Entry(self.masterthis)
-        self.userPassword= Entry(self.masterthis,show= "*")
-        self.userPassLabel = Label(self.masterthis, text="your email password here")
+        self.userEmail= Entry(self.uploadWindow)
+        self.userPassword= Entry(self.uploadWindow,show= "*")
+        self.userPassLabel = Label(self.uploadWindow, text="your email password here")
         self.userPassLabel.grid(row=2, column=2)
-        self.userEmailLabel= Label(self.masterthis,text= "your email address here")
+        self.userEmailLabel= Label(self.uploadWindow,text= "your email address here")
         self.userEmailLabel.grid(row=2, column=0)
         self.userPassword.grid(row=2, column = 3)
         self.userEmail.grid(row=2, column= 1)
-        self.uploadname = Entry(self.masterthis)
+        self.uploadname = Entry(self.uploadWindow)
         self.uploadname.grid(row=1, column=1)
-        label = Label(self.masterthis, text="Enter the artwork's name here: ")
+        label = Label(self.uploadWindow, text="Enter the artwork's name here: ")
         label.grid(row=1, column=0)
 
-        label = Label(self.masterthis, text="Enter the artwork's name here: ")
+        label = Label(self.uploadWindow, text="Enter the artwork's name here: ")
         label.grid(row=1, column=0)
-        sumbitButton = Button(self.masterthis, text="submit", command= lambda: self.submitImage())
+        sumbitButton = Button(self.uploadWindow, text="submit", command= lambda: self.submitImage())
         sumbitButton.grid(row=3, column=1)
 
     def submitImage(self):
@@ -373,14 +380,14 @@ class mainInterface:
                 self.sender_email, receiver_email, message.as_string()
 
             )
-        self.masterthis.destroy()
+        self.uploadWindow.destroy()
 
     def click(self):
         self.filename = filedialog.askopenfilename(initialdir="/",
                                               title="Select a File"
                                               )
         name, extension = os.path.splitext(self.filename)
-        self.masterthis.lift()
+        self.uploadWindow.lift()
         if (".PNG") != extension:
             messagebox.showerror("ERROR", "File must be a .PNG type")
         else:
@@ -399,7 +406,7 @@ class mainInterface:
 
     def executer(self):
         execute(self.mycolors[0], self.mycolors[1], self.mycolors[2], self.mycolors[3], self.mycolors[4], self.mycolors[5], self.e1.get())
-        self.item2.destroy()
+        self.twitterWindow.destroy()
 
     def addToFaves(self):
         CreateMergedImage.create(self.mycolors[0], self.mycolors[1], self.mycolors[2], self.mycolors[3], self.mycolors[4], self.mycolors[5])
@@ -426,7 +433,7 @@ class mainInterface:
 
         if self.c.cget("text") == "click here to pick colors from a photo: ":
             self.b1.config(command= lambda: self.colorfromphoto())
-            self.lKailee.destroy()
+            self.optionLabel.destroy()
             self.c1.destroy()
             self.c2.destroy()
 
@@ -454,8 +461,8 @@ class mainInterface:
 
         else:
             my_text = "click here to pick colors from a photo: "
-            self.lKailee = Label(master, text="OR pick one of these:")
-            self.lKailee.grid(row=2, column=0, sticky=W, pady=2)
+            self.optionLabel = Label(master, text="OR pick one of these:")
+            self.optionLabel.grid(row=2, column=0, sticky=W, pady=2)
             self.c1 = ttk.Button(master, text='cool colors ', command=self.coolColors)
             self.c2 = ttk.Button(master, text='warm colors', command=self.warmColors)
             self.c1.grid(row=2, column=1, sticky=W, pady=2)
@@ -494,14 +501,15 @@ class mainInterface:
 
     def lightModes(self):
         master.config(background="#F0F0F0")
-
+        self.optionLabel.config(background="#F0F0F0", foreground="#000000")
+        self.hexLabel.config(background="#F0F0F0", foreground="#000000")
         self.l1.config(background="#F0F0F0", foreground="#000000")
-        self.l3.config(background="#F0F0F0", foreground="#000000")
-        self.l4.config(background="#F0F0F0", foreground="#000000")
-        self.L5.config(background="#F0F0F0", foreground="#000000")
-        self.L7.config(background="#F0F0F0", foreground="#000000")
-        self.L6.config(background="#F0F0F0", foreground="#000000")
-        self.L8.config(background="#F0F0F0", foreground="#000000")
+        self.squareOne.config(background="#F0F0F0", foreground="#000000")
+        self.squareTwo.config(background="#F0F0F0", foreground="#000000")
+        self.squareThree.config(background="#F0F0F0", foreground="#000000")
+        self.squareFive.config(background="#F0F0F0", foreground="#000000")
+        self.squareFour.config(background="#F0F0F0", foreground="#000000")
+        self.squareSix.config(background="#F0F0F0", foreground="#000000")
 
         self.photoslice.destroy()
         image = Image.open(self.resource_path("wheelofgod.png"))
@@ -566,6 +574,7 @@ class mainInterface:
 
         else:
             printedcolors = colorFromPhoto(self.fileimage)
+            #1345768
         self.mycolors = printedcolors
         color1 = Canvas(master, width=250, height=200)
         color1.create_rectangle(0, 0, 200, 200, fill=printedcolors[0], outline=printedcolors[0])
@@ -585,12 +594,19 @@ class mainInterface:
         color6 = Canvas(master, width=250, height=200)
         color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
         color6.grid(row=3, column=5, sticky=W)
-        self.l3.config(text=printedcolors[0])
-        self.l4.config(text=printedcolors[1])
-        self.L5.config(text=printedcolors[2])
-        self.L6.config(text=printedcolors[3])
-        self.L7.config(text=printedcolors[4])
-        self.L8.config(text=printedcolors[5])
+
+        self.squareOne = Label(master, font=1000, text=str(printedcolors[0]))
+        self.squareOne.grid(row=4, column=0, sticky=W)
+        self.squareTwo = Label(master, font=1000, text=str(printedcolors[1]))
+        self.squareTwo.grid(row=4, column=1, sticky=W)
+        self.squareThree = Label(master, font=1000, text=str(printedcolors[2]))
+        self.squareThree.grid(row=4, column=2, sticky=W)
+        self.squareFour = Label(master, font=1000, text=str(printedcolors[3]))
+        self.squareFour.grid(row=4, column=3, sticky=W)
+        self.squareFive = Label(master, font=1000, text=str(printedcolors[4]))
+        self.squareFive.grid(row=4, column=4, sticky=W)
+        self.squareSix = Label(master, font=1000, text=str(printedcolors[5]))
+        self.squareSix.grid(row=4, column=5, sticky=W)
 
     def warmColors(self):
 
@@ -617,24 +633,23 @@ class mainInterface:
         color5.create_rectangle(0, 0, 200, 200, fill=printedcolors[4], outline=printedcolors[4])
         color5.grid(row=3, column=4, sticky=W)
 
-        # master.configure(background='#2c2f33')
 
         color6 = Canvas(master, width=250, height=200)
         color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
         color6.grid(row=3, column=5, sticky=W)
 
-        l3 = Label(master, font=1000, text=str(printedcolors[0]))
-        l3.grid(row=4, column=0, sticky=W)
-        l4 = Label(master, font=1000, text=str(printedcolors[1]))
-        l4.grid(row=4, column=1, sticky=W)
-        L5 = Label(master, font=1000, text=str(printedcolors[2]))
-        L5.grid(row=4, column=2, sticky=W)
-        L6 = Label(master, font=1000, text=str(printedcolors[3]))
-        L6.grid(row=4, column=3, sticky=W)
-        L7 = Label(master, font=1000, text=str(printedcolors[4]))
-        L7.grid(row=4, column=4, sticky=W)
-        L8 = Label(master, font=1000, text=str(printedcolors[5]))
-        L8.grid(row=4, column=5, sticky=W)
+        self.squareOne = Label(master, font=1000, text=str(printedcolors[0]))
+        self.squareOne.grid(row=4, column=0, sticky=W)
+        self.squareTwo = Label(master, font=1000, text=str(printedcolors[1]))
+        self.squareTwo.grid(row=4, column=1, sticky=W)
+        self.squareThree = Label(master, font=1000, text=str(printedcolors[2]))
+        self.squareThree.grid(row=4, column=2, sticky=W)
+        self.squareFour = Label(master, font=1000, text=str(printedcolors[3]))
+        self.squareFour.grid(row=4, column=3, sticky=W)
+        self.squareFive = Label(master, font=1000, text=str(printedcolors[4]))
+        self.squareFive.grid(row=4, column=4, sticky=W)
+        self.squareSix = Label(master, font=1000, text=str(printedcolors[5]))
+        self.squareSix.grid(row=4, column=5, sticky=W)
 
     def coolColors(self):
         import CoolColors
@@ -660,30 +675,31 @@ class mainInterface:
         color5.create_rectangle(0, 0, 200, 200, fill=printedcolors[4], outline=printedcolors[4])
         color5.grid(row=3, column=4, sticky=W)
 
-        # master.configure(background='#2c2f33')
 
         color6 = Canvas(master, width=250, height=200)
         color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
         color6.grid(row=3, column=5, sticky=W)
 
-        l3 = Label(master, font=1000, text=str(printedcolors[0]))
-        l3.grid(row=4, column=0, sticky=W)
-        l4 = Label(master, font=1000, text=str(printedcolors[1]))
-        l4.grid(row=4, column=1, sticky=W)
-        L5 = Label(master, font=1000, text=str(printedcolors[2]))
-        L5.grid(row=4, column=2, sticky=W)
-        L6 = Label(master, font=1000, text=str(printedcolors[3]))
-        L6.grid(row=4, column=3, sticky=W)
-        L7 = Label(master, font=1000, text=str(printedcolors[4]))
-        L7.grid(row=4, column=4, sticky=W)
-        L8 = Label(master, font=1000, text=str(printedcolors[5]))
-        L8.grid(row=4, column=5, sticky=W)
+        self.squareOne = Label(master, font=1000, text=str(printedcolors[0]))
+        self.squareOne.grid(row=4, column=0, sticky=W)
+        self.squareTwo = Label(master, font=1000, text=str(printedcolors[1]))
+        self.squareTwo.grid(row=4, column=1, sticky=W)
+        self.squareThree = Label(master, font=1000, text=str(printedcolors[2]))
+        self.squareThree.grid(row=4, column=2, sticky=W)
+        self.squareFour = Label(master, font=1000, text=str(printedcolors[3]))
+        self.squareFour.grid(row=4, column=3, sticky=W)
+        self.squareFive = Label(master, font=1000, text=str(printedcolors[4]))
+        self.squareFive.grid(row=4, column=4, sticky=W)
+        self.squareSix = Label(master, font=1000, text=str(printedcolors[5]))
+        self.squareSix.grid(row=4, column=5, sticky=W)
     def helpWindow(self):
 
-        item1 = Tk()
-        item1.wm_title("Window")
+        helpWindow = Tk()
+        
+        helpWindow.resizable(0, 0)
+        helpWindow.wm_title("Window")
 
-        l90 = Label(item1,
+        l90 = Label(helpWindow,
                     text= """
                     to generate a pallete, there are three different methods:
                     
@@ -710,6 +726,15 @@ class mainInterface:
 
     def switchModes(self):
         master.config(background="#2c2f33")
+        self.l1.config(background="#2c2f33", foreground="#E4E6EB")
+        self.optionLabel.config(background="#2c2f33", foreground="#E4E6EB")
+        self.squareOne.config(background="#2c2f33", foreground="#E4E6EB")
+        self.squareTwo.config(background="#2c2f33", foreground="#E4E6EB")
+        self.squareThree.config(background="#2c2f33", foreground="#E4E6EB")
+        self.squareFour.config(background="#2c2f33", foreground="#E4E6EB")
+        self.squareFive.config(background="#2c2f33", foreground="#E4E6EB")
+        self.squareSix.config(background="#2c2f33", foreground= "#E4E6EB")
+        self.hexLabel.config(background="#2c2f33", foreground="#E4E6EB")
         image = Image.open(self.resource_path("blackColorWheel.PNG"))
         photo = ImageTk.PhotoImage(image)
         self.photoslice.destroy()
