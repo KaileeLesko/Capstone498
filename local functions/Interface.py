@@ -51,6 +51,8 @@ class mainInterface:
         self.filename= ""
 
         self.submenu.add_command(label="Dark Mode", command=self.switchModes)
+        self.menubar.add_command(label="Create New Log In", command=self.createLogIn)
+        self.menubar.add_cascade(label= "change accounts", command= self.changeLogIn)
         self.submenu.add_command(label="Light Mode", command=self.lightModes)
         self.file.add_cascade(label='Visual Settings', menu= self.submenu, underline=0)
         # mode.add_command(label ='Dark Mode', command =mainInterface.switchModes)
@@ -84,7 +86,7 @@ class mainInterface:
 
         self.hexEntry = Entry(master, text="")
         self.hexEntry.grid(row=1, column=1, sticky=W, pady=2)
-        self.user= Constants.setUser()
+        self.username= Constants.setUser()
         self.hexLabel = Label(master, text=" 2) enter your own hex code Here:")
         self.hexLabel.grid(row=1, column=0, sticky=W, pady=2)
 
@@ -174,6 +176,7 @@ class mainInterface:
             window.destoy()
     def colorfromphoto(self):
         printedcolors = colorFromPhoto(self.fileimage)
+        self.printedcolors= printedcolors
         self.mycolors = printedcolors
         color1 = Canvas(master, width=250, height=200)
         color1.create_rectangle(0, 0, 200, 200, fill=printedcolors[0], outline=printedcolors[0])
@@ -237,21 +240,25 @@ class mainInterface:
         checker.execute("SELECT * FROM favoriteImages")
         record = checker.fetchall()
         self.favorite = record
-
+        print("I AM HERE" ,self.username)
         self.favorites=[]
         for i in range(0,len(self.favorite)):
-            if self.favorite[i][0] == self.user:
+            if self.favorite[i][0] == self.username:
+                print(self.username)
                 self.favorites.append(self.favorite[i])
+        if (len(self.favorites) == 0):
+            print("no favorites")
+            self.favorites= []
 
 
 
         self.lastindex= 4
-        self.lastindex = nextsix(self.lastindex, rooter, self.favorites, self.favorite)
-
-        goforward = Button(rooter, text="view next", command= lambda: self.lastIndexBack(rooter,self.favorites))
+        self.lastindex = nextsix(self.lastindex, rooter, self.favorites, self.favorite, self.username)
+        print(str(self.favorites))
+        goforward = Button(rooter, text="view next", command= lambda: self.lastIndexBack(rooter,self.favorites, self.username))
         goforward.grid(row=4, column=2)
 
-        goback = Button(rooter, text="view previous", command= lambda: self.lastIndexForward(rooter,self.favorites))
+        goback = Button(rooter, text="view previous", command= lambda: self.lastIndexForward(rooter,self.favorites,self.username))
         goback.grid(row=4, column=1)
 
 
@@ -570,7 +577,7 @@ class mainInterface:
                                                             '#ffffff']
 
                 self.mycolors = self.printedcolors
-
+            self.printedcolors = printedcolors
 
         else:
             printedcolors = colorFromPhoto(self.fileimage)
@@ -608,10 +615,130 @@ class mainInterface:
         self.squareSix = Label(master, font=1000, text=str(printedcolors[5]))
         self.squareSix.grid(row=4, column=5, sticky=W)
 
+    def changeLogIn(self):
+        self.LoginWindows = Tk()
+
+        self.LoginWindows.resizable(0, 0)
+        self.LoginWindows.wm_title("Log in")
+        newuser = Label(self.LoginWindows, text= "Enter log in")
+        newuser.grid(row=0, column= 0)
+        newpassword=  Label(self.LoginWindows, text= "Enter account password")
+        newpassword.grid(row=1, column=0)
+        self.userEntry = Entry(self.LoginWindows)
+        self.passwordEntry= Entry(self.LoginWindows, show = "*")
+        self.userEntry.grid(row=0, column= 1)
+        self.passwordEntry.grid(row=1, column=1)
+        enterButton = Button(self.LoginWindows, text = "change log in", command= self.changeLogger)
+        enterButton.grid(row= 2, column=1, columnspan=2)
+
+    def changeLogger(self):
+        conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
+                               password="Eeliak99.", database="capstone")
+
+        c = conn.cursor()
+        c.execute("SELECT* FROM users")
+        records = c.fetchall()
+        users = records
+        entry = False
+
+        global answer
+        answer = self.userEntry.get()
+
+        for i in range(0, len(users)):
+            if self.userEntry.get() in users[i]:
+                if self.passwordEntry.get() in users[i]:
+
+                    entry = True
+        if entry == False:
+            messagebox.showerror("ERROR", "This password or Username is incorrect")
+
+        if entry == True:
+            self.username = self.userEntry.get()
+            print("user has been changed")
+            print(self.username)
+            favorites = []
+            messagebox.showinfo("Success", "Switched accounts.")
+            self.LoginWindows.destroy()
+
+    def createLogIn(self):
+        self.LoginWindow = Tk()
+
+        self.LoginWindow.resizable(0, 0)
+        self.LoginWindow.wm_title("Create new Log in")
+        newuser = Label(self.LoginWindow, text="Enter new log in")
+        newuser.grid(row=0, column=0)
+        newpassword = Label(self.LoginWindow, text="Enter new account password")
+        namer = Label(self.LoginWindow, text="Enter your first name").grid(row = 2, column= 0)
+        lastname= Label(self.LoginWindow, text= "Enter your last name").grid(row= 3, column = 0)
+        self.namerentry = Entry(self.LoginWindow)
+        self.namerentry.grid(row=2, column=1)
+        self.lastnamentry = Entry(self.LoginWindow)
+        self.lastnamentry.grid(row=3, column=1)
+        newpassword.grid(row=1, column=0)
+        self.userEntry = Entry(self.LoginWindow)
+        self.passwordEntry = Entry(self.LoginWindow, show="*")
+        self.userEntry.grid(row=0, column=1)
+        self.passwordEntry.grid(row=1, column=1)
+        enterButton = Button(self.LoginWindow, text="create log in",
+                             command= self.createLogger)
+        enterButton.grid(row=4, column=1, columnspan=2)
+
+    def createLogger(self):
+        conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
+                               password="Eeliak99.", database="capstone")
+        regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
+        import re
+        c = conn.cursor()
+        sql = "SELECT * FROM `users`"
+        c.execute(sql)
+        records = c.fetchall()
+        users = records
+        entry = False
+        for i in range(0, len(users)):
+            if self.userEntry.get() in users[i]:
+                entry = True
+        if (entry == False):
+            if (len(self.userEntry.get()) >= 6):
+                if (self.userEntry.get() != ""):
+                    if (self.namerentry.get() != ""):
+                        if (re.search(regex, self.userEntry.get())):
+
+                            conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com',
+                                                   user='kailee',
+                                                   password="Eeliak99.", database="capstone")
+
+                            c = conn.cursor()
+                            sql = "INSERT INTO `users` (`username`, `first_name`, `last_name`, `password`) VALUES (%s, %s, %s, %s)"
+                            c.execute(sql, (self.userEntry.get(), self.namerentry.get(), self.lastnamentry.get(), self.passwordEntry.get()))
+                            conn.commit()
+                            sql = "SELECT * FROM `users`"
+                            c.execute(sql)
+                            result = c.fetchall()
+                            user = result
+                            self.userEntry.delete(0, END)
+                            self.namerentry.delete(0, END)
+                            self.lastnamentry.delete(0, END)
+                            self.passwordEntry.delete(0, END)
+
+                            messagebox.showinfo("Success!", "Your account has been created!")
+                            self.LoginWindow.destroy()
+
+                        else:
+                            messagebox.showerror("ERROR", "This is not a valid email")
+                    else:
+                        messagebox.showerror("ERROR", "Last name cannot be blank")
+                else:
+                    messagebox.showerror("ERROR", "first name cannot be blank")
+            else:
+                messagebox.showerror("ERROR", "password must be 6 or more characters long")
+        else:
+            messagebox.showerror("ERROR", "This username is already in use")
+
     def warmColors(self):
 
         import WarmColors
         printedcolors = WarmColors.WarmColors()
+        self.printedcolors = printedcolors
         self.mycolors = printedcolors
         color1 = Canvas(master, width=250, height=200)
         color1.create_rectangle(0, 0, 200, 200, fill=printedcolors[0], outline=printedcolors[0])
@@ -654,6 +781,7 @@ class mainInterface:
     def coolColors(self):
         import CoolColors
         printedcolors = CoolColors.coolColors()
+        self.printedcolors = printedcolors
         self.mycolors = printedcolors
         color1 = Canvas(master, width=250, height=200)
         color1.create_rectangle(0, 0, 200, 200, fill=printedcolors[0], outline=printedcolors[0])
@@ -727,6 +855,25 @@ class mainInterface:
     def switchModes(self):
         master.config(background="#2c2f33")
         self.l1.config(background="#2c2f33", foreground="#E4E6EB")
+        self.squareOne.destroy()
+        self.squareTwo.destroy()
+        self.squareThree.destroy()
+        self.squareFour.destroy()
+        self.squareFive.destroy()
+        self.squareSix.destroy()
+
+        self.squareOne = Label(master, font=1000, text=str(self.printedcolors[0]))
+        self.squareOne.grid(row=4, column=0, sticky=W)
+        self.squareTwo = Label(master, font=1000, text=str(self.printedcolors[1]))
+        self.squareTwo.grid(row=4, column=1, sticky=W)
+        self.squareThree = Label(master, font=1000, text=str(self.printedcolors[2]))
+        self.squareThree.grid(row=4, column=2, sticky=W)
+        self.squareFour = Label(master, font=1000, text=str(self.printedcolors[3]))
+        self.squareFour.grid(row=4, column=3, sticky=W)
+        self.squareFive = Label(master, font=1000, text=str(self.printedcolors[4]))
+        self.squareFive.grid(row=4, column=4, sticky=W)
+        self.squareSix = Label(master, font=1000, text=str(self.printedcolors[5]))
+        self.squareSix.grid(row=4, column=5, sticky=W)
         self.optionLabel.config(background="#2c2f33", foreground="#E4E6EB")
         self.squareOne.config(background="#2c2f33", foreground="#E4E6EB")
         self.squareTwo.config(background="#2c2f33", foreground="#E4E6EB")

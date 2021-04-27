@@ -75,7 +75,7 @@ import pymysql
 import Constants
 
 #this function creates the favroties page arrays and datapoints
-def createFavorites():
+def createFavorites(username):
     conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                            password="Eeliak99.", database="capstone")
     c = conn.cursor()
@@ -85,12 +85,12 @@ def createFavorites():
     favorites=[]
 
     for i in range(0, len(favorite)):
-        if favorite[i][0] == Constants.setUser():
+        if favorite[i][0] == username:
             favorites.append(favorite[i])
     return favorites
 
 #remover remomves no longer wanted favorites from the database
-def remover(i, favorites, lastindex, rooter, favorite,  current):
+def remover(i, favorites, lastindex, rooter, favorite,  current,username):
 
     conn = pymysql.connect(host='coolorcoordinator.cuw5r9k9lei6.us-east-1.rds.amazonaws.com', user='kailee',
                            password="Eeliak99.", database="capstone")
@@ -101,16 +101,16 @@ def remover(i, favorites, lastindex, rooter, favorite,  current):
     c.execute(sql, adr)
     conn.commit()
     #calls the next 6 to avoid whitespace
-    nextsix(4, rooter, favorites, favorite)
+    nextsix(4, rooter, favorites, favorite, username)
 
 #mass destroy handels removal of all gui objects no longer needed
 def massdestroy(f1):
     f1.destroy()
 
 #creates a pop up GUI that alllows the user to change and share their favorites
-def multipleOptions(row,column, rooter,i,favorite,favorites,lastindex,temp):
+def multipleOptions(row,column, rooter,i,favorite,favorites,lastindex,temp,username):
     f1 = tkinter.Frame(rooter)
-    b1 =Button(f1, text="Delete from Favorites",command= lambda: remover(i, favorites, lastindex, rooter, favorite, favorites[temp][1]))
+    b1 =Button(f1, text="Delete from Favorites",command= lambda: remover(i, favorites, lastindex, rooter, favorite, favorites[temp][1], username))
     b2 = Button(f1, text="Post to Twitter", command= lambda: post(favorites[temp][1]))
     b3 = Button(f1, text= "close" ,command= lambda: massdestroy(f1))
     b1.pack(side="top")
@@ -123,8 +123,8 @@ def multipleOptions(row,column, rooter,i,favorite,favorites,lastindex,temp):
 from tkinter import Label,Button
 
 #next six shifts the data to the next entries to allow users to see more favorites
-def nextsix(lastindex, rooter,favorites,favorite):
-            favorites = createFavorites()
+def nextsix(lastindex, rooter,favorites,favorite, username):
+            favorites = createFavorites(username)
 
             if (len(favorites) == 0):
                 messagebox.showerror("no favorites yet", "You have no favorites yet")
@@ -170,7 +170,7 @@ def nextsix(lastindex, rooter,favorites,favorite):
                             photo1 = ImageTk.PhotoImage(newimg)
                             row1=1
                             column1=1
-                            rooter.one = Button(rooter, image=photo1, command= lambda: multipleOptions(row1,column1, rooter,i,favorite,favorites,lastindex,temp1))
+                            rooter.one = Button(rooter, image=photo1, command= lambda: multipleOptions(row1,column1, rooter,i,favorite,favorites,lastindex,temp1,username))
                             rooter.one.grid(row=1, column=1)
                         count = 2
                     elif (count == 2):
@@ -193,7 +193,7 @@ def nextsix(lastindex, rooter,favorites,favorite):
                             photo2 = ImageTk.PhotoImage(newimg)
                             row2= 2
                             column2= 1
-                            rooter.two = Button(rooter, image=photo2, command= lambda: multipleOptions(row2,column2, rooter,i,favorite,favorites,lastindex,temp2))
+                            rooter.two = Button(rooter, image=photo2, command= lambda: multipleOptions(row2,column2, rooter,i,favorite,favorites,lastindex,temp2,username))
                             rooter.two.grid(row=2, column=1)
                         count = 3
 
@@ -217,7 +217,7 @@ def nextsix(lastindex, rooter,favorites,favorite):
                             photo3 = ImageTk.PhotoImage(newimg)
                             row3=3
                             column3=1
-                            rooter.three= Button(rooter, image=photo3, command= lambda: multipleOptions(row3,column3, rooter,i,favorite,favorites,lastindex,temp3))
+                            rooter.three= Button(rooter, image=photo3, command= lambda: multipleOptions(row3,column3, rooter,i,favorite,favorites,lastindex,temp3,username))
                             rooter.three.grid(row=3, column=1)
                         count = 4
                     elif (count == 4):
@@ -241,7 +241,7 @@ def nextsix(lastindex, rooter,favorites,favorite):
                             row4=1
                             temp4=i
                             column4= 2
-                            rooter.four = Button(rooter, image=photo4, command= lambda: multipleOptions(row4,column4, rooter,i,favorite,favorites,lastindex,temp4))
+                            rooter.four = Button(rooter, image=photo4, command= lambda: multipleOptions(row4,column4, rooter,i,favorite,favorites,lastindex,temp4,username))
                             rooter.four.grid(row=1, column=2)
                         count = 5
                     elif (count == 5):
@@ -264,7 +264,7 @@ def nextsix(lastindex, rooter,favorites,favorite):
                             photo5 = ImageTk.PhotoImage(newimg)
                             row5= 2
                             column5= 2
-                            rooter.five = Button(rooter, image=photo5, command= lambda: multipleOptions(row5,column5, rooter,i,favorite,favorites,lastindex,temp5))
+                            rooter.five = Button(rooter, image=photo5, command= lambda: multipleOptions(row5,column5, rooter,i,favorite,favorites,lastindex,temp5,username))
                             rooter.five.grid(row=2, column=2)
                         count = 6
                     elif count==6:
@@ -287,7 +287,7 @@ def nextsix(lastindex, rooter,favorites,favorite):
                             photo6 = ImageTk.PhotoImage(newimg)
                             row6= 3
                             column6=2
-                            rooter.six = Button(rooter, image=photo6, command= lambda: multipleOptions(row6,column6, rooter,i,favorite,favorites,lastindex,temp6))
+                            rooter.six = Button(rooter, image=photo6, command= lambda: multipleOptions(row6,column6, rooter,i,favorite,favorites,lastindex,temp6,username))
                             rooter.six.grid(row=3, column=2)
                         count = 7
                         lastindex=i
@@ -295,11 +295,11 @@ def nextsix(lastindex, rooter,favorites,favorite):
                 return lastindex
 
 #allows user to go back and see other favorites they have indexed past
-def lastsix(lastindex, rooter,favorites,favorite):
+def lastsix(lastindex, rooter,favorites,favorite, username):
 
     global photo3, photo1, photo2, photo4, photo5, photo6
     global one, two, three, four, five, six
-    favorites= createFavorites()
+    favorites= createFavorites(username)
     if (lastindex <0):
         messagebox.showerror("You have no more favorites saved")
 
@@ -342,7 +342,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     column1 = 2
                     rooter.one = Button(rooter, image=photo1,
                                         command=lambda: multipleOptions(row1, column1, rooter, i, favorite, favorites,
-                                                                        lastindex, temp1))
+                                                                        lastindex, temp1, username))
                     rooter.one.grid(row=3, column=2)
                 count = 2
             elif (count == 2):
@@ -367,7 +367,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     column2 = 2
                     rooter.two = Button(rooter, image=photo2,
                                         command=lambda: multipleOptions(row2, column2, rooter, i, favorite, favorites,
-                                                                        lastindex, temp2))
+                                                                        lastindex, temp2, username))
                     rooter.two.grid(row=2, column=2)
                 count = 3
 
@@ -393,7 +393,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     column3 = 2
                     rooter.three = Button(rooter, image=photo3,
                                           command=lambda: multipleOptions(row3, column3, rooter, i, favorite, favorites,
-                                                                          lastindex, temp3))
+                                                                          lastindex, temp3, username))
                     rooter.three.grid(row=1, column=2)
                 count = 4
             elif (count == 4):
@@ -419,7 +419,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     column4 = 1
                     rooter.four = Button(rooter, image=photo4,
                                          command=lambda: multipleOptions(row4, column4, rooter, i, favorite, favorites,
-                                                                         lastindex, temp4))
+                                                                         lastindex, temp4, username))
                     rooter.four.grid(row=3, column=1)
                 count = 5
             elif (count == 5):
@@ -444,7 +444,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     column5 = 1
                     rooter.five = Button(rooter, image=photo5,
                                          command=lambda: multipleOptions(row5, column5, rooter, i, favorite, favorites,
-                                                                         lastindex, temp5))
+                                                                         lastindex, temp5, username))
                     rooter.five.grid(row=2, column=1)
                 count = 6
             elif count == 6:
@@ -469,7 +469,7 @@ def lastsix(lastindex, rooter,favorites,favorite):
                     column6 = 1
                     rooter.six = Button(rooter, image=photo6,
                                         command=lambda: multipleOptions(row6, column6, rooter, i, favorite, favorites,
-                                                                        lastindex, temp6))
+                                                                        lastindex, temp6, username))
                     rooter.six.grid(row=1, column=1)
                 count = 7
 
