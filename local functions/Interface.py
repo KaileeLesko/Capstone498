@@ -203,17 +203,17 @@ class mainInterface:
         self.squareFour.destroy()
         self.squareFive.destroy()
         self.squareSix.destroy()
-        self.squareOne = Label(master, font=1000, text=str(printedcolors[0]))
+        self.squareOne = Label(master, font=1200, text=str(printedcolors[0]))
         self.squareOne.grid(row=4, column=0, sticky=W)
-        self.squareTwo = Label(master, font=1000, text=str(printedcolors[1]))
+        self.squareTwo = Label(master, font=1200, text=str(printedcolors[1]))
         self.squareTwo.grid(row=4, column=1, sticky=W)
-        self.squareThree = Label(master, font=1000, text=str(printedcolors[2]))
+        self.squareThree = Label(master, font=1200, text=str(printedcolors[2]))
         self.squareThree.grid(row=4, column=2, sticky=W)
-        self.squareFour = Label(master, font=1000, text=str(printedcolors[3]))
+        self.squareFour = Label(master, font=1200, text=str(printedcolors[3]))
         self.squareFour.grid(row=4, column=3, sticky=W)
-        self.squareFive = Label(master, font=1000, text=str(printedcolors[4]))
+        self.squareFive = Label(master, font=1200, text=str(printedcolors[4]))
         self.squareFive.grid(row=4, column=4, sticky=W)
-        self.squareSix = Label(master, font=1000, text=str(printedcolors[5]))
+        self.squareSix = Label(master, font=1200, text=str(printedcolors[5]))
         self.squareSix.grid(row=4, column=5, sticky=W)
     def colorpicker(self):
         color_code = colorchooser.askcolor(title="Choose color")
@@ -622,7 +622,7 @@ class mainInterface:
             self.printedcolors = printedcolors
 
         else:
-            printedcolors = colorFromPhoto(self.fileimage)
+            print("error")
             #1345768
         self.mycolors = printedcolors
         color1 = Canvas(master, width=250, height=200)
@@ -649,12 +649,7 @@ class mainInterface:
         self.squareFour.destroy()
         self.squareFive.destroy()
         self.squareSix.destroy()
-        self.squareOne.destroy()
-        self.squareTwo.destroy()
-        self.squareThree.destroy()
-        self.squareFour.destroy()
-        self.squareFive.destroy()
-        self.squareSix.destroy()
+
         self.squareOne = Label(master, font=1000, text=str(printedcolors[0]))
         self.squareOne.grid(row=4, column=0, sticky=W)
         self.squareTwo = Label(master, font=1000, text=str(printedcolors[1]))
@@ -817,6 +812,13 @@ class mainInterface:
         color6 = Canvas(master, width=250, height=200)
         color6.create_rectangle(0, 0, 200, 200, fill=printedcolors[5], outline=printedcolors[5])
         color6.grid(row=3, column=5, sticky=W)
+
+        self.squareOne.destroy()
+        self.squareTwo.destroy()
+        self.squareThree.destroy()
+        self.squareFour.destroy()
+        self.squareFive.destroy()
+        self.squareSix.destroy()
 
         self.squareOne = Label(master, font=1000, text=str(printedcolors[0]))
         self.squareOne.grid(row=4, column=0, sticky=W)
